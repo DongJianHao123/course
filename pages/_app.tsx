@@ -69,13 +69,7 @@ function App({ Component, pageProps }: any) {
   }, [])
 
   const redirectToHome = (
-    <div className="custom-course-nav" onClick={() => {
-      //sendUrlToBing()
-    }}>
-      {client && client.clientId === "466" && <Link className="nav-common-link nav-link" target="_blank" href="https://www.loongson.cn/">龙芯中科官网</Link>}
-      {client && client.clientId === "476" && <Link className="nav-common-link nav-link" target="_blank" href="http://www.china-icv.cn/">国家智能网联汽车创新中心</Link>}
-
-
+    <div className="custom-course-nav">
       <Link className="nav-common-link nav-link" href="/">
         课程培训
       </Link>
@@ -127,12 +121,6 @@ function App({ Component, pageProps }: any) {
       ],
     };
 
-  const getLayoutInfo = () => {
-    return {
-      title: clientInfo ? (clientInfo.clientId === "450" || clientInfo.clientId === "481") ? "阿图教育" : clientInfo.clientId === "466" ? "龙芯直播课堂" : clientInfo.name : " ",
-      logo: clientInfo ? (clientInfo.clientId === "450" || clientInfo.clientId === "481") ? "https://ssl.cdn.maodouketang.com/Fi65zYOF9bcEIjo5ZYDrKuosUSiE" : clientInfo.consultUrl : "/logo.png",
-    }
-  }
   return (
     <StoreProvider
       initialValue={initValue}
@@ -146,9 +134,7 @@ function App({ Component, pageProps }: any) {
           <StoreInit />
           <Layout
             headerProps={{
-              title: getLayoutInfo().title,
-              logo: getLayoutInfo().logo,
-              homeURL: getLayoutInfo().title === "阿图教育" ? "https://r2edu.cn" : "/",
+              homeURL:"https://os2edu.cn/homepage",
               extra,
             }}
             className={`container ${isMobile ? "container-mobile" : ""}`}

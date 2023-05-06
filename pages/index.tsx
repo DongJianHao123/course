@@ -2,17 +2,15 @@
 import CourseList from "@/components/Course";
 import TeacharList from "@/components/Teacher/TeacherList";
 import { useStore } from "@/store";
-import { Button, Input, Spin } from "antd";
 import Head from "next/head";
 // import styles from "@/styles/Home.module.css";
 import { observer } from "mobx-react-lite";
-import { fetchClient, getCourses, getHomePage, sendUrlToBing } from "@/api";
-import { NextPageContext } from "next";
-import { Utils } from "@/common/Utils";
-import { useContext, useEffect, useState } from "react";
+import { fetchClient, getCourses, getHomePage } from "@/api";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
+import { useContext, useEffect } from "react";
 import { ClientContext } from "@/store/context/clientContext";
 import { useDeviceDetect } from "@/hooks";
-import { Tabs } from "antd-mobile";
+import { WEB_HOST } from "@/constants";
 export enum ETabs {
   INDEX = "INDEX",
   COURSE = "COURSE",
@@ -46,7 +44,42 @@ const setTabClassName = (show: boolean) => {
   return show ? "tab-show" : "";
 };
 
-function Home({ data }: any) {
+export const getStaticProps: GetStaticProps = async (context) => {
+  const client = await fetchClient()
+  const res_popular = await getCourses(true)
+  const res_all = await getCourses(false);
+  const config = await getHomePage();
+  // const data = await res.json()
+
+  const courseFilter = (courses: any[]) => {
+    courses.map((item: any, index) => {
+      courses[index].introduction = "";
+      courses[index].courseClasss = [];
+    })
+  }
+  let courses_popular = res_popular.courseList;
+  let courses_all = res_all.courseList;
+  //删除首页课程的introduction
+
+  courseFilter(courses_all);
+  courseFilter(courses_popular);
+
+
+  return {
+    props: {
+      data: {
+        courses_popular,
+        courses_all,
+        client,
+        config
+      }
+    },
+    revalidate: 10
+  }
+
+}
+
+function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
   const store = useStore();
   const { courses_all, courses_popular, client, config } = data;
   const clientContext: any = useContext(ClientContext);
@@ -88,31 +121,17 @@ function Home({ data }: any) {
   const getHeader = () => {
     let { clientId, name } = client;
     let { consultUrl, icpInfo, host } = config;
-    let clientInfo
-    if (clientId === "466") {
-      name = "龙芯直播课堂"
+
+    let clientInfo = {
+      title: client.name,
+      logo: consultUrl,
+      icpInfo: icpInfo,
+      icon: client.clientId === "476" ? "https://ssl.cdn.maodouketang.com/Fm9dsYviD7mb2JJ9isIvTcyKn5zf" : consultUrl,
+      desc: `${client.name},${icpInfo}`,
+      webTitle: `${name} - ${host || WEB_HOST}`,
+      keyWords: `${name}`
     }
-    if (client.clientId === "481" || client.clientId === "450") {
-      clientInfo = {
-        title: "阿图教育",
-        logo: "https://ssl.cdn.maodouketang.com/Fi65zYOF9bcEIjo5ZYDrKuosUSiE",
-        icpInfo: "为中国培养100万信创产业一流人才",
-        icon: "https://ssl.cdn.maodouketang.com/Fi65zYOF9bcEIjo5ZYDrKuosUSiE",
-        desc: `阿图教育-${name},为中国培养100万信创产业一流人才`,
-        webTitle: `${name} - 阿图教育`,
-        keyWords: `${name},阿图教育`
-      }
-    } else {
-      clientInfo = {
-        title: client.name,
-        logo: consultUrl,
-        icpInfo: icpInfo,
-        icon: client.clientId === "476" ? "https://ssl.cdn.maodouketang.com/Fm9dsYviD7mb2JJ9isIvTcyKn5zf" : consultUrl,
-        desc: `${client.name},${icpInfo}`,
-        webTitle: `${name} - ${host || location.host}`,
-        keyWords: `${name}`
-      }
-    }
+
     return <>
       <title>{clientInfo.webTitle}</title>
       <meta name="description" content={clientInfo.desc} />
@@ -188,41 +207,39 @@ function Home({ data }: any) {
   );
 }
 
-Home.getInitialProps = async (context: NextPageContext) => {
-  const { req } = context
-  let host = req?.headers.host;
-
-  const clientId = (await Utils.client.getClientByHost(host)).clientId
-  const client = await fetchClient(clientId)
-  const res_popular = await getCourses(true, clientId)
-  const res_all = await getCourses(false, clientId);
-  const config = await getHomePage(clientId);
-  config.host = host
-  // const data = await res.json()
-
-  const courseFilter = (courses: any[]) => {
-    courses.map((item: any, index) => {
-      courses[index].introduction = "";
-      courses[index].courseClasss = [];
-    })
-  }
-  let courses_popular = res_popular.courseList;
-  let courses_all = res_all.courseList;
-  //删除首页课程的introduction
-
-  courseFilter(courses_all);
-  courseFilter(courses_popular);
 
 
-  return {
-    data: {
-      courses_popular,
-      courses_all,
-      client,
-      config
-    }
-  }
-}
+// Home.getInitialProps = async (context: NextPageContext) => {
+
+//   const client = await fetchClient()
+//   const res_popular = await getCourses(true)
+//   const res_all = await getCourses(false);
+//   const config = await getHomePage();
+//   // const data = await res.json()
+
+//   const courseFilter = (courses: any[]) => {
+//     courses.map((item: any, index) => {
+//       courses[index].introduction = "";
+//       courses[index].courseClasss = [];
+//     })
+//   }
+//   let courses_popular = res_popular.courseList;
+//   let courses_all = res_all.courseList;
+//   //删除首页课程的introduction
+
+//   courseFilter(courses_all);
+//   courseFilter(courses_popular);
+
+
+//   return {
+//     data: {
+//       courses_popular,
+//       courses_all,
+//       client,
+//       config
+//     }
+//   }
+// }
 
 
 // export const getServerSideProps: GetServerSideProps = async (context) => {

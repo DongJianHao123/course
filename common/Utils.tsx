@@ -2,22 +2,10 @@ import { ConfigProvider } from "antd";
 import ReactDOM from "react-dom";
 import zhCN from "antd/lib/locale/zh_CN";
 import { useStore } from "@/store";
-import { RoleNameMap, USER_INFO_STORAGE_KEY } from "@/constants";
+import { ROOM_URL, RoleNameMap, USER_INFO_STORAGE_KEY } from "@/constants";
 import { EUserType, IMyRegister } from "@/api/types";
 import { find } from "lodash";
 import { fetchClient, getDomainNameConfiguration } from "@/api";
-
-const roomUrls = [
-  { index: 1, url: "https://room.rustedu.com/" },
-  { index: 2, url: "https://room.loongsonedu.cn/" },
-  { index: 3, url: "http://room.cicvedu.com/" },
-]
-
-const roomUrlsByClientId = [
-  { clientId: 476, index: 3 }, //cicv
-  { clientId: 466, index: 2 }, //loongson
-  { clientId: 450, index: 1 }, //rust
-]
 
 
 export const Utils = {
@@ -59,20 +47,15 @@ export const Utils = {
   },
   storage: {
     set: (key: string, value: any) => {
-      // 执行监听的操作
       return localStorage.setItem(`${key}`, value);
     },
     get: (key: string) => {
-      // 执行监听的操作
       return localStorage.getItem(`${key}`);
     },
     del: (key: string) => {
-      3;
-      // 执行监听的操作
       return localStorage.removeItem(`${key}`);
     },
     clear: () => {
-      // 执行监听的操作
       localStorage.clear();
     },
     setUsr: (phone: string) => {
@@ -95,9 +78,7 @@ export const Utils = {
       );
       if (!!register) {
         const status: EUserType = register?.status;
-        const urlIndex = roomUrlsByClientId.find((item) => item.clientId === parseInt(course.clientId))?.index;
-        const baseUrl = roomUrls.find((item) => item.index === urlIndex)?.url;
-        const url = `${baseUrl || "https://room.rustedu.com/"}?username=${register?.name}&userId=${register.phone
+        const url = `${ROOM_URL || "https://room.rustedu.com/"}?username=${register?.name}&userId=${register.phone
           }&role=${RoleNameMap[status] || 'student'}&roomId=${course.roomId}&video=${course.ishd || '480'}p&title=${course.title}`
         window.open(url)
       }
@@ -117,8 +98,7 @@ export const Utils = {
       const storage_name = "CLIENT"
       let client = JSON.parse(localStorage.getItem(storage_name) || "{}");
       if (!client.clientId) {
-        const clientId = (await Utils.client.getClientByHost(host)).clientId;
-        client = await fetchClient(clientId)
+        client = await fetchClient()
         localStorage.setItem(storage_name, JSON.stringify({ ...client, password: "" }));
       }
       return client;

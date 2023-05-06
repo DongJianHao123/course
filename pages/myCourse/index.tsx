@@ -20,23 +20,6 @@ import { redirect } from "react-router-dom";
 import { ETabs } from "..";
 import { observer } from "mobx-react-lite";
 
-// export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
-//   let host = req?.headers.host || "localhost";
-//   const client = Utils.client.getClientByHost(host)
-//   console.log("client");
-//   console.log(client);
-
-//   const res = await getMyCourses(U.str.deciphering(query.user), 0, client.clientId)
-//   const { courseList, totalNum } = res
-//   return {
-//     props: {
-//       myCourses: courseList,
-//       total: totalNum,
-//       client, // will be passed to the page component as props
-//     }
-//   };
-// }
-
 function MyCourse() {
   const router = useRouter();
   const store = useStore();
@@ -61,7 +44,7 @@ function MyCourse() {
 
   const loadMyCourses = async (phone: string) => {
     const client = await Utils.client.localClient();
-    getMyCourses(phone, 0, client.clientId).then((res) => {
+    getMyCourses(phone, 0).then((res) => {
       const { courseList, totalNum } = res;
       if (courseList) {
         setMyCourses(courseList);
@@ -78,6 +61,7 @@ function MyCourse() {
       store.homeTab.setHomeTab(ETabs.INDEX);
       router.push("/")
     } else {
+      store.homeTab.setHomeTab(ETabs.USER);
       loadMyCourses(_phone || "");
       setLayout(localStorage.getItem(layoutPrifix) || ELayoutType.LIST);
     }
@@ -104,46 +88,47 @@ function MyCourse() {
             共报名课程: <strong>{total}</strong>
           </div>
         </header>
-        {loading ? <Loading /> : myCourses.length < 1 ? <Empty description={"您暂未报名任何课程"} /> : ""}
-        <div
-          className={`mycourse-list ${isGrid ? "mycourse-list-layout-grid" : "mycourse-list-layout-list"
-            }`}
-        >
-          <span className="layout-icon" onClick={changeLayout}>
-            <Icon symbol={isGrid ? 'icon-listgrid' : 'icon-list'} />
-          </span>
-          {map(myCourses, (course: any, index) => (
-            <div
-              key={course.id + course.courseIndex + course.title + index}
-              className="course-item"
-              onClick={() => router.push(`/course/${course.courseId}`)}
-            >
-              <img
-                className="course-item-cover"
-                src={course.coverUrl}
-                alt="cover"
-              />
-              <div className="course-item-content">
-                <div>
-                  <h3>{course.title}</h3>
-                  <div className="summary">{course.summary}</div>
-                </div>
-                <div className="room">
-                  <span> 教室号: {course.roomId} </span>
-                  <button
-                    className="btn enter-class-btn"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      Utils.course.enterCourse(course, myRegisters);
-                    }}
-                  >
-                    进入课堂
-                  </button>
+        {loading ? <Loading /> : myCourses.length < 1 ? <Empty description={"您暂未报名任何课程"} /> :
+          <div
+            className={`mycourse-list ${isGrid ? "mycourse-list-layout-grid" : "mycourse-list-layout-list"
+              }`}
+          >
+            <span className="layout-icon" onClick={changeLayout}>
+              <Icon symbol={isGrid ? 'icon-listgrid' : 'icon-list'} />
+            </span>
+            {map(myCourses, (course: any, index) => (
+              <div
+                key={course.id + course.courseIndex + course.title + index}
+                className="course-item"
+                onClick={() => router.push(`/${course.courseId}`)}
+              >
+                <img
+                  className="course-item-cover"
+                  src={course.coverUrl}
+                  alt="cover"
+                />
+                <div className="course-item-content">
+                  <div>
+                    <h3>{course.title}</h3>
+                    <div className="summary">{course.summary}</div>
+                  </div>
+                  <div className="room">
+                    <span> 教室号: {course.roomId} </span>
+                    <button
+                      className="btn enter-class-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        Utils.course.enterCourse(course, myRegisters);
+                      }}
+                    >
+                      进入课堂
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        }
         <div className="clearfix"></div>
       </div>
 
@@ -159,12 +144,3 @@ function MyCourse() {
 }
 
 export default observer(MyCourse)
-// export async function getStaticProps({ params }: any) {
-//   console.log("加载app");
-//   console.log(params);
-
-
-//   return {
-//     props: {}, // will be passed to the page component as props
-//   }
-// }

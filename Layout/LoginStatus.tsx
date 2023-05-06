@@ -102,10 +102,9 @@ const LoginStatus = () => {
   };
 
   const login = async (phone: string) => {
-    let clientId = (await Utils.client.getClientByHost()).clientId;
     store.user.setUserInfo({ phone });
     store.user.checkLogined(phone);
-    getMyRegisters(phone, clientId).then((registers) => {
+    getMyRegisters(phone).then((registers) => {
       store.myRegisters.setMyRegisters(registers);
     });
   };

@@ -41,7 +41,7 @@ const CourseList = ({courses}: {courses:any[]}) => {
           key={item.id}
           // target="_blank"
           className="course-item"
-          href={`/course/${item.courseId}`}
+          href={`/${item.courseId}`}
         >
           <img
             className="course-item-cover"

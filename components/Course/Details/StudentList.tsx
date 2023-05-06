@@ -3,6 +3,7 @@ import { Empty } from 'antd'
 import { EUserType } from '../../../api/types'
 import { useDeviceDetect } from '@/hooks'
 import Icon from '@/components/Icon'
+import Image from 'next/image'
 
 
 const iconMap: Record<string, string> = {
@@ -32,11 +33,11 @@ const StudentList = (props: { data?: any[] }) => {
               <div className="info-name">
                 {student.name}
                 {student.status !== EUserType.STUDENT && (
-                  <img
-                    height="14"
-                    src={`/img/${iconMap[student.status]}`}
-                    alt="student-status-png"
-                  ></img>
+                  <Image
+                    width={14}
+                    height={14}
+                    src={`/course/img/${iconMap[student.status]}`}
+                    alt="student-status-png" />
                 )}
               </div>
 
@@ -89,8 +90,9 @@ const StudentList = (props: { data?: any[] }) => {
                   {student.name}
                   {student.status !== EUserType.STUDENT && (
                     <img
-                      height="14"
-                      src={`/img/${iconMap[student.status]}`}
+                      width={14}
+                      height={14}
+                      src={`/course/img/${iconMap[student.status]}`}
                       alt="student-status-png"
                     ></img>
                   )}

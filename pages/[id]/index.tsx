@@ -1,19 +1,17 @@
 "use client";
-import { fetchClient, getCourse, getHomePage } from "@/api";
-import { Utils } from "@/common/Utils";
+import { fetchClient, getCourse, getCourses, getHomePage } from "@/api";
 import CourseDetail from "@/components/Course/Details";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { WEB_HOST } from "@/constants";
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
 
-export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
-  let host = req?.headers.host || "localhost";
-  const clientId = (await Utils.client.getClientByHost(host)).clientId;
-  const client = await fetchClient(clientId);
-  const config = await getHomePage(clientId);
-  config.host = host
+export const getStaticProps: GetStaticProps = async (context) => {
 
-  let res = await getCourse(query.id, clientId);
-  // res = { ...res, introduction: "" }
+  const client = await fetchClient();
+  const config = await getHomePage();
+
+  let res = await getCourse(context.params?.id);
+  // res = { ...res, introduction: "" } 
   if (!!!res.courseId) {
     return {
       notFound: true,
@@ -24,43 +22,54 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
       data: res,
       client, // will be passed to the page component as props
       config
-    }
+    },
+    revalidate: 10
   };
 }
 
+export const getStaticPaths: GetStaticPaths = async () => {
+  const res = (await getCourses(false)).courseList;
 
-export default function Course(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const paths = res.map((course) => ({
+    params: { id: course.courseId },
+  }))
+
+  return { paths, fallback: false }
+}
+
+
+export default function Course(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data, client, config } = props;
 
   const getHeader = () => {
     let { clientId, name } = client;
-    let { consultUrl, icpInfo, host } = config;
+    let { consultUrl, icpInfo } = config;
 
     if (clientId === "466") {
       name = "龙芯直播课堂"
     }
 
-    let clientInfo;
+    // let clientInfo;
 
-    if (client.clientId === "481" || client.clientId === "450") {
-      clientInfo = {
-        title: "阿图教育",
-        logo: "https://ssl.cdn.maodouketang.com/Fi65zYOF9bcEIjo5ZYDrKuosUSiE",
-        icpInfo: "为中国培养100万信创产业一流人才",
-        icon: "https://ssl.cdn.maodouketang.com/Fi65zYOF9bcEIjo5ZYDrKuosUSiE",
-        webTitle: `${name} - ${data.title} - 阿图教育`,
-        keyWords: `${data.title},${client.clientName},${name},阿图教育,信创`
-      }
-    } else {
-      clientInfo = {
-        title: client.name,
-        logo: consultUrl,
-        icpInfo: icpInfo,
-        icon: client.clientId === "476" ? "https://ssl.cdn.maodouketang.com/Fm9dsYviD7mb2JJ9isIvTcyKn5zf" : consultUrl,
-        webTitle: `${name} - ${data.title} - ${host}`,
-        keyWords: `${data.title},${client.clientName},${name}`
-      }
+    // if (client.clientId === "481" || client.clientId === "450") {
+    //   clientInfo = {
+    //     title: "阿图教育",
+    //     logo: "https://ssl.cdn.maodouketang.com/Fi65zYOF9bcEIjo5ZYDrKuosUSiE",
+    //     icpInfo: "为中国培养100万信创产业一流人才",
+    //     icon: "https://ssl.cdn.maodouketang.com/Fi65zYOF9bcEIjo5ZYDrKuosUSiE",
+    //     webTitle: `${name} - ${data.title} - 阿图教育`,
+    //     keyWords: `${data.title},${client.clientName},${name},阿图教育,信创`
+    //   }
+    // } else {
+    let clientInfo = {
+      title: client.name,
+      logo: consultUrl,
+      icpInfo: icpInfo,
+      icon: consultUrl,
+      webTitle: `${name} - ${data.title} - ${WEB_HOST}`,
+      keyWords: `${data.title},${client.clientName},${name}`
     }
+    // }
     return <>
       <title>{clientInfo.webTitle}</title>
       <meta name="description" content={data.summary || data.title} />

@@ -24,9 +24,8 @@ const Header = ({
     store.homeTab.setHomeTab(tab);
   }
   useEffect(() => {
-    // setHomeTab()
-    if(location.pathname==="/myCourse"){
-      store.homeTab.setHomeTab(ETabs.USER)
+    if (location.pathname !== "/course/myCourse" && location.pathname !== "/course") {
+      store.homeTab.setHomeTab("")
     }
   }, [location.pathname])
 
@@ -60,7 +59,7 @@ const Header = ({
             if (!currentUser?.phone) {
               setLoginVisible(true)
             } else {
-              store.homeTab.setHomeTab(ETabs.USER);
+              // store.homeTab.setHomeTab(ETabs.USER);
               router.push("/myCourse")
             }
           }}

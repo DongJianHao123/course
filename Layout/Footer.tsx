@@ -1,4 +1,4 @@
-import { clientsLinks } from "@/constants";
+import { footerLinks } from "@/constants";
 import { useStore } from "@/store";
 import { map } from "lodash";
 import { observer } from "mobx-react-lite";
@@ -8,8 +8,8 @@ const Footer = () => {
   const homePage = store.homePage.homePage;
   const client = store.client.client;
   const siteConfig = {
-    title: "阿图教育",
-    subTitle: "为中国培养100万信创产业一流人才",
+    // title: "阿图教育",
+    // subTitle: "为中国培养100万信创产业一流人才",
     footer: {
       resources: [],
       contact: [
@@ -25,16 +25,16 @@ const Footer = () => {
       <div className="content">
         <div className="footer-info">
           <section>
-            <div className="sub-title">{client ? (client.clientId === "450" || client.clientId === "481") ? siteConfig.title : client.clientId === "466" ? "龙芯直播课堂" : store.client.client.name : " "}</div>
+            <div className="sub-title">{client ? client.name : ""}</div>
             <div className="sub-items">
-              <span>{client ? (client.clientId === "450" || client.clientId === "481") ? siteConfig.subTitle : homePage?.icpInfo : " "}</span>
+              <span>{homePage?.icpInfo}</span>
             </div>
           </section>
           <section>
             <div className="sub-title">资源链接</div>
             <div className="links-wrap">
               <div className="links">
-                {clientsLinks.map(({ text, link }: any, index: number) => {
+                {footerLinks.map(({ text, link }: any, index: number) => {
                   if (index <= 3)
                     return <div key={link}>
                       <a href={link} target="_blank">
@@ -45,7 +45,7 @@ const Footer = () => {
                 }
               </div>
               <div className="links">
-                {clientsLinks.map(({ text, link }: any, index: number) => {
+                {footerLinks.map(({ text, link }: any, index: number) => {
                   if (index > 3)
                     return <div key={link}>
                       <a href={link} target="_blank">

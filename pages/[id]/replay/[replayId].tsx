@@ -24,7 +24,7 @@ function Replay() {
     const store=useStore();
 
     const initData = useCallback(async () => {
-        const replayList = await getReplayOfCourse(courseId?.toString() || "",(await Utils.client.getClientByHost()).clientId)
+        const replayList = await getReplayOfCourse(courseId?.toString() || "")
         const replay = find(replayList, ({ id }) => `${id}` === replayId)
         setReplay(replay)
         setlink(window.location.href)
@@ -39,7 +39,7 @@ function Replay() {
         <header>
             <div className="title">{replay?.className}</div>
             <div className="actions">
-                <Tooltip title="复制链接">
+                <Tooltip title="复制链接">  
                     <CopyToClipboard
                         text={link}
                         onCopy={() => {

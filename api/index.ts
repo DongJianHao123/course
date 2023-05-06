@@ -1,13 +1,14 @@
 import request from '../utils/request'
 import type { Client, IMyRegister } from '../api/types'
 import axios from 'axios'
+import { CLIENT_ID } from '@/constants'
 
 
 
 // let CLIENT_ID = 41; //479 鸿蒙 450 rustedu //481 riscv 476 cicv //483 vue
 const PAGE_SIZE = 2000
 
-export async function getHomePage(CLIENT_ID: number) {
+export async function getHomePage() {
   const res = await request<never, any[]>('/seller/api/homepages', {
     params: {
       'clientId.equals': CLIENT_ID
@@ -16,7 +17,7 @@ export async function getHomePage(CLIENT_ID: number) {
   return res[0]
 }
 
-export async function getCourses(popular: boolean, CLIENT_ID: number) {
+export async function getCourses(popular: boolean) {
   const url = popular
     ? `/seller/api/coursesget/getAllCoursesByConditionsWithTotal?page=0&size=18&clientId=${CLIENT_ID}&tag=hot&isDelete=1&sort=courseIndex,asc`
     : `/seller/api/coursesget/getAllCoursesByConditionsWithTotal?page=0&size=100&isDelete=1&clientId=${CLIENT_ID}&sort=courseIndex,asc`
@@ -24,7 +25,7 @@ export async function getCourses(popular: boolean, CLIENT_ID: number) {
   return await request<never, { courseList: any[] }>(url)
 }
 
-export async function getMyCourses(phone: any, page = 0, CLIENT_ID: number) {
+export async function getMyCourses(phone: any, page = 0) {
   return await request<never, { courseList: any[]; totalNum: number }>(
     `/seller/api/students/getAllCourseByStudentWithTotal?clientId=${CLIENT_ID}`,
     {
@@ -38,7 +39,7 @@ export async function getMyCourses(phone: any, page = 0, CLIENT_ID: number) {
   )
 }
 
-export async function getCourse(id: any, CLIENT_ID: number) {
+export async function getCourse(id: any) {
   const res = await request<never, any[]>('/seller/api/courses', {
     params: {
       'clientId.equals': CLIENT_ID,
@@ -48,13 +49,13 @@ export async function getCourse(id: any, CLIENT_ID: number) {
   return res[0]
 }
 
-export async function getTeachars(CLIENT_ID: number) {
+export async function getTeachars() {
   return await request<never, { teacherList: any[] }>(
     `/seller/api/teachers/getAllTeachersByConditionsWithTotal?page=0&size=10&clientId=${CLIENT_ID}`
   )
 }
 
-export async function getStudentOfCourse(courseId: string, CLIENT_ID: number) {
+export async function getStudentOfCourse(courseId: string) {
   const res = await request<never, any[]>('/seller/api/students', {
     params: {
       'clientId.equals': CLIENT_ID,
@@ -65,7 +66,7 @@ export async function getStudentOfCourse(courseId: string, CLIENT_ID: number) {
   return res
 }
 
-export async function getReplayOfCourse(courseId: string, CLIENT_ID: number) {
+export async function getReplayOfCourse(courseId: string) {
   const res = await request<never, any[]>('/seller/api/course-classes', {
     params: {
       'clientId.equals': CLIENT_ID,
@@ -86,7 +87,7 @@ export async function registerCourse(data: any) {
   return res
 }
 
-export async function getMyRegisters(phone: string, CLIENT_ID: number) {
+export async function getMyRegisters(phone: string) {
   const res = await request<never, IMyRegister[]>('/seller/api/students', {
     params: {
       'clientId.equals': CLIENT_ID,
@@ -119,7 +120,7 @@ export async function getReplayerChatHistory(params: {
   )
   return res
 }
-export async function fetchClient(CLIENT_ID: number) {
+export async function fetchClient() {
   const res = await request<never, Array<Client>>(`seller/api/clients?current=1&pageSize=10&clientId.equals=${CLIENT_ID}&size=10`)
   return res[0]
 }

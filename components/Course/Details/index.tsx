@@ -165,7 +165,7 @@ const CourseDetail = ({ data }: any) => {
     // if (courseId) {
     // const courseInfo = await getCourse(courseId);
     // 课程报名成员信息
-    const studentResult = await getStudentOfCourse(data.courseId, courseInfo.clientId);
+    const studentResult = await getStudentOfCourse(data.courseId);
     const studentCategories = groupBy(studentResult, "status");
     const teacher = studentCategories[EStudentType.TEACHER] || [];
     const tutors = studentCategories[EStudentType.TUTOR] || [];
@@ -191,7 +191,7 @@ const CourseDetail = ({ data }: any) => {
     detailRef.current.if_teacher = !detailRef.current.teacher;
 
     // 课程回放数据
-    const courseResult = await getReplayOfCourse(data.courseId, courseInfo.clientId);
+    const courseResult = await getReplayOfCourse(data.courseId);
     detailRef.current.replayList = courseResult;
     detailRef.current.validReplayList = sortBy(
       courseResult.filter(({ status }) => status == 1) || [],
