@@ -50,7 +50,7 @@ function Replay() {
                     </CopyToClipboard>
                 </Tooltip>
                 <Tooltip title="返回课程">
-                    <Icon symbol="icon-fanhui" onClick={() => router.push(`/course/${courseId}`)} />
+                    <Icon symbol="icon-fanhui" onClick={() => router.push(`/${courseId}`)} />
                 </Tooltip>
             </div>
         </header>

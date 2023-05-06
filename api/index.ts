@@ -55,7 +55,7 @@ export async function getTeachars() {
   )
 }
 
-export async function getStudentOfCourse(courseId: string) {
+export async function getStudentOfCourse(courseId: any) {
   const res = await request<never, any[]>('/seller/api/students', {
     params: {
       'clientId.equals': CLIENT_ID,
@@ -66,7 +66,7 @@ export async function getStudentOfCourse(courseId: string) {
   return res
 }
 
-export async function getReplayOfCourse(courseId: string) {
+export async function getReplayOfCourse(courseId: any) {
   const res = await request<never, any[]>('/seller/api/course-classes', {
     params: {
       'clientId.equals': CLIENT_ID,
@@ -101,9 +101,8 @@ export async function getReplayerChatHistory(params: {
   roomId: string
   startTime: string
   endTime: string
-  clientId: number
 }) {
-  const { roomId, startTime, endTime, clientId } = params
+  const { roomId, startTime, endTime } = params
   const res = await request<never, { totalNum: number; roomActionList: any[] }>(
     '/analysis/api/room-actions/getRoomActionsWithTotalNumByConditionsTime',
     {
@@ -111,7 +110,7 @@ export async function getReplayerChatHistory(params: {
         roomId,
         startTime: new Date(startTime).toJSON(),
         endTime: new Date(endTime).toJSON(),
-        clientId: clientId,
+        clientId: CLIENT_ID,
         page: 0,
         size: 200,
         actionType: 'CHAT'

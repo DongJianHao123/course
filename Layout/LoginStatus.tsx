@@ -11,7 +11,7 @@ import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { Utils } from "@/common/Utils";
 import { getMyRegisters } from "@/api";
-import { useDeviceDetect, useLogout } from "@/hooks";
+import { useDeviceDetect } from "@/hooks";
 import { Toast } from "antd-mobile";
 
 const PhoneRegex =

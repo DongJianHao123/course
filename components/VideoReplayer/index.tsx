@@ -39,7 +39,6 @@ const VideoReplayerModal = (props: IProps) => {
         roomId,
         startTime: startAt,
         endTime: endAt || dayjs(startAt).add(3, 'hour').toJSON(),// consider default endtime as 3 hours later
-        clientId: (await Utils.client.getClientByHost()).clientId
       })
       chatHistoryMap[id] = res
       setChatLoading(false)

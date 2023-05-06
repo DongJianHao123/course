@@ -12,4 +12,14 @@ module.exports = withLess({
     forceSwcTransforms: true,
   },
   transpilePackages: ['antd-mobile'],
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/',
+  //       destination: '/course',
+  //       permanent: true,
+  //     },
+  //   ];
+  // },
+
 })

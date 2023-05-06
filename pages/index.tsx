@@ -113,13 +113,13 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
           )}
         >
           <div className="title">{isIndexTab ? "推荐名师" : "全部名师"}</div>
-          <TeacharList clientId={parseInt(client.clientId)} showAll={homeTab === ETabs.TEACHAR} />
+          <TeacharList  showAll={homeTab === ETabs.TEACHAR} />
         </section>
       </>
     );
   };
   const getHeader = () => {
-    let { clientId, name } = client;
+    let { name } = client;
     let { consultUrl, icpInfo, host } = config;
 
     let clientInfo = {
@@ -162,12 +162,12 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
           {isMobile && <div className="index-head-client">
             <img
               className="logo-mark-mobile"
-              src={client.clientId === "450" || client.clientId === "481" ? "https://ssl.cdn.maodouketang.com/Fi65zYOF9bcEIjo5ZYDrKuosUSiE" : config.consultUrl}
+              src={config.consultUrl}
               alt="logo-mark"
             />
             <div className="head-right">
-              <div className="name">{client.clientId === "450" || client.clientId === "481" ? "阿图教育" : client.name}</div>
-              <div className="info">{client.clientId === "450" || client.clientId === "481" ? "为中国培养100万信创产业一流人才" : config.icpInfo}</div>
+              <div className="name">{client.name}</div>
+              <div className="info">{ config.icpInfo}</div>
             </div>
           </div>}
           <ul className="nav">

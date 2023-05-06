@@ -197,8 +197,12 @@ $menu-icon-size: 32px;
           &.active {
             color: $primary-color;
             font-weight: 600;
-            border-bottom: 1px solid $primary-color; // ;
+            border-bottom: 1px solid $primary-color; 
+            border-color: $primary-color;
+          }
 
+          &:hover {
+            color: $primary-color;
           }
         }
       }

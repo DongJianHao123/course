@@ -11,11 +11,11 @@ export interface ITeachar {
   tag: string
 }
 
-const TeacharList = ({ clientId, showAll }: { clientId: number, showAll: boolean }) => {
+const TeacharList = ({ showAll }: { showAll: boolean }) => {
   const [allTeachars, setAllTeachars] = useState<ITeachar[]>([])
 
   const loadData = () => {
-    api.getTeachars(clientId).then((res) => {
+    api.getTeachars().then((res) => {
       const { teacherList } = res
       setAllTeachars(teacherList)
     })

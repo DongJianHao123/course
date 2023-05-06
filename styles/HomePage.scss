@@ -1,4 +1,5 @@
-$color: red;
+@import "./color.scss";
+
 .home-wrapper {
     &-header {
         width: 100%;

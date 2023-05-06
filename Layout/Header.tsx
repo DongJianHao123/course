@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
-import { useSiteInfo } from "@/hooks";
 import { ETabs } from "@/pages";
 import { useEffect } from "react";
 import { AboutFilled, AboutOutLined, HomeFilled, HomeOutlined, UserFilled, UserOutLined, fillColor } from "@/components/Icon/svgs";
@@ -14,7 +13,6 @@ const Header = ({
 }) => {
   const router = useRouter();
   let store = useStore();
-  const { config } = useSiteInfo();
   const { homeTab, } = store.homeTab;
   const currentUser = store.user.currentUser;
   const backHome = (tab: string) => {

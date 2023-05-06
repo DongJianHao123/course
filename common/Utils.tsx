@@ -85,15 +85,6 @@ export const Utils = {
     },
   },
   client: {
-    getClientByHost: async (host?: string) => {
-      host = host ? host : location.host;
-      let clientName = host.indexOf('localhost' || '127.0.0.1') > -1 ? 'vueedu' : host.split('.')[0];
-      console.log(clientName);
-      const configs = (await getDomainNameConfiguration());
-      let client = configs.find((item: any) => item.host === clientName) || { host: "cicvedu", clientId: 476, name: "车用操作系统开发培训" }
-      return client
-    },
-
     localClient: async (host?: string) => {
       const storage_name = "CLIENT"
       let client = JSON.parse(localStorage.getItem(storage_name) || "{}");

@@ -6,7 +6,7 @@ import { Utils } from "@/common/Utils";
 import { ELayoutType, layoutPrifix } from "@/components/Course";
 import Icon from "@/components/Icon";
 import Loading from "@/components/Loading";
-import { USER_INFO_STORAGE_KEY } from "@/constants";
+import { USER_INFO_STORAGE_KEY, WEB_HOST } from "@/constants";
 import { useDeviceDetect, useLogout } from "@/hooks";
 import { useStore } from "@/store";
 import { Empty } from "antd";
@@ -43,7 +43,6 @@ function MyCourse() {
   const isMobile = !!md?.mobile();
 
   const loadMyCourses = async (phone: string) => {
-    const client = await Utils.client.localClient();
     getMyCourses(phone, 0).then((res) => {
       const { courseList, totalNum } = res;
       if (courseList) {
@@ -61,11 +60,16 @@ function MyCourse() {
       store.homeTab.setHomeTab(ETabs.INDEX);
       router.push("/")
     } else {
-      store.homeTab.setHomeTab(ETabs.USER);
+      if (isMobile) {
+        console.log("手机端");
+        store.homeTab.setHomeTab(ETabs.USER);
+      }
+      console.log(isMobile);
+      
       loadMyCourses(_phone || "");
       setLayout(localStorage.getItem(layoutPrifix) || ELayoutType.LIST);
     }
-  }, []);
+  }, [isMobile]);
 
   const isGrid = layout === ELayoutType.GRID;
 
@@ -80,7 +84,7 @@ function MyCourse() {
     <div>
       <div className="mycourse-list-wrapper">
         <Head>
-          <title>我的课程</title>
+          <title>{`我的课程 - ${WEB_HOST}`}</title>
         </Head>
         <header>
           <div className="title">我的课程</div>

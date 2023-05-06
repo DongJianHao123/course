@@ -2,7 +2,7 @@
 import "../styles/globals.css";
 import { useDeviceDetect, useLogined, useLogout } from "@/hooks";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { IExtraProps } from "@os2edu/layout/dist/types";
 import Layout, { MainContent } from "@os2edu/layout";
 import Header from "@/Layout/Header";
@@ -26,14 +26,9 @@ import { StoreProvider, useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import U from "@/common/U";
 import { StoreInit } from "@/common/StoreInit";
-import { sendUrlToBing } from "@/api";
-import { Utils } from "@/common/Utils";
-import { GetServerSideProps, NextPageContext } from "next";
-import useHostClient from "@/hooks/useHost";
 import Footer from "@/Layout/Footer";
 import { Spin } from "antd";
 import { ClientContext } from "@/store/context/clientContext";
-import { title } from "process";
 import { ETabs } from ".";
 
 
@@ -61,8 +56,6 @@ function App({ Component, pageProps }: any) {
     setIsLogin(logined);
     setPhone(phone);
   }, [logined, phone]);
-
-  const { client } = useHostClient();
 
   useEffect(() => {
     setLoading(false);
@@ -134,7 +127,7 @@ function App({ Component, pageProps }: any) {
           <StoreInit />
           <Layout
             headerProps={{
-              homeURL:"https://os2edu.cn/homepage",
+              homeURL: "https://os2edu.cn/homepage",
               extra,
             }}
             className={`container ${isMobile ? "container-mobile" : ""}`}

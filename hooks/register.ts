@@ -9,7 +9,7 @@ export const useFetchMyRegister = () => {
 
   const loadMyRegister = useCallback(async () => {
     if (currentUser?.phone) {
-      const res = await getMyRegisters(currentUser?.phone,store.client.getClientId())
+      const res = await getMyRegisters(currentUser?.phone)
       store.myRegisters.setMyRegisters(res)
     }
   }, [currentUser?.phone])

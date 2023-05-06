@@ -1,5 +1,5 @@
 "use client";
-import { fetchClient, getCourse, getCourses, getHomePage } from "@/api";
+import { fetchClient, getCourse, getCourses, getHomePage, getReplayOfCourse, getStudentOfCourse } from "@/api";
 import CourseDetail from "@/components/Course/Details";
 import { WEB_HOST } from "@/constants";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
@@ -9,8 +9,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const client = await fetchClient();
   const config = await getHomePage();
+  const courseId = context.params?.id;
 
-  let res = await getCourse(context.params?.id);
+  let res = await getCourse(courseId);
+  const courseResult = await getReplayOfCourse(courseId);
+  const studentResult = await getStudentOfCourse(courseId);
+  res.courseResult = courseResult;
+  res.studentResult = studentResult;
   // res = { ...res, introduction: "" } 
   if (!!!res.courseId) {
     return {
@@ -42,25 +47,9 @@ export default function Course(props: InferGetStaticPropsType<typeof getStaticPr
   const { data, client, config } = props;
 
   const getHeader = () => {
-    let { clientId, name } = client;
+    let { name } = client;
     let { consultUrl, icpInfo } = config;
 
-    if (clientId === "466") {
-      name = "龙芯直播课堂"
-    }
-
-    // let clientInfo;
-
-    // if (client.clientId === "481" || client.clientId === "450") {
-    //   clientInfo = {
-    //     title: "阿图教育",
-    //     logo: "https://ssl.cdn.maodouketang.com/Fi65zYOF9bcEIjo5ZYDrKuosUSiE",
-    //     icpInfo: "为中国培养100万信创产业一流人才",
-    //     icon: "https://ssl.cdn.maodouketang.com/Fi65zYOF9bcEIjo5ZYDrKuosUSiE",
-    //     webTitle: `${name} - ${data.title} - 阿图教育`,
-    //     keyWords: `${data.title},${client.clientName},${name},阿图教育,信创`
-    //   }
-    // } else {
     let clientInfo = {
       title: client.name,
       logo: consultUrl,
@@ -69,7 +58,7 @@ export default function Course(props: InferGetStaticPropsType<typeof getStaticPr
       webTitle: `${name} - ${data.title} - ${WEB_HOST}`,
       keyWords: `${data.title},${client.clientName},${name}`
     }
-    // }
+
     return <>
       <title>{clientInfo.webTitle}</title>
       <meta name="description" content={data.summary || data.title} />
@@ -81,27 +70,6 @@ export default function Course(props: InferGetStaticPropsType<typeof getStaticPr
   return (
     <>
       <Head>
-        {/* {client.clientId === "466" ?
-          <>
-            <title>{`龙芯直播课堂 - ${data.title} - loongsonedu.cn`}</title>
-            <meta name="description" content={data.summary || data.title} />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <meta name="keywords" content={`${data.title},${client.clientName},龙芯直播课堂,信创,培训,计算机,科技,技术,edu`} /></>
-          :
-          client.clientId === "476" ?
-            <>
-              <title>{`车用操作系统开发培训 - ${data.title} - cicvedu.com`}</title>
-              <meta name="description" content={`${data.summary || data.title}}`} />
-              <meta name="keywords" content={`${data.title},${client.clientName},车用操作系统开发培训,汽车,操作系统,信创,培训,计算机,科技,技术,edu`} />
-            </>
-            :
-            <>
-              <title>{`${client.name} - ${data.title} - 阿图教育`}</title>
-              <meta name="description" content={data.summary} />
-              <meta name="viewport" content="width=device-width, initial-scale=1" />
-              <meta name="keywords" content={`${data.title},${client.name},${client.clientName},阿图教育,信创,培训,计算机,科技,技术,r2,edu`} /></>
-        }
-        <link rel="icon" href={client ? Utils.client.getInfo(client).icon : "/logo.png"} /> */}
         {getHeader()}
       </Head>
       <CourseDetail data={data} />
