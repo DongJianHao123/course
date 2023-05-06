@@ -1,0 +1,53 @@
+.list-wrap {
+  // max-height: 400px;
+  overflow: auto;
+  width: 90%;
+  margin-top: 10px;
+  box-shadow: 1px 1px 10px rgba(246, 246, 246, 0.8);
+  & > table {
+    width: 100%;
+    thead {
+      background: #c9dff0;
+      tr th {
+        font-weight: bold;
+        padding: 12px 30px;
+        padding-left: 42px;
+        height: 36px;
+        box-sizing: content-box;
+        span {
+          padding-right: 20px;
+          background-repeat: no-repeat;
+          background-position: 100% 100%;
+        }
+      }
+    }
+    tbody {
+      tr {
+        color: #808080;
+        &:hover {
+          background-color: #f5f7fa;
+        }
+        td {
+          height: 28px;
+          text-align: center;
+          padding: 15px 10px;
+          a {
+            color: #0174e1;
+          }
+          &.lalign {
+            position: relative;
+            & > span.index {
+              position: absolute;
+              left: 10px;
+            }
+            .student-name {
+              display: inline-flex;
+              align-items: center;
+              gap: 6px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

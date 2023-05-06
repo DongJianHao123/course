@@ -1,0 +1,152 @@
+.course-detail-wrapper {
+  height: 100%;
+  background-color: #fff;
+  padding: 16px;
+  .main-content {
+    position: relative;
+    display: flex;
+    margin-bottom: 30px;
+    height: 273px;
+    .course-cover {
+      width: 480px;
+      height: 100%;
+      // object-fit: contain;
+      object-fit: fill;
+      border-radius: 4px;
+      border: 1px solid #e5dfdf;
+    }
+
+    .course-main-info {
+      flex: 1;
+      margin-left: 32px;
+      position: relative;
+
+      .course-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 25px;
+      }
+      .course-info-item {
+        margin: 20px 0;
+        font-size: 18px;
+      }
+      .course-actions {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        .btn {
+          min-width: 100px;
+        }
+        .course-price {
+          color: #ff8600;
+          font-size: 24px;
+          font-weight: 600;
+          margin-bottom: 12px;
+        }
+      }
+    }
+    .share-area {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+  .course-intro {
+    min-height: 300px;
+    .course-loading{
+      margin-top: 5%;
+
+    }
+  }
+}
+
+.tabs {
+  .tab-head {
+    display: flex;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+}
+// .adm-modal-footer .adm-modal-button {
+//   font-size: var(--adm-font-size-10);
+//   line-height: 25px;
+//   --background-color: #3db477;
+//   --border-color: #3db477;
+// }
+.adm-center-popup-body {
+  background-color: rgb(204, 32, 32);
+}
+
+.player-btn {
+  cursor: pointer;
+  .icon {
+    transform: translateY(2px);
+    font-size: 26px;
+  }
+  font-size: x-large;
+  &:hover {
+    color: #ff589e;
+  }
+}
+
+.share-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & > span {
+    font-size: 12px;
+  }
+  .share-imgs {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: column;
+    .qr-code {
+      margin-bottom: 8px;
+      width: 100px;
+      height: 100px;
+    }
+    & > img {
+      width: 116px;
+      height: auto;
+    }
+    &-mobile {
+      flex-direction: row;
+      gap: 10px;
+
+      .qr-code {
+        margin-bottom: 0;
+        width: 98px;
+        height: 98px;
+        transform: translateY(-7px);
+      }
+      & > img {
+        width: 110px;
+        height: auto;
+      }
+    }
+  }
+}
+// .adm-modal-footer .adm-modal-button {
+//   font-size: var(--adm-font-size-10) !important;
+//   line-height: 25px !important;
+//   --background-color: #3db477 !important;
+//   --border-color: #3db477 !important;
+// }
+.adm-button-primary {
+  --color: #3db477 !important;
+}
+
+.adm-center-popup-body {
+  background-color: #fff;
+  .adm-space-item {
+    color: #fff;
+  }
+}
+.ql-editor {
+  img{
+    max-width: 100%;
+  }
+}

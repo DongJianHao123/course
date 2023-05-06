@@ -1,0 +1,117 @@
+.video-replay-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: #e4e4e4;
+
+  .replay-box {
+    flex: 1;
+    #replay-video {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .replay-chat-history {
+    width: 300px;
+    min-width: 20%;
+    height: 100%;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+    border: 1px solid #f0f0f0;
+    & > header {
+      background-color: #fff;
+      height: 50px;
+      padding: 0 12px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      h3 {
+        margin: 0;
+        padding: 0;
+      }
+      .chat-total {
+        letter-spacing: 1px;
+        color: darkgray;
+        & > span {
+          display: inline-block;
+          margin: 0 4px;
+          color: dimgray;
+        }
+      }
+    }
+    & > main {
+      flex: 1;
+      // height: calc(100% - 50px);
+      overflow: auto;
+      padding: 8px 12px;
+      &.chat-loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .chat-text-search {
+        margin-bottom: 14px;
+        border-radius: 16px;
+        height: 36px;
+        .ant-input-suffix {
+          .icon {
+            font-size: 16px;
+          }
+        }
+      }
+      .chat-item {
+        .chator {
+          display: inline-block;
+          margin-bottom: 10px;
+          .chat-time {
+            display: inline-block;
+            margin-left: 4px;
+            color: #aaa;
+            font-size: 12px;
+            letter-spacing: 1px;
+          }
+        }
+        pre {
+          background-color: #e3e3e3;
+          opacity: 0.88;
+          padding: 8px 14px;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: all 0.3s ease 0s;
+          width: fit-content;
+          white-space: break-spaces;
+
+          &:hover {
+            opacity: 1;
+            background-color: #ddd;
+          }
+        }
+      }
+    }
+  }
+}
+
+.player-box {
+  width: '100%';
+  height: '100%';
+}
+
+@media only screen and (min-width: 375px) and (max-width: 1000px) {
+  .video-replay-wrap {
+    display: flex;
+    flex-direction: column;
+    .replay-box {
+      height: 500px;
+      flex: unset;
+    }
+    .replay-chat-history {
+      width: 100%;
+      min-height: 200px;
+      flex: 1;
+      margin-left: 0;
+    }
+  }
+}
