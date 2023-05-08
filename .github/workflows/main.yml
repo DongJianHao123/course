@@ -26,13 +26,13 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
       - name: build
         run: yarn build # 此处是你node项目的构建脚本
       
-      - name: deploy
-        uses: crazy-max/ghaction-github-pages@v3.0.0
-        with:
-          target_branch: gh-pages
-          build_dir: dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      # - name: deploy
+      #   uses: crazy-max/ghaction-github-pages@v3.0.0
+      #   with:
+      #     target_branch: gh-pages
+      #     build_dir: dist
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         
       - name: start
         run: yarn start 
