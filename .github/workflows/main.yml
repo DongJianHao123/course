@@ -30,8 +30,8 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
         uses: JamesIves/github-pages-deploy-action@4.1.6
         with:
           # 发布到指定分支
-          target_branch: gh-pages
-          build_dir: dist
+          branch: gh-pages
+          folder: dist
         
       - name: start
         run: yarn start 
