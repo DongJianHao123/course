@@ -6,18 +6,19 @@ on:
     - main： # 作用在哪些分支上
 
 jobs: # 构建的任务，一个工作流有多个构建任务，
-  build-and-deploy:
+  build:
+    name: deploy-build
     runs-on: ubuntu-latest # 在什么服务器上面执行这些任务，这里使用最新版本的ubuntu
     
     steps: # 构建任务的步骤，一个任务可分为多个步骤
     
     # 步骤1 拉取仓库代码
     - name: Checkout # 步骤名称
-      uses: actions/checkout@v2 
+      uses: actions/checkout@v3
       
     # 步骤2 给当前服务器安装node
     - name: use node
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
           node-version: 16.17.0 # node版本
           cache: "yarn"
@@ -34,8 +35,6 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
     - name: deploy
       uses: JamesIves/github-pages-deploy-action@4.1.6
       with:
-        # 供用户访问的github access_token 下面的变量是在准备阶段自定义的变量
-#         access_token: ${{ secrets.access_token }} 
         # 发布到指定分支
         target_branch: gh-pages
         build_dir: dist
