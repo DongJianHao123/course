@@ -22,6 +22,9 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
 
       - name: install
         run: yarn install
+
+      -name: pm2 
+        run: yarn add pm2 -g
     
       - name: build
         run: yarn build # 此处是你node项目的构建脚本
@@ -35,4 +38,4 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
       #     GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         
       - name: start
-        run: yarn start 
+        run: pm2 start yarn --name  os2edu -- start
