@@ -23,7 +23,7 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
       - name: install
         run: yarn install
 
-      -name: pm2 
+      - name: pm2 
         run: yarn add pm2 -g
     
       - name: build
