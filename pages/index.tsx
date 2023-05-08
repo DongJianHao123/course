@@ -104,7 +104,7 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
             homeTab === ETabs.INDEX || homeTab === ETabs.COURSE
           )}
         >
-          <div className="title">{isIndexTab ? "热门课程": "全部课程"}</div>
+          <div className="title">{isIndexTab ? "热门课程" : "全部课程"}</div>
           <CourseList courses={homeTab === ETabs.COURSE ? courses_all : courses_popular} />
         </section>
         <section
@@ -113,7 +113,7 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
           )}
         >
           <div className="title">{isIndexTab ? "推荐名师" : "全部名师"}</div>
-          <TeacharList  showAll={homeTab === ETabs.TEACHAR} />
+          <TeacharList showAll={homeTab === ETabs.TEACHAR} />
         </section>
       </>
     );
@@ -167,7 +167,7 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
             />
             <div className="head-right">
               <div className="name">{client.name}</div>
-              <div className="info">{ config.icpInfo}</div>
+              <div className="info">{config.icpInfo}</div>
             </div>
           </div>}
           <ul className="nav">
