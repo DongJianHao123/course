@@ -104,7 +104,7 @@ function MyCourse() {
               <div
                 key={course.id + course.courseIndex + course.title + index}
                 className="course-item"
-                onClick={() => router.push(`/${course.courseId}`)}
+                onClick={() =>window.open(`/course/${course.courseId}`,"_blank")}
               >
                 <img
                   className="course-item-cover"

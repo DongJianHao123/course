@@ -25,7 +25,7 @@ const ReplayList = (props: { data?: any[] }) => {
   // const { id: courseId } = useParams<{ id: string }>();
 
   const openReplay = async (replay: any) => {
-    return router.push(`${id}/replay/${replay.id}`);
+    return window.open(`/course/${id}/replay/${replay.id}`,"_blank");
   };
   let myRegisters = store.myRegisters.myRegisters;
   const replayClick = (replay: any) => {

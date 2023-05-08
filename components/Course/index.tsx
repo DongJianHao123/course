@@ -39,7 +39,7 @@ const CourseList = ({courses}: {courses:any[]}) => {
       {data.map((item) => (
         <Link
           key={item.id}
-          // target="_blank"
+          target="_blank"
           className="course-item"
           href={`/${item.courseId}`}
         >

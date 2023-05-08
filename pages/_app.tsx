@@ -101,7 +101,7 @@ function App({ Component, pageProps }: any) {
           key: "myCourse",
           title: "我的课程",
           onClick() {
-            router.push(`/myCourse`);
+            window.open(`/course/myCourse`, "_blank");
           },
         },
         {
