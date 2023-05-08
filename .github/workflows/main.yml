@@ -27,11 +27,10 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
         run: yarn build # 此处是你node项目的构建脚本
       
       - name: deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.6
+        uses: crazy-max/ghaction-github-pages@v3.0.0
         with:
-          # 发布到指定分支
-          branch: gh-pages
-          folder: dist
+          target_branch: gh-pages
+          build_dir: dist
         
       - name: start
         run: yarn start 
