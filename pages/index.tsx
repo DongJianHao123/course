@@ -104,7 +104,7 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
             homeTab === ETabs.INDEX || homeTab === ETabs.COURSE
           )}
         >
-          <div className="title">{isIndexTab ? "热门课程" : "全部课程"}</div>
+          <div className="title">{isIndexTab ? "热门课程": "全部课程"}</div>
           <CourseList courses={homeTab === ETabs.COURSE ? courses_all : courses_popular} />
         </section>
         <section
