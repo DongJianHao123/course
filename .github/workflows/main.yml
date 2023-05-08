@@ -1,4 +1,4 @@
-name: os2edu CI
+name: os2edu-cli
 # ci触发的条件
 on:
   push: # 什么请求触发
@@ -10,34 +10,28 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
     name: deploy-build
     runs-on: ubuntu-latest # 在什么服务器上面执行这些任务，这里使用最新版本的ubuntu
     
-    steps: # 构建任务的步骤，一个任务可分为多个步骤
+    steps: 
+      - name: Checkout # 步骤名称
+        uses: actions/checkout@v3
+      
+      - name: use node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.17.0' # node版本
+          cache: 'yarn'
+
+      - name: install
+        run: yarn install
     
-    # 步骤1 拉取仓库代码
-    - name: Checkout # 步骤名称
-      uses: actions/checkout@v3
+      - name: build
+        run: yarn build # 此处是你node项目的构建脚本
       
-    # 步骤2 给当前服务器安装node
-    - name: use node
-      uses: actions/setup-node@v3
-      with:
-          node-version: 16.17.0 # node版本
-          cache: "yarn"
-          
-    # 步骤3 下载项目依赖    
-    - name: install
-      run: yarn install
-      
-    # 步骤4 打包node项目
-    - name: build
-      run: yarn build # 此处是你node项目的构建脚本
-      
-    # 步骤5 部署项目
-    - name: deploy
-      uses: JamesIves/github-pages-deploy-action@4.1.6
-      with:
-        # 发布到指定分支
-        target_branch: gh-pages
-        build_dir: dist
+      - name: deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.6
+        with:
+          # 发布到指定分支
+          target_branch: gh-pages
+          build_dir: dist
         
-    - name: start
-      run: yarn start 
+      - name: start
+        run: yarn start 
