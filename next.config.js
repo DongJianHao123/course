@@ -7,19 +7,21 @@ module.exports = withLess({
     ignoreDuringBuilds: true,
   },
   distDir: 'dist',
-  // assetPrefix: './',
+  assetPrefix: "/course/",
   experimental: {
     forceSwcTransforms: true,
   },
   transpilePackages: ['antd-mobile'],
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/',
-  //       destination: '/course',
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
-
+  exportPathMap: async function (
+    defaultPathMap,
+    { dev, dir, outDir, distDir, buildId }
+  ) {
+    console.log(buildId);
+    return {
+      "/id": { page: "/[id]" },
+      "/myCourse": { page: "/myCourse" },
+    };
+  },
+  images: { unoptimized: true },
+  trailingSlash: true,
 })

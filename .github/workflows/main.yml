@@ -27,15 +27,22 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
         run: npm install pm2 -g
     
       - name: build
-        run: yarn build # 此处是你node项目的构建脚本
+        # run: yarn build # 此处是你node项目的构建脚本
       
-      # - name: deploy
-      #   uses: crazy-max/ghaction-github-pages@v3.0.0
-      #   with:
-      #     target_branch: gh-pages
-      #     build_dir: dist
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: npm run build
+          
+
+      - name: export
+        run: |
+          yarn export -o out/course
+          touch out/.nojekyll
+
+      - name: 部署 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: out
+          clean: true
         
-      - name: start
-        run: pm2 start yarn --name  os2edu -- start
+      # - name: start
+      #   run: pm2 start yarn --name  os2edu -- start
