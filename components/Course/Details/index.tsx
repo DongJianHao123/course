@@ -162,9 +162,6 @@ const CourseDetail = ({ data }: any) => {
   // }
 
   const loadData = useCallback(async () => {
-    // if (courseId) {
-    // const courseInfo = await getCourse(courseId);
-    // 课程报名成员信息
     const studentResult = data.studentResult;
     const studentCategories = groupBy(studentResult, "status");
     const teacher = studentCategories[EStudentType.TEACHER] || [];

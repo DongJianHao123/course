@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "set PORT=8002 && next dev",
-    "build": "next build && yarn export",
+    "build": "next build",
     "start": "set PORT=8099 && next start",
     "lint": "next lint",
     "export": "next export"

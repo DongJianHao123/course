@@ -7,8 +7,6 @@ import { useCallback, useEffect, useState } from "react";
 // @ts-ignore
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import dynamic from "next/dynamic";
-import { useStore } from "@/store";
-import { Utils } from "@/common/Utils";
 
 const VideoReplayer = dynamic(
     import('@/components/VideoReplayer'),
@@ -17,11 +15,10 @@ const VideoReplayer = dynamic(
 
 function Replay() {
     const router = useRouter();
-    const { id: courseId, replayId } = router.query;
+    const { courseId, replayId } = router.query;
     const [replay, setReplay] = useState<any>();
     const [link, setlink] = useState("");
 
-    const store=useStore();
 
     const initData = useCallback(async () => {
         const replayList = await getReplayOfCourse(courseId?.toString() || "")
@@ -39,7 +36,7 @@ function Replay() {
         <header>
             <div className="title">{replay?.className}</div>
             <div className="actions">
-                <Tooltip title="复制链接">  
+                <Tooltip title="复制链接">
                     <CopyToClipboard
                         text={link}
                         onCopy={() => {

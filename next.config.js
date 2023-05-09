@@ -20,6 +20,7 @@ module.exports = withLess({
     return {
       "/id": { page: "/[id]" },
       "/myCourse": { page: "/myCourse" },
+      // "/replay": { page: "/replay"},
     };
   },
   images: { unoptimized: true },
