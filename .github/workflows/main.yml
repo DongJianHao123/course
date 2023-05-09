@@ -34,7 +34,7 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
 
       - name: export
         run: |
-          yarn export -o out/course
+          yarn export 
           touch out/.nojekyll
 
       - name: 部署 🚀
