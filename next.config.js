@@ -7,7 +7,7 @@ module.exports = withLess({
     ignoreDuringBuilds: true,
   },
   distDir: 'dist',
-  assetPrefix: "./",
+  // assetPrefix: "./",
   experimental: {
     forceSwcTransforms: true,
   },
