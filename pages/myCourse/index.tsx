@@ -1,5 +1,4 @@
 "use client";
-
 import { getMyCourses } from "@/api";
 import U from "@/common/U";
 import { Utils } from "@/common/Utils";
@@ -16,7 +15,6 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { redirect } from "react-router-dom";
 import { ETabs } from "..";
 import { observer } from "mobx-react-lite";
 

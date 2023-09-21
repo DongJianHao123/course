@@ -22,7 +22,7 @@ import "../components/HighlightText/index.scss"
 import "../components/Course/Replay/index.scss"
 import "../styles/myCourse.scss";
 import "../components/VideoReplayer/index.scss"
-import { StoreProvider, useStore } from "@/store";
+import { StoreProvider } from "@/store";
 import { observer } from "mobx-react-lite";
 import U from "@/common/U";
 import { StoreInit } from "@/common/StoreInit";
@@ -127,7 +127,7 @@ function App({ Component, pageProps }: any) {
           <StoreInit />
           <Layout
             headerProps={{
-              homeURL: "https://os2edu.cn/homepage",
+              homeURL: "https://os2edu.cn",
               extra,
             }}
             className={`container ${isMobile ? "container-mobile" : ""}`}

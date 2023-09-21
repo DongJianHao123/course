@@ -1,17 +1,16 @@
 "use client";
 import { useCallback, useEffect, useState, useRef } from "react";
 import { last, groupBy, keys, sortBy, find } from "lodash";
-import { Button, Popover } from "antd";
+import { Popover } from "antd";
 import { useParams } from "react-router-dom";
 import QRCode from "react-qr-code";
 import { EUserType as EStudentType, IMyRegister } from "../../../api/types";
 import Tabs from "../../../components/Tabs";
 import Loading from "../../../components/Loading";
-import RegisterModal from "../../../components/RegisterModal";
+import RegisterModal, { verify_rules } from "../../../components/RegisterModal";
 import { useDeviceDetect } from "../../../hooks";
-import { RoleNameMap, USER_INFO_STORAGE_KEY } from "../../../constants";
+import { RoleNameMap } from "../../../constants";
 import { BASE_URL } from "@/utils/request";
-import { getStudentOfCourse, getReplayOfCourse, getCourse } from "../../../api";
 import StudentList from "./StudentList";
 import ReplayList from "./ReplayList";
 
@@ -22,7 +21,7 @@ import { observer } from "mobx-react-lite";
 import { Utils } from "@/common/Utils";
 import Icon from "@/components/Icon";
 
-const Share = observer((props: { courseInfo: any; isMobile?: boolean }) => {
+export const Share = observer((props: { courseInfo: any; isMobile?: boolean }) => {
   const store = useStore();
   let currentUser = store.user.currentUser;
   let myRegisters = store.myRegisters.myRegisters;
@@ -117,7 +116,7 @@ const Action = observer(
           className="btn"
           onClick={() => {
             let { verify } = registerCourse;
-            verify === "1"
+            [verify_rules.ALL_RIGNHT, verify_rules.ONLY_ROOM].includes(verify)
               ? Utils.course.enterCourse(props.courseInfo, myRegisters)
               : Modal.alert({
                 content: "报名信息审核通过即可进入教室",
@@ -142,6 +141,7 @@ const CourseDetail = ({ data }: any) => {
   const [courseInfo, setCourseInfo] = useState<any>({ ...data });
   const [students, setStudents] = useState<any[]>([]);
   const md = useDeviceDetect();
+  const isMobile = !!md?.mobile();
   const detailRef = useRef<
     Partial<{
       applyStudents: any[];
@@ -162,6 +162,9 @@ const CourseDetail = ({ data }: any) => {
   // }
 
   const loadData = useCallback(async () => {
+    // if (courseId) {
+    // const courseInfo = await getCourse(courseId);
+    // 课程报名成员信息
     const studentResult = data.studentResult;
     const studentCategories = groupBy(studentResult, "status");
     const teacher = studentCategories[EStudentType.TEACHER] || [];
@@ -199,6 +202,7 @@ const CourseDetail = ({ data }: any) => {
   }, []);
   useEffect(() => {
     loadData();
+    console.log(courseInfo);
   }, [loadData]);
 
   // if (loading) {
@@ -216,12 +220,12 @@ const CourseDetail = ({ data }: any) => {
     {
       key: "student",
       title: `报名成员(${students?.length || 0})`,
-      content: <StudentList data={students} />,
+      content: <StudentList data={students} isMobile={isMobile} />,
     },
     {
       key: "replay",
       title: `课堂回放(${detailRef.current.validReplayList?.length || 0})`,
-      content: <ReplayList data={detailRef.current.validReplayList} />,
+      content: <ReplayList isMobile={isMobile} data={detailRef.current.validReplayList || []} course={courseInfo} />,
     },
   ];
   const handleRegister = (newCourse: any) => {
@@ -242,13 +246,13 @@ const CourseDetail = ({ data }: any) => {
         />
 
         <div className="course-main-info">
-          {!!md?.mobile() ? (
+          {isMobile ? (
             <>
               <div className="course-title">{courseInfo.title}</div>
               <div className="course-info">
                 <div className="course-info-item">
                   <span className="course-info-item-label">任课教师: </span>
-                  {detailRef.current.teacher?.name}
+                  {courseInfo.teacher && courseInfo.teacher.trim() ? courseInfo.teacher : detailRef.current.teacher?.name}
                 </div>
                 <div className="course-info-item">
                   <span className="course-info-item-label">学生人数: </span>
@@ -278,7 +282,7 @@ const CourseDetail = ({ data }: any) => {
               <div className="course-info">
                 <div className="course-info-item">
                   <span className="course-info-item-label">任课教师: </span>
-                  {detailRef.current.teacher?.name}
+                  {courseInfo.teacher && courseInfo.teacher.trim() ? courseInfo.teacher : detailRef.current.teacher?.name}
                 </div>
                 <div className="course-info-item">
                   <span className="course-info-item-label">学生人数: </span>

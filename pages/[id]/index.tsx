@@ -5,6 +5,16 @@ import { WEB_HOST } from "@/constants";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
 
+export const getStaticPaths: GetStaticPaths = async () => {
+  const res = (await getCourses(false)).courseList;
+
+  const paths = res.map((course) => ({
+    params: { id: course.courseId },
+  }))
+
+  return { paths, fallback: true }
+}
+
 export const getStaticProps: GetStaticProps = async (context) => {
 
   const client = await fetchClient();
@@ -32,31 +42,22 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const res = (await getCourses(false)).courseList;
 
-  const paths = res.map((course) => ({
-    params: { id: course.courseId },
-  }))
-
-  return { paths, fallback: false }
-}
 
 
 export default function Course(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data, client, config } = props;
 
   const getHeader = () => {
-    let { name } = client;
-    let { consultUrl, icpInfo } = config;
-
+    // console.log("==>",props);
+    if (!client || !config) return
     let clientInfo = {
       title: client.name,
-      logo: consultUrl,
-      icpInfo: icpInfo,
-      icon: consultUrl,
-      webTitle: `${name} - ${data.title} - ${WEB_HOST}`,
-      keyWords: `${data.title},${client.clientName},${name}`
+      logo: config.consultUrl,
+      icpInfo: config.icpInfo,
+      icon: config.consultUrl,
+      webTitle: `${client.name} - ${data.title} - ${WEB_HOST}`,
+      keyWords: `${data.title},${client.clientName},${client.name}`
     }
 
     return <>

@@ -53,6 +53,13 @@ const tags = [
   },
 ];
 
+export const verify_rules = {
+  NONE: "0",
+  ONLY_ROOM: "1",
+  ONLY_PLAYBACK: "2",
+  ALL_RIGNHT: "3"
+}
+
 const hows = [
   { value: "搜索引擎" },
   { value: "视频网站" },

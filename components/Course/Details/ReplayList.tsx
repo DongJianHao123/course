@@ -1,12 +1,15 @@
 import { find, map } from "lodash";
 import { useDeviceDetect } from "@/hooks";
-import { useParams } from "react-router-dom";
 import { Modal } from "antd-mobile";
 import { useRouter } from "next/router";
-import { PlayCircleOutlined } from "@ant-design/icons";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import Icon from "@/components/Icon";
+import { useEffect, useState } from "react";
+import { verify_rules } from "@/components/RegisterModal";
+import U from "@/common/U";
+import { Table } from "antd";
+import { ColumnsType } from "antd/lib/table";
 
 const headers = [
   "教室号",
@@ -16,44 +19,121 @@ const headers = [
   "备注",
   "课堂回放",
 ];
+interface DataType {
+  roomId: string
+  className: string
+  startAt: string
+  location: string
+  remark: string
+  choseUrl: string
+}
 
-const ReplayList = (props: { data?: any[] }) => {
+const ReplayList = (props: { data: any[], course: any, isMobile: boolean }) => {
+  const [list, setList] = useState<any[]>()
+  const [loading, setLoading] = useState<boolean>(false);
   const md = useDeviceDetect();
   const router = useRouter();
   const store = useStore();
-  const { id } = router.query;
-  // const { id: courseId } = useParams<{ id: string }>();
+  const { id: courseId } = router.query;
+  const { currentUser } = store.user;
+  const { client } = store.client
+  let myRegisters = store.myRegisters.myRegisters;
+  const registerCourse = find(myRegisters, (course) => course.courseId === courseId);
+
+  useEffect(() => {
+    if (props.data) {
+      const _list = props.data.sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime())
+      setList([..._list])
+    }
+  }, [props.data])
+
+  const columns: ColumnsType<DataType> = [
+    {
+      title: '序号',
+      dataIndex: 'id',
+      key: 'id',
+      align: "center",
+      width: 80,
+      render: (_, row, index) => index + 1
+    },
+    // {
+    //   title: '教室号',
+    //   dataIndex: 'roomId',
+    //   key: 'roomId',
+    //   align: "center",
+    // },
+    {
+      title: '课堂内容',
+      dataIndex: 'className',
+      key: 'className',
+      width: 400
+    },
+    {
+      title: '开始时间',
+      dataIndex: 'startAt',
+      key: 'startAt',
+      align: "center",
+      render: (txt) => U.date.format(new Date(txt), "yyyy-MM-dd HH:mm:ss")
+    },
+    // {
+    //   title: '上课地点',
+    //   dataIndex: 'location',
+    //   key: 'location',
+    //   align: "center",
+    // },
+    {
+      title: '备注',
+      dataIndex: 'remark',
+      key: 'remark',
+      align: "center",
+    },
+    {
+      title: '课堂回放',
+      dataIndex: 'choseUrl',
+      key: 'choseUrl',
+      align: "center",
+      render: (txt, row, index) => <span
+        className="player-btn"
+        onClick={() => !loading && replayClick(row)}
+      >
+        <Icon symbol="icon-bofang" />
+      </span>
+    },
+  ];
 
   const openReplay = async (replay: any) => {
-    return window.open(`/course/replay/${id}/${replay.id}`,"_blank");
+    window.open(`/course/replay/${courseId}/${replay.id}`);
   };
-  let myRegisters = store.myRegisters.myRegisters;
+
   const replayClick = (replay: any) => {
+    setLoading(true);
     if (store.user.currentUser?.phone) {
-      const registerCourse = find(
-        myRegisters,
-        (course) => course.courseId === id
-      );
+
       if (registerCourse) {
         let { verify } = registerCourse;
-        verify === "1"
-          ? openReplay(replay)
-          : Modal.alert({
+        if ([verify_rules.ALL_RIGNHT, verify_rules.ONLY_PLAYBACK].includes(verify)) {
+          openReplay(replay)
+        } else {
+          setLoading(false);
+          Modal.alert({
             content: "报名信息审核通过即可观看",
-            closeOnMaskClick: true,
-          });
+            closeOnMaskClick: true
+          })
+        }
       } else {
         Modal.alert({
           content: "请报名后观看",
           closeOnMaskClick: true,
         });
+        setLoading(false);
       }
     } else {
       store.login.setLoginDialogVisible(true);
+      setLoading(false)
     }
   };
 
-  if (!!md?.mobile()) {
+  if (props.isMobile) {
     return (
       <div className="list-mobile">
         {map(props.data, (replay) => (
@@ -70,10 +150,9 @@ const ReplayList = (props: { data?: any[] }) => {
               <div>
                 <span className="list-item-label">教室号:</span> {replay.roomId}
               </div>
-
               <div>
                 <span className="list-item-label">开始时间:</span>{" "}
-                {replay.startAt}
+                {U.date.format(new Date(replay.startAt), "yyyy-MM-dd HH:mm:ss")}
               </div>
               <div>
                 <span className="list-item-label">备注:</span> {replay.remark}
@@ -90,39 +169,7 @@ const ReplayList = (props: { data?: any[] }) => {
 
   return (
     <div className="list-wrap">
-      <table cellSpacing="0" cellPadding="0">
-        <thead>
-          <tr>
-            {headers.map((h) => (
-              <th key={h}>
-                <span>{h}</span>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {map(props.data, (replay, index) => (
-            <tr key={replay.id}>
-              <td className="lalign">
-                <span className="index">{index + 1}</span>
-                {replay.roomId}
-              </td>
-              <td>{replay.className}</td>
-              <td>{replay.startAt}</td>
-              <td>{replay.location}</td>
-              <td>{replay.remark}</td>
-              <td>
-                <span
-                  className="player-btn"
-                  onClick={() => replayClick(replay)}
-                >
-                  <Icon symbol="icon-bofang" />
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Table className="replays" columns={columns} dataSource={list} pagination={false} />
     </div>
   );
 };

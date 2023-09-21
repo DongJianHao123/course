@@ -22,20 +22,12 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
 
       - name: install
         run: yarn install
-
-      - name: pm2 
-        run: npm install pm2 -g
     
-      - name: build
-        # run: yarn build # 此处是你node项目的构建脚本
-      
-        run: npm run build
+      - name: build      
+        run: yarn build
           
-
       - name: export
-        run: |
-          yarn export 
-          touch out/.nojekyll
+        run: yarn export
 
       - name: 部署 🚀
         uses: JamesIves/github-pages-deploy-action@v4
