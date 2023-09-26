@@ -18,6 +18,10 @@ export const RoleNameMap = {
   [EUserType.PARENT]: 'parent'
 }
 
+export const ActionType = {
+  PLAY_BACK: "PLAYBACK",
+}
+
 export const footerLinks = [
   { index: 0, text: "Rust基础教程", link: "http://docs.os2edu.cn/" },
   { index: 1, text: "清华rCore操作系统实践教程", link: "http://rcore-os.cn/rCore-Tutorial-Book-v3/" },

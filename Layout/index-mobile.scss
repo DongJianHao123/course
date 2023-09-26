@@ -1,4 +1,5 @@
 @import "../styles/color.scss";
+@import "../styles/mixin.scss";
 $header-height: 62px;
 $menu-icon-size: 32px;
 
@@ -14,7 +15,7 @@ $menu-icon-size: 32px;
 
   .os2edu-layout-main-content {
     padding: 0;
-    min-height: 80vh;
+    min-height: 100vh;
   }
 
   /** 布局样式 */
@@ -34,10 +35,9 @@ $menu-icon-size: 32px;
       padding: 0 12vw;
       align-items: center;
 
-      svg {
+      svg{
         vertical-align: middle;
       }
-
       a,
       span {
         letter-spacing: 2px;
@@ -88,8 +88,7 @@ $menu-icon-size: 32px;
       width: 100%;
       height: fit-content;
       background: #e9e9e9;
-      padding: 0 10px;
-      padding-top: 20px;
+      padding: 20px 10px 0;
 
       .footer-info {
         display: grid;
@@ -408,6 +407,7 @@ $menu-icon-size: 32px;
           margin: 0;
           font-size: 14px;
           margin-bottom: 6px;
+          width: auto;
         }
 
         .course-actions {
@@ -734,43 +734,12 @@ $menu-icon-size: 32px;
   }
 
   .video-replay-modal {
-    height: calc(100vh - 58px);
-
-    &>header {
-      height: 58px;
-      padding: 0 10px;
-      border-bottom: 1px solid #f3f3f3;
-      margin-bottom: 0;
-    }
-
-    .video-replay-content {
-      .video-replay-wrap {
-        flex-direction: column;
-
-        .replay-box {
-          position: relative;
-          height: 200px;
-        }
-
-        .replay-chat-history {
-          height: calc(100% - 200px);
-
-          main {
-            overflow: auto;
-          }
-        }
-      }
-    }
+    height: 100vh;
   }
-
-  .loginout-btn {
-    width: 40vw;
-    margin: 10vw 30vw;
-    padding: 8px;
-  }
-
-  .loading-container {
-    margin-top: 20vw;
-  }
-
+  
+.loginout-btn {
+  width: 40vw;
+  margin: 10vw 30vw;  
+  padding: 8px;
+}
 }

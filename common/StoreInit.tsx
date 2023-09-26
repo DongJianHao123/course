@@ -4,6 +4,7 @@ import { useStore } from "@/store";
 import { useContext, useEffect, useState } from "react";
 import { Utils } from "./Utils";
 import { ClientContext } from "@/store/context/clientContext";
+import { Client } from "@/api/types";
 
 const StoreInit = () => {
   let store = useStore();
@@ -15,8 +16,11 @@ const StoreInit = () => {
 
   useEffect(() => {
     let phone = Utils.storage.get(USER_INFO_STORAGE_KEY);
+    Utils.client.localClient().then((localClient) => {
+      store.client.setClient(localClient)
+      setClient(localClient)
+    });
 
-    setClient(Utils.client.localClient());
     if (!!phone) {
       // store.user.setUserInfo({ phone });
       getMyRegisters(phone).then((registers) => {

@@ -21,7 +21,6 @@ import "../components/Tabs/index-mobile.scss";
 import "../components/HighlightText/index.scss"
 import "../components/Course/Replay/index.scss"
 import "../styles/myCourse.scss";
-import "../components/VideoReplayer/index.scss"
 import { StoreProvider } from "@/store";
 import { observer } from "mobx-react-lite";
 import U from "@/common/U";

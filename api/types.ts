@@ -9,7 +9,7 @@ export enum EUserType {
   PARENT = '6'
 }
 
-export interface ICurrentUser {
+export interface ICurrentUser {   
   phone?: string
 }
 export interface Client {
@@ -66,4 +66,20 @@ export interface IMyRegister {
   verify: string
   uniCourseId: IDType
   tencentUserId: IDType
+}
+
+export interface RoomActionType {
+  userId: string;
+  userName: string;
+  courseClassId: number;
+  role: string;
+  clientId: string;
+  clientName: string;
+  actionType: string;
+  description: string | number;
+  actionTime: Date;
+  courseId: string | string[];
+  courseName: string;
+  courseClassName: string;
+  roomId: string;
 }

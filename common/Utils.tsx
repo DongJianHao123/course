@@ -44,6 +44,29 @@ export const Utils = {
       document.body.appendChild(div);
       return div;
     },
+
+    debouncing: function (func: () => void, delay: number) {
+      let timer: any = null;
+      return (...args: any) => {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          func.apply(this, args)
+        }, delay)
+      }
+    },
+
+    throttle: (func: (arg: any) => any, delay: number) => {
+      let timer: any = null;
+      return (...args: any) => {
+        if (!timer) {
+          func.apply(this, args);
+          timer = setTimeout(() => {
+            clearTimeout(timer)
+            timer = null;
+          }, delay);
+        }
+      };
+    }
   },
   storage: {
     set: (key: string, value: any) => {
@@ -59,14 +82,12 @@ export const Utils = {
       localStorage.clear();
     },
     setUsr: (phone: string) => {
-      useStore().user.setUserInfo({ phone });
       localStorage.setItem(USER_INFO_STORAGE_KEY, phone);
     },
     getUsr: () => {
       return localStorage.getItem(USER_INFO_STORAGE_KEY);
     },
     delUsr: () => {
-      useStore().user.setUserInfo({});
       Utils.storage.del(USER_INFO_STORAGE_KEY);
     },
   },

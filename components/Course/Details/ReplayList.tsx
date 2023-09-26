@@ -10,6 +10,7 @@ import { verify_rules } from "@/components/RegisterModal";
 import U from "@/common/U";
 import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
+import { Utils } from "@/common/Utils";
 
 const headers = [
   "教室号",
@@ -30,7 +31,6 @@ interface DataType {
 
 const ReplayList = (props: { data: any[], course: any, isMobile: boolean }) => {
   const [list, setList] = useState<any[]>()
-  const [loading, setLoading] = useState<boolean>(false);
   const md = useDeviceDetect();
   const router = useRouter();
   const store = useStore();
@@ -94,7 +94,7 @@ const ReplayList = (props: { data: any[], course: any, isMobile: boolean }) => {
       align: "center",
       render: (txt, row, index) => <span
         className="player-btn"
-        onClick={() => !loading && replayClick(row)}
+        onClick={() => throttleReplayClick(row)}
       >
         <Icon symbol="icon-bofang" />
       </span>
@@ -102,11 +102,11 @@ const ReplayList = (props: { data: any[], course: any, isMobile: boolean }) => {
   ];
 
   const openReplay = async (replay: any) => {
-    window.open(`/course/replay/${courseId}/${replay.id}`);
+    window.open(`/course/${courseId}/replay/${replay.id}`);
   };
 
+
   const replayClick = (replay: any) => {
-    setLoading(true);
     if (store.user.currentUser?.phone) {
 
       if (registerCourse) {
@@ -114,7 +114,6 @@ const ReplayList = (props: { data: any[], course: any, isMobile: boolean }) => {
         if ([verify_rules.ALL_RIGNHT, verify_rules.ONLY_PLAYBACK].includes(verify)) {
           openReplay(replay)
         } else {
-          setLoading(false);
           Modal.alert({
             content: "报名信息审核通过即可观看",
             closeOnMaskClick: true
@@ -125,13 +124,13 @@ const ReplayList = (props: { data: any[], course: any, isMobile: boolean }) => {
           content: "请报名后观看",
           closeOnMaskClick: true,
         });
-        setLoading(false);
       }
     } else {
       store.login.setLoginDialogVisible(true);
-      setLoading(false)
     }
   };
+
+  const throttleReplayClick = Utils.common.throttle(replayClick, 2000);
 
   if (props.isMobile) {
     return (

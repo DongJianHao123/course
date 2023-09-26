@@ -13,7 +13,7 @@ const Header = ({
 }) => {
   const router = useRouter();
   let store = useStore();
-  const { homeTab, } = store.homeTab;
+  const { homeTab} = store.homeTab;
   const currentUser = store.user.currentUser;
   const backHome = (tab: string) => {
     if (location.pathname !== "/") {
@@ -22,7 +22,7 @@ const Header = ({
     store.homeTab.setHomeTab(tab);
   }
   useEffect(() => {
-    if (location.pathname !== "/course/myCourse" && location.pathname !== "/course") {
+    if (location.pathname !== "/course/myCourse/" && location.pathname !== "/course/") {
       store.homeTab.setHomeTab("")
     }
   }, [location.pathname])

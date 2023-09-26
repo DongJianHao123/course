@@ -59,10 +59,8 @@ function MyCourse() {
       router.push("/")
     } else {
       if (isMobile) {
-        console.log("手机端");
         store.homeTab.setHomeTab(ETabs.USER);
       }
-      console.log(isMobile);
       
       loadMyCourses(_phone || "");
       setLayout(localStorage.getItem(layoutPrifix) || ELayoutType.LIST);
