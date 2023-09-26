@@ -1,4 +1,4 @@
-name: os2edu-cli
+name: os2edu deploy when push 
 # ci触发的条件
 on:
   push: # 什么请求触发
@@ -17,24 +17,30 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
       - name: use node
         uses: actions/setup-node@v3
         with:
-          node-version: '16.17.0' # node版本
-          cache: 'yarn'
+          node-version: '16.17.0'
+          cache: 'npm'
 
       - name: install
-        run: yarn install
+        run: npm install
     
       - name: build      
-        run: yarn build
-          
-      - name: export
-        run: yarn export
-
-      - name: 部署 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: out
-          clean: true
+        run: npm run build
         
-      # - name: start
-      #   run: pm2 start yarn --name  os2edu -- start
+      - name: ssh deploy aliyun
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        env:
+          WELCOME: "ssh scp ssh pipelines"
+          LASTSSH: "Doing something after copying"
+        with:
+          host: ${{ secrets.ALI_IP }} # 服务器的ip
+          user: ${{ secrets.ALI_NAME }} # 服务器的账号
+          pass: ${{ secrets.ALI_PWD }} # 服务器的密码
+          connect_timeout: 10s
+          first_ssh: | #这部分是在服务器上，传输文件前执行的命令，关闭并删除运行中的旧版本
+            cd /root/os2edu/course
+            rm -rf dist
+          scp: | #将build生成的文件从GitHub服务器的相应目录，传到我服务器的相应目录
+            ./dist => /root/os2edu/course
+          last_ssh: | #这部分是在服务器上，传输文件后执行的命令，新版本重新安装依赖并运行
+            pm2 restart os2edu
+            exit

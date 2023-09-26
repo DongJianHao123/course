@@ -254,6 +254,7 @@ const CourseDetail = ({ data }: any) => {
                   <span className="course-info-item-label">任课教师: </span>
                   {courseInfo.teacher && courseInfo.teacher.trim() ? courseInfo.teacher : detailRef.current.teacher?.name}
                 </div>
+                <div style={{display:'flex'}}>
                 <div className="course-info-item">
                   <span className="course-info-item-label">学生人数: </span>
                   {detailRef.current.applyStudents?.length} 人
@@ -270,6 +271,8 @@ const CourseDetail = ({ data }: any) => {
                     </span>
                   </Popover>
                 </span>
+                </div>
+                
               </div>
               <Action
                 courseInfo={courseInfo}
