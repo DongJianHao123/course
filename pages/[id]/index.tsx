@@ -1,6 +1,7 @@
 "use client";
 import { fetchClient, getCourse, getCourses, getHomePage, getReplayOfCourse, getStudentOfCourse } from "@/api";
 import CourseDetail from "@/components/Course/Details";
+import SpecialTopicCourse from "@/components/Course/SpecialTopicCourse";
 import { WEB_HOST } from "@/constants";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
@@ -73,7 +74,7 @@ export default function Course(props: InferGetStaticPropsType<typeof getStaticPr
       <Head>
         {getHeader()}
       </Head>
-      <CourseDetail data={data} />
+      {data.gradeLevel === 1 ? <SpecialTopicCourse data={data} /> : <CourseDetail data={data} />}
     </>
   );
 }

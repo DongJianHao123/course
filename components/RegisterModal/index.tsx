@@ -4,14 +4,13 @@ import { USER_INFO_STORAGE_KEY } from "../../constants";
 import { registerCourse, sendEmail } from "../../api";
 import { IMyRegister } from "../../api/types";
 import { useStore } from "@/store";
-import clientStore from "@/store/stores/clientStore";
-import U from "@/common/U";
-
 interface IProps {
   courseInfo: any;
   applyStudents?: any[];
   defaultVisible?: boolean;
   onRegisterCourse?: (newCourse: IMyRegister) => void;
+  isSpecial?: boolean
+  styles?: any
 }
 
 interface IFromProps {
@@ -67,14 +66,17 @@ const hows = [
   { value: "朋友推荐" },
   { value: "广告链接" },
 ]
+
 const RegisterForm = (props: {
   courseInfo: any;
   onSubmit: (values: IMyRegister) => void | Promise<boolean>;
 }) => {
   const [form] = Form.useForm<IFromProps>();
   const store = useStore();
+  const [loading, setLoading] = useState<boolean>(false)
   const client = store.client.client;
   const onFinish = async (values: IFromProps) => {
+    setLoading(true)
     const now = new Date();
     let data: any = { ...values };
 
@@ -110,6 +112,7 @@ const RegisterForm = (props: {
       // toEmail: "2995251733@qq.com"
     })
     props.onSubmit(newCourse);
+    setLoading(false)
   };
 
   return (
@@ -171,7 +174,7 @@ const RegisterForm = (props: {
       </Form.Item>
 
       <Form.Item wrapperCol={{ span: 24 }}>
-        <Button style={{ width: "100%" }} type="primary" htmlType="submit">
+        <Button loading={loading} style={{ width: "100%" }} type="primary" htmlType="submit">
           确认
         </Button>
       </Form.Item>
@@ -179,7 +182,7 @@ const RegisterForm = (props: {
   );
 };
 
-const RegisterModal = (props: IProps) => {
+const   RegisterModal = (props: IProps) => {
   const [visible, setVisible] = useState(props.defaultVisible);
   const store = useStore();
 
@@ -192,12 +195,12 @@ const RegisterModal = (props: IProps) => {
   };
   return (
     <>
-      <button className="btn" onClick={() => setVisible(true)}>
+      <button className={props.isSpecial ? props.styles["join-btn"] : "btn"} onClick={() => setVisible(true)}>
         立即报名
       </button>
       <Modal
         width={350}
-        visible={visible}
+        open={visible}
         footer={null}
         onCancel={() => setVisible(false)}
         maskClosable={false}
