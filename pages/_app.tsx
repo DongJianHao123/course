@@ -26,19 +26,16 @@ import { observer } from "mobx-react-lite";
 import U from "@/common/U";
 import { StoreInit } from "@/common/StoreInit";
 import Footer from "@/Layout/Footer";
-import { Spin } from "antd";
+import { ConfigProvider, Spin } from "antd";
 import { ClientContext } from "@/store/context/clientContext";
 import { ETabs } from ".";
+import zhCN from 'antd/lib/locale/zh_CN';
 
 
 
 export default observer(App);
 
 function App({ Component, pageProps }: any) {
-
-
-  const router = useRouter();
-
   const needPhone = true;
   let [logined, phone = ""] = useLogined(needPhone);
 
@@ -114,35 +111,37 @@ function App({ Component, pageProps }: any) {
     };
 
   return (
-    <StoreProvider
-      initialValue={initValue}
-    >
-      <ClientContext.Provider value={{
-        clientInfo,
-        setClientInfo: setClientInfo,
-        checkLogined: checkLogined
-      }}>
-        <Spin spinning={loading}>
-          <StoreInit />
-          <Layout
-            headerProps={{
-              homeURL: "https://os2edu.cn",
-              extra,
-            }}
-            className={`container ${isMobile ? "container-mobile" : ""}`}
-          >
-            {isMobile && (
-              <Header
-                isMobile={true}
-              />
-            )}
-            <MainContent >
-              <Component {...pageProps} />
-            </MainContent>
-            <Footer />
-          </Layout>
-        </Spin>
-      </ClientContext.Provider>
-    </StoreProvider >
+    <ConfigProvider locale={zhCN}>
+      <StoreProvider
+        initialValue={initValue}
+      >
+        <ClientContext.Provider value={{
+          clientInfo,
+          setClientInfo: setClientInfo,
+          checkLogined: checkLogined
+        }}>
+          <Spin spinning={loading}>
+            <StoreInit />
+            <Layout
+              headerProps={{
+                homeURL: "https://os2edu.cn",
+                extra,
+              }}
+              className={`container ${isMobile ? "container-mobile" : ""}`}
+            >
+              {isMobile && (
+                <Header
+                  isMobile={true}
+                />
+              )}
+              <MainContent >
+                <Component {...pageProps} />
+              </MainContent>
+              <Footer />
+            </Layout>
+          </Spin>
+        </ClientContext.Provider>
+      </StoreProvider >
+    </ConfigProvider>
   );
 }

@@ -121,7 +121,6 @@ const StudentList = (props: { data?: any[], pageChange?: (pageHeight?: number) =
     <div ref={ref} className="list-wrap">
       <Table columns={columns} dataSource={list} pagination={false} />
       <div className='paging-wrap'>
-        {/* <ConfigProvider locale={zhCN}> */}
         <Pagination
           showTotal={(e) => "共 " + e + " 人"}
           defaultCurrent={1} total={data?.length}
@@ -130,7 +129,6 @@ const StudentList = (props: { data?: any[], pageChange?: (pageHeight?: number) =
           pageSize={pageSize}
           showQuickJumper
         />
-        {/* </ConfigProvider> */}
       </div>
     </div>
   )

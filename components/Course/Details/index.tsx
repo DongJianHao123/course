@@ -4,7 +4,7 @@ import { last, groupBy, keys, sortBy, find } from "lodash";
 import { Popover } from "antd";
 import { useParams } from "react-router-dom";
 import QRCode from "react-qr-code";
-import { EUserType as EStudentType, IMyRegister } from "../../../api/types";
+import { EUserType as EStudentType, ICourse, IMyRegister } from "../../../api/types";
 import Tabs from "../../../components/Tabs";
 import Loading from "../../../components/Loading";
 import RegisterModal, { verify_rules } from "../../../components/RegisterModal";
@@ -137,7 +137,7 @@ const Action = observer(
     );
   }
 );
-const CourseDetail = ({ data }: any) => {
+const CourseDetail = ({ data }: {data:ICourse}) => {
   const [courseInfo, setCourseInfo] = useState<any>({ ...data });
   const [students, setStudents] = useState<any[]>([]);
   const md = useDeviceDetect();
@@ -165,7 +165,7 @@ const CourseDetail = ({ data }: any) => {
     // if (courseId) {
     // const courseInfo = await getCourse(courseId);
     // 课程报名成员信息
-    const studentResult = data.studentResult;
+    const studentResult = data.students;
     const studentCategories = groupBy(studentResult, "status");
     const teacher = studentCategories[EStudentType.TEACHER] || [];
     const tutors = studentCategories[EStudentType.TUTOR] || [];
@@ -191,10 +191,10 @@ const CourseDetail = ({ data }: any) => {
     detailRef.current.if_teacher = !detailRef.current.teacher;
 
     // 课程回放数据
-    const courseResult = data.courseResult;
+    const courseResult = data.replayList;
     detailRef.current.replayList = courseResult;
     detailRef.current.validReplayList = sortBy(
-      courseResult.filter(({ status }: any) => status == 1) || [],
+      courseResult?.filter(({ status }: any) => status == 1) || [],
       (c) => c.startAt
     );
     // loadIntroduction();

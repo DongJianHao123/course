@@ -1,4 +1,4 @@
-import { EUserType, IMyRegister } from "@/api/types";
+import { EUserType, ICourse, IMyRegister } from "@/api/types";
 import { useDeviceDetect } from "@/hooks";
 import { find, groupBy, keys, last, sortBy } from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -68,7 +68,7 @@ const Action = observer(
     }
 );
 
-const SpecialTopicCourse = ({ data }: any) => {
+const SpecialTopicCourse = ({ data }: {data:ICourse}) => {
     const [courseInfo, setCourseInfo] = useState<any>({ ...data });
     const [students, setStudents] = useState<any[]>([]);
     const [currentTab, setCurrentTab] = useState<string>("1");
@@ -130,7 +130,7 @@ const SpecialTopicCourse = ({ data }: any) => {
     };
 
     const loadData = useCallback(async () => {
-        const studentResult = data.studentResult;
+        const studentResult = data.students;
         const studentCategories = groupBy(studentResult, "status");
         const teacher = studentCategories[EUserType.TEACHER] || [];
         const tutors = studentCategories[EUserType.TUTOR] || [];
@@ -156,10 +156,10 @@ const SpecialTopicCourse = ({ data }: any) => {
         detailRef.current.if_teacher = !detailRef.current.teacher;
 
         // 课程回放数据
-        const courseResult = data.courseResult;
+        const courseResult = data.replayList;
         detailRef.current.replayList = courseResult;
         detailRef.current.validReplayList = sortBy(
-            courseResult.filter(({ status }: any) => status == 1) || [],
+            courseResult?.filter(({ status }: any) => status == 1) || [],
             (c) => c.startAt
         );
     }, []);

@@ -1,5 +1,5 @@
 import request from '../utils/request'
-import type { Client, IMyRegister } from '../api/types'
+import type { Client, HomepageInfo, ICourse, IMyRegister } from '../api/types'
 import axios from 'axios'
 import { CLIENT_ID } from '@/constants'
 
@@ -9,7 +9,7 @@ import { CLIENT_ID } from '@/constants'
 const PAGE_SIZE = 2000
 
 export async function getHomePage() {
-  const res = await request<never, any[]>('/seller/api/homepages', {
+  const res = await request<never, HomepageInfo[]>('/seller/api/homepages', {
     params: {
       'clientId.equals': CLIENT_ID
     }
@@ -40,7 +40,7 @@ export async function getMyCourses(phone: any, page = 0) {
 }
 
 export async function getCourse(id: any) {
-  const res = await request<never, any[]>('/seller/api/courses', {
+  const res = await request<never, ICourse[]>('/seller/api/courses', {
     params: {
       'clientId.equals': CLIENT_ID,
       'courseId.equals': id

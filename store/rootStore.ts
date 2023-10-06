@@ -1,4 +1,3 @@
-import { USER_INFO_STORAGE_KEY } from '@/constants';
 import clientStore, { IClinetStore } from './stores/clientStore';
 import homePageStore, { HomePageStore } from './stores/homePageStore';
 import homeTabStore, { IHomeTab } from './stores/homeTab';

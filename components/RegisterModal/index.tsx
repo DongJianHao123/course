@@ -4,6 +4,7 @@ import { USER_INFO_STORAGE_KEY } from "../../constants";
 import { registerCourse, sendEmail } from "../../api";
 import { IMyRegister } from "../../api/types";
 import { useStore } from "@/store";
+import { Utils } from "@/common/Utils";
 interface IProps {
   courseInfo: any;
   applyStudents?: any[];
@@ -182,17 +183,17 @@ const RegisterForm = (props: {
   );
 };
 
-const   RegisterModal = (props: IProps) => {
+const RegisterModal = (props: IProps) => {
   const [visible, setVisible] = useState(props.defaultVisible);
   const store = useStore();
 
   let myRegisters = store.myRegisters.myRegisters;
 
-  const handleSubmit = (newCourse: IMyRegister) => {
+  const handleSubmit = Utils.common.throttle((newCourse: IMyRegister) => {
     store.myRegisters.setMyRegisters((myRegisters || []).concat(newCourse));
     props.onRegisterCourse?.(newCourse);
     setVisible(false);
-  };
+  }, 3000)
   return (
     <>
       <button className={props.isSpecial ? props.styles["join-btn"] : "btn"} onClick={() => setVisible(true)}>

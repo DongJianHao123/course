@@ -9,7 +9,7 @@ export enum EUserType {
   PARENT = '6'
 }
 
-export interface ICurrentUser {   
+export interface ICurrentUser {
   phone?: string
 }
 export interface Client {
@@ -82,4 +82,42 @@ export interface RoomActionType {
   courseName: string;
   courseClassName: string;
   roomId: string;
+}
+
+export interface ICourse {
+  applyCount?: number
+  buyersCount?: number
+  clientId: string
+  clientName: string
+  courseClasss?: any[]
+  courseId: string
+  courseIndex: 1
+  coverUrl: string
+  createdAt?: string
+  domain?: string
+  gradeLevel?: number | null
+  id: number
+  info?: string
+  introduction?: string
+  isDelete?: number
+  isSpecail?: number
+  ishd?: number
+  linkUrl?: string
+  location?: string
+  oldPrice?: number
+  price?: string
+  roomId: string
+  showqr?: null
+  startAt?: string
+  status?: number
+  summary?: string
+  tag?: string
+  teacher?: string
+  title: string
+  totalNum?: number
+  type?: number
+  typeId?: string
+  updatedAt?: string,
+  replayList?: any[],
+  students?: any[]
 }

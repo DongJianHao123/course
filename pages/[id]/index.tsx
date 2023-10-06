@@ -1,33 +1,36 @@
 "use client";
 import { fetchClient, getCourse, getCourses, getHomePage, getReplayOfCourse, getStudentOfCourse } from "@/api";
+import { Client, HomepageInfo, ICourse } from "@/api/types";
 import CourseDetail from "@/components/Course/Details";
 import SpecialTopicCourse from "@/components/Course/SpecialTopicCourse";
 import { WEB_HOST } from "@/constants";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = (await getCourses(false)).courseList;
 
-  const paths = res.map((course) => ({
+  const paths = res.filter((_course) => _course.gradeLevel).map((course) => ({
     params: { id: course.courseId },
   }))
 
   return { paths, fallback: true }
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps<{ data: ICourse, client: Client, config: HomepageInfo }> = async (context) => {
 
   const client = await fetchClient();
   const config = await getHomePage();
   const courseId = context.params?.id;
 
   let res = await getCourse(courseId);
-  const courseResult = await getReplayOfCourse(courseId);
-  const studentResult = await getStudentOfCourse(courseId);
-  res.courseResult = courseResult;
-  res.studentResult = studentResult;
-  // res = { ...res, introduction: "" } 
+  res = { ...res, gradeLevel: res.gradeLevel || 0 }
+  console.log(res.gradeLevel);
+  const replayList = await getReplayOfCourse(courseId);
+  const students = await getStudentOfCourse(courseId);
+  res.replayList = replayList;
+  res.students = students;
   if (!!!res.courseId) {
     return {
       notFound: true,
@@ -50,7 +53,6 @@ export default function Course(props: InferGetStaticPropsType<typeof getStaticPr
   const { data, client, config } = props;
 
   const getHeader = () => {
-    // console.log("==>",props);
     if (!client || !config) return
     let clientInfo = {
       title: client.name,
@@ -74,7 +76,7 @@ export default function Course(props: InferGetStaticPropsType<typeof getStaticPr
       <Head>
         {getHeader()}
       </Head>
-      {data.gradeLevel === 1 ? <SpecialTopicCourse data={data} /> : <CourseDetail data={data} />}
+      {(data && data["gradeLevel"] !== undefined && data['gradeLevel'] === 1) ? <SpecialTopicCourse data={data} /> : <CourseDetail data={data} />}
     </>
   );
 }
