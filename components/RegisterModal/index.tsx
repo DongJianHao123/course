@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Modal, Form, Input, Button, Radio, Select, AutoComplete } from "antd";
-import { USER_INFO_STORAGE_KEY } from "../../constants";
-import { registerCourse, sendEmail } from "../../api";
-import { IMyRegister } from "../../api/types";
+import { ActionType, CLIENT_ID, RoleNameMap, USER_INFO_STORAGE_KEY } from "../../constants";
+import { registerCourse, sendEmail, studentAction } from "../../api";
+import { IMyRegister, RoomActionType } from "../../api/types";
 import { useStore } from "@/store";
 import { Utils } from "@/common/Utils";
 interface IProps {
@@ -62,6 +62,8 @@ export const verify_rules = {
 
 const hows = [
   { value: "搜索引擎" },
+  { value: "短信通知" },
+  { value: "邮件通知" },
   { value: "视频网站" },
   { value: "交流论坛" },
   { value: "朋友推荐" },
@@ -96,18 +98,18 @@ const RegisterForm = (props: {
     data.updatedAt = now;
 
     const newCourse = await registerCourse(data);
+    sendRegisterAction(newCourse, data.how)
     !!newCourse && sendEmail({
       content:
         ` 您好，课程《${data.course}》新增一条报名记录：
-      姓名：${data.name}，
-      性别：${data.gender}，
-      年级：${data.age || "未知"}，
-      联系方式：${data.phone}，
-      报名时间：${new Date().toLocaleString()}，
-      来源：${data.how || "其他"}
-      备注：${data.tag}，
-      链接：${location.href}`,
-
+        姓名：${data.name}，
+        性别：${data.gender}，
+        年级：${data.age || "未知"}，
+        联系方式：${data.phone}，
+        报名时间：${new Date().toLocaleString()}，
+        来源：${data.how || "其他"}
+        备注：${data.tag}，
+        链接：${location.href}`,
       subject: `${client.clientName}—课程报名—${data.course}`,
       toEmail: "all@maodou.io"
       // toEmail: "2995251733@qq.com"
@@ -116,6 +118,22 @@ const RegisterForm = (props: {
     setLoading(false)
   };
 
+  const sendRegisterAction = (register: IMyRegister, how: string) => {
+    let data: RoomActionType = {
+      userId: register.phone,
+      userName: register.name,
+      role: RoleNameMap[1],
+      clientId: client.clientId,
+      clientName: client.clientName || "",
+      actionType: ActionType.REGISTER,
+      description: '来源：' + how,
+      actionTime: new Date(),
+      courseId: register.courseId,
+      courseName: props.courseInfo.title,
+      roomId: '100' + CLIENT_ID + (register.courseId as string)
+    }
+    studentAction(data)
+  }
   return (
     <Form
       form={form}

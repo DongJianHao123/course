@@ -159,7 +159,6 @@ const VideoReplayerModal = (props: IProps) => {
   }
 
   const leaveVideo = () => {
-    console.log(client);
     let data: RoomActionType = {
       userId: currentUser.phone || "",
       userName: myRegisters?.find((item) => item.courseId === props.course.courseId)?.name || "",
@@ -180,6 +179,7 @@ const VideoReplayerModal = (props: IProps) => {
     console.log("已记录用户行为", data);
   }
 
+  //将方法暴露给父组件
   useImperativeHandle(props.onRef, () => {
     return {
       leaveVideo: Utils.common.throttle(leaveVideo, 2000),

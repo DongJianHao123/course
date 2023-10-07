@@ -26,7 +26,6 @@ export const getStaticProps: GetStaticProps<{ data: ICourse, client: Client, con
 
   let res = await getCourse(courseId);
   res = { ...res, gradeLevel: res.gradeLevel || 0 }
-  console.log(res.gradeLevel);
   const replayList = await getReplayOfCourse(courseId);
   const students = await getStudentOfCourse(courseId);
   res.replayList = replayList;

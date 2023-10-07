@@ -71,16 +71,16 @@ export interface IMyRegister {
 export interface RoomActionType {
   userId: string;
   userName: string;
-  courseClassId: number;
+  courseClassId?: number;
   role: string;
   clientId: string;
   clientName: string;
   actionType: string;
   description: string | number;
   actionTime: Date;
-  courseId: string | string[];
+  courseId: IDType;
   courseName: string;
-  courseClassName: string;
+  courseClassName?: string;
   roomId: string;
 }
 
