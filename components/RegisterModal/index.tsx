@@ -78,7 +78,7 @@ const RegisterForm = (props: {
   const store = useStore();
   const [loading, setLoading] = useState<boolean>(false)
   const client = store.client.client;
-  const onFinish = async (values: IFromProps) => {
+  const onFinish = Utils.common.throttle(async (values: IFromProps) => {
     setLoading(true)
     const now = new Date();
     let data: any = { ...values };
@@ -116,8 +116,7 @@ const RegisterForm = (props: {
     })
     props.onSubmit(newCourse);
     setLoading(false)
-  };
-
+  }, 3000);
   const sendRegisterAction = (register: IMyRegister, how: string) => {
     let data: RoomActionType = {
       userId: register.phone,
@@ -207,11 +206,11 @@ const RegisterModal = (props: IProps) => {
 
   let myRegisters = store.myRegisters.myRegisters;
 
-  const handleSubmit = Utils.common.throttle((newCourse: IMyRegister) => {
+  const handleSubmit = (newCourse: IMyRegister) => {
     store.myRegisters.setMyRegisters((myRegisters || []).concat(newCourse));
     props.onRegisterCourse?.(newCourse);
     setVisible(false);
-  }, 3000)
+  }
   return (
     <>
       <button className={props.isSpecial ? props.styles["join-btn"] : "btn"} onClick={() => setVisible(true)}>
