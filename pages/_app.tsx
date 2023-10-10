@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import type { IExtraProps } from "@os2edu/layout/dist/types";
 import Layout, { MainContent } from "@os2edu/layout";
-import Header from "@/Layout/Header";
 import Link from "next/link";
 import LoginStatus from "@/Layout/LoginStatus";
 import "../Layout/index.scss";
@@ -18,8 +17,7 @@ import "../styles/Courses.scss";
 import "../Layout/index-mobile.scss";
 import "../components/Tabs/index.scss";
 import "../components/Tabs/index-mobile.scss";
-import "../components/HighlightText/index.scss"
-import "../components/Course/Replay/index.scss"
+import "../components/HighlightText/index.scss";
 import "../styles/myCourse.scss";
 import { StoreProvider } from "@/store";
 import { observer } from "mobx-react-lite";
@@ -30,6 +28,8 @@ import { ConfigProvider, Spin } from "antd";
 import { ClientContext } from "@/store/context/clientContext";
 import { ETabs } from ".";
 import zhCN from 'antd/lib/locale/zh_CN';
+import H5HomeWrap from "@/Layout/H5HomeWrap";
+import MyLayout from "@/Layout";
 
 
 
@@ -92,22 +92,22 @@ function App({ Component, pageProps }: any) {
     : {
       customRender: redirectToHome,
       userInfo: { phone: _phone },
-      dropMenu: [
-        {
-          key: "myCourse",
-          title: "我的课程",
-          onClick() {
-            window.open(`/course/myCourse`, "_blank");
-          },
-        },
-        {
-          key: "logout",
-          title: "退出登录",
-          onClick() {
-            logout();
-          },
-        },
-      ],
+      // dropMenu: [
+      //   {
+      //     key: "myCourse",
+      //     title: "我的课程",
+      //     onClick() {
+      //       window.open(`/course/myCourse`, "_blank");
+      //     },
+      //   },
+      //   {
+      //     key: "logout",
+      //     title: "退出登录",
+      //     onClick() {
+      //       logout();
+      //     },
+      //   },
+      // ],
     };
 
   return (
@@ -117,8 +117,12 @@ function App({ Component, pageProps }: any) {
       >
         <ClientContext.Provider value={{
           clientInfo,
-          setClientInfo: setClientInfo,
-          checkLogined: checkLogined
+          isLogin,
+          isMobile,
+          setClientInfo,
+          checkLogined,
+          logout,
+          user: _phone,
         }}>
           <Spin spinning={loading}>
             <StoreInit />
@@ -129,11 +133,12 @@ function App({ Component, pageProps }: any) {
               }}
               className={`container ${isMobile ? "container-mobile" : ""}`}
             >
-              {isMobile && (
-                <Header
+
+              {isMobile ?
+                <H5HomeWrap
                   isMobile={true}
-                />
-              )}
+                /> : <MyLayout />
+              }
               <MainContent >
                 <Component {...pageProps} />
               </MainContent>

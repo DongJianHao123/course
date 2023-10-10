@@ -1,34 +1,11 @@
-import { ConfigProvider } from "antd";
-import ReactDOM from "react-dom";
-import zhCN from "antd/lib/locale/zh_CN";
-import { useStore } from "@/store";
 import { ROOM_URL, RoleNameMap, USER_INFO_STORAGE_KEY } from "@/constants";
 import { EUserType, IMyRegister } from "@/api/types";
 import { find } from "lodash";
-import { fetchClient, getDomainNameConfiguration } from "@/api";
+import { fetchClient } from "@/api";
 
 
 export const Utils = {
   common: {
-    renderReactDOM: (child: any, options = {}) => {
-      const div = document.createElement("div");
-      const { id }: any = options;
-      if (id) {
-        const e = document.getElementById(id);
-        if (e) {
-          document.body.removeChild(e);
-        }
-        div.setAttribute("id", id);
-      }
-
-      document.body.appendChild(div);
-
-      ReactDOM.render(
-        <ConfigProvider locale={zhCN}>{child}</ConfigProvider>,
-        div
-      );
-    },
-
     closeModalContainer: (id: string) => {
       const e = document.getElementById(id);
       if (e) {

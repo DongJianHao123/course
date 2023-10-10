@@ -3,7 +3,7 @@ import Icon from "@/components/Icon";
 import { message, Modal, Tooltip } from "antd";
 import { find } from "lodash";
 import { useRouter } from "next/router";
-import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { RefObject, useCallback, useContext, useEffect, useRef, useState } from "react";
 // @ts-ignore
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import dynamic from "next/dynamic";
@@ -11,6 +11,9 @@ import { USER_INFO_STORAGE_KEY } from "@/constants";
 import U from "@/common/U";
 import { Toast } from "antd-mobile";
 import { ExclamationOutlined } from "@ant-design/icons";
+import pcStyles from './index.module.scss'
+import h5Styles from './mobile.module.scss'
+import { ClientContext } from "@/store/context/clientContext";
 
 const VideoReplayer = dynamic(
     import('@/components/VideoReplayer'),
@@ -23,10 +26,13 @@ function Replay() {
     const [replay, setReplay] = useState<any>();
     const [link, setlink] = useState("");
     const [course, setCourse] = useState({})
+    const { isMobile } = useContext(ClientContext)
+    const styles = isMobile ? h5Styles : pcStyles;
     const videoPlayerRef = useRef<{
         leaveVideo: () => void,
         videoRef: RefObject<HTMLVideoElement>
     }>()
+    
 
     const initData = useCallback(async () => {
         if (!courseId) return
@@ -67,11 +73,11 @@ function Replay() {
     }, []);
 
     return (
-        <div className="video-wrapper">
-            <div className="video-replay-modal">
-                <header>
-                    <div className="title">{replay?.className}</div>
-                    <div className="actions">
+        <div className={styles["video-wrapper"]}>
+            <div className={styles["video-replay-modal"]}>
+                <header className={styles['header']}>
+                    <div className={styles["title"]}>{replay?.className}</div>
+                    <div className={styles["actions"]}>
                         <Tooltip title="复制链接">
                             <CopyToClipboard
                                 text={link}
@@ -87,7 +93,7 @@ function Replay() {
                                     title: "要返回到课程页面吗？",
                                     onOk() {
                                         videoPlayerRef.current!.leaveVideo()
-                                        router.push(`/course/${courseId}`)
+                                        router.push(`/${courseId}`)
                                     },
                                     okText: "确认",
                                     cancelText: "取消"
@@ -97,7 +103,7 @@ function Replay() {
                         </Tooltip>
                     </div>
                 </header>
-                <div className="video-replay-content">
+                <div className={styles["video-replay-content"]}>
                     <VideoReplayer onRef={videoPlayerRef} replay={replay} course={course} />
                 </div>
             </div>

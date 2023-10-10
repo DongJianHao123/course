@@ -1,7 +1,3 @@
-import { HmacSHA256, AES } from 'crypto-js'
-const SECRET_KEY = 'r2jiaoyu';
-
-
 const U = {
   str: {
     rn2br: (str: string): string => {

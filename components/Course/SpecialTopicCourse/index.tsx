@@ -68,7 +68,7 @@ const Action = observer(
     }
 );
 
-const SpecialTopicCourse = ({ data }: {data:ICourse}) => {
+const SpecialTopicCourse = ({ data }: { data: ICourse }) => {
     const [courseInfo, setCourseInfo] = useState<any>({ ...data });
     const [students, setStudents] = useState<any[]>([]);
     const [currentTab, setCurrentTab] = useState<string>("1");
@@ -250,8 +250,10 @@ const SpecialTopicCourse = ({ data }: {data:ICourse}) => {
                                     })
                                 }
                             </Avatar.Group>
-                            <span className="course-info-item-label">讲师: </span>
-                            {courseInfo.teacher && courseInfo.teacher.trim() ? courseInfo.teacher : detailRef.current.teacher?.name}
+                            <div>
+                                <span className={styles['course-info-item-label']} >讲师: </span>
+                                {courseInfo.teacher && courseInfo.teacher.trim() ? courseInfo.teacher : detailRef.current.teacher?.name}
+                            </div>
                         </div>}
 
                         <Action courseInfo={courseInfo} onRegisterCourse={handleRegister} />

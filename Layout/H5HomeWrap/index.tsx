@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { AboutFilled, AboutOutLined, HomeFilled, HomeOutlined, UserFilled, UserOutLined, fillColor } from "@/components/Icon/svgs";
 
 
-const Header = ({
+const H5HomeWrap = ({
   isMobile
 }: {
   isMobile?: boolean;
@@ -72,4 +72,4 @@ const Header = ({
   );
 };
 
-export default observer(Header);
+export default observer(H5HomeWrap);

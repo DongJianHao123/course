@@ -11,7 +11,7 @@ const isValidRange = (num: number, excludeRange: number[] | number[][]) => {
     })
   } else {
     const [min, max] = sortBy(excludeRange)
-    return num >= min && num <= max
+    return (num >= (min as number) && num <= (max as number))
   }
 }
 
@@ -68,6 +68,7 @@ const generateRandomData = (): IData => {
     ]
   }
 }
+// eslint-disable-next-line react/display-name
 const VerificationCode = forwardRef((props, ref) => {
   const [data, setData] = useState<IData>(generateRandomData())
 

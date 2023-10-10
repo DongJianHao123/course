@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, useImperativeHandle, MutableRefObject, RefObject } from 'react'
+import { useState, useEffect, useCallback, useRef, useImperativeHandle, MutableRefObject, RefObject, useContext } from 'react'
 import dayjs from 'dayjs'
 import { filter, map, isEmpty, debounce } from 'lodash'
 import { Empty, Spin, Input } from 'antd'
@@ -14,6 +14,7 @@ import { useStore } from '@/store'
 import pcStyles from './index.module.scss'
 import h5Styles from './mobile.module.scss'
 import { Utils } from '@/common/Utils'
+import { ClientContext } from '@/store/context/clientContext'
 
 
 window.HELP_IMPROVE_VIDEOJS = false
@@ -50,9 +51,7 @@ const VideoReplayerModal = (props: IProps) => {
   const [keyword, setKeyword] = useState('');
   const [canPlay, setCanPlay] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
-
-  const md = useDeviceDetect();
-  const isMobile = !!md?.mobile();
+  const { isMobile } = useContext(ClientContext)
   const store = useStore()
   const currentUser = store.user.currentUser
   const client = store.client.client

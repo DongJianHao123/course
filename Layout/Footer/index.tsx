@@ -37,7 +37,7 @@ const Footer = () => {
                 {footerLinks.map(({ text, link }: any, index: number) => {
                   if (index <= 3)
                     return <div key={link}>
-                      <a href={link} target="_blank">
+                      <a href={link} target="_blank" rel="noreferrer">
                         {text}
                       </a></div>
 
@@ -48,7 +48,7 @@ const Footer = () => {
                 {footerLinks.map(({ text, link }: any, index: number) => {
                   if (index > 3)
                     return <div key={link}>
-                      <a href={link} target="_blank">
+                      <a href={link} target="_blank" rel="noreferrer">
                         {text}
                       </a>
                     </div>
@@ -71,7 +71,7 @@ const Footer = () => {
           </section>
         </div>
         <span className="record-number">
-          北京清华大学·<a target={"_blank"} href="https://beian.miit.gov.cn/">京ICP备16045052号</a>
+          北京清华大学·<a target={"_blank"} href="https://beian.miit.gov.cn/" rel="noreferrer">京ICP备16045052号</a>
         </span>
       </div>
     </footer>
