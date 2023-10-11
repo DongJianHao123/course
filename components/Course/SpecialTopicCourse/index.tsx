@@ -46,7 +46,7 @@ const Action = observer(
                     className={styles["join-btn"]}
                     onClick={() => {
                         let { verify } = registerCourse;
-                        [verify_rules.ALL_RIGNHT, verify_rules.ONLY_ROOM].includes(verify)
+                        [verify_rules.ALL_RIGNHT, verify_rules.ONLY_ROOM].includes(verify) || props.courseInfo.showqr === 1
                             ? Utils.course.enterCourse(props.courseInfo, myRegisters)
                             : Modal.alert({
                                 content: "报名信息审核通过即可进入教室",

@@ -116,7 +116,7 @@ const Action = observer(
           className="btn"
           onClick={() => {
             let { verify } = registerCourse;
-            [verify_rules.ALL_RIGNHT, verify_rules.ONLY_ROOM].includes(verify)
+            [verify_rules.ALL_RIGNHT, verify_rules.ONLY_ROOM].includes(verify) || props.courseInfo.showqr === 1
               ? Utils.course.enterCourse(props.courseInfo, myRegisters)
               : Modal.alert({
                 content: "报名信息审核通过即可进入教室",
@@ -137,7 +137,7 @@ const Action = observer(
     );
   }
 );
-const CourseDetail = ({ data }: {data:ICourse}) => {
+const CourseDetail = ({ data }: { data: ICourse }) => {
   const [courseInfo, setCourseInfo] = useState<any>({ ...data });
   const [students, setStudents] = useState<any[]>([]);
   const md = useDeviceDetect();
@@ -251,25 +251,25 @@ const CourseDetail = ({ data }: {data:ICourse}) => {
                   <span className="course-info-item-label">任课教师: </span>
                   {courseInfo.teacher && courseInfo.teacher.trim() ? courseInfo.teacher : detailRef.current.teacher?.name}
                 </div>
-                <div style={{display:'flex'}}>
-                <div className="course-info-item">
-                  <span className="course-info-item-label">学生人数: </span>
-                  {detailRef.current.applyStudents?.length} 人
+                <div style={{ display: 'flex' }}>
+                  <div className="course-info-item">
+                    <span className="course-info-item-label">学生人数: </span>
+                    {detailRef.current.applyStudents?.length} 人
+                  </div>
+                  <span className="course-actions">
+                    <span className="course-price">{"¥ " + courseInfo.price}</span>
+                    <Popover
+                      placement="leftTop"
+                      content={<Share courseInfo={courseInfo} isMobile />}
+                      trigger="click"
+                    >
+                      <span className="share-icon">
+                        <Icon symbol="icon-share" />
+                      </span>
+                    </Popover>
+                  </span>
                 </div>
-                <span className="course-actions">
-                  <span className="course-price">{"¥ " + courseInfo.price}</span>
-                  <Popover
-                    placement="leftTop"
-                    content={<Share courseInfo={courseInfo} isMobile />}
-                    trigger="click"
-                  >
-                    <span className="share-icon">
-                      <Icon symbol="icon-share" />
-                    </span>
-                  </Popover>
-                </span>
-                </div>
-                
+
               </div>
               <Action
                 courseInfo={courseInfo}

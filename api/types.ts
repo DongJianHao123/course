@@ -107,7 +107,7 @@ export interface ICourse {
   oldPrice?: number
   price?: string
   roomId: string
-  showqr?: null
+  showqr?: number | string | null
   startAt?: string
   status?: number
   summary?: string
