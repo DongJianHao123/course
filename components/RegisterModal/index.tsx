@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Form, Input, Button, Radio, Select, AutoComplete } from "antd";
 import { ActionType, CLIENT_ID, RoleNameMap, USER_INFO_STORAGE_KEY } from "../../constants";
 import { registerCourse, sendEmail, studentAction } from "../../api";
@@ -92,7 +92,7 @@ const RegisterForm = (props: {
     data.courseId = props.courseInfo.courseId;
     data.uniCourseId = props.courseInfo.id;
     data.course = props.courseInfo.title;
-    data.verify = "1";
+    data.verify = props.courseInfo.showqr.toString()
     data.classId = 1;
     data.createdAt = now;
     data.updatedAt = now;
@@ -133,6 +133,10 @@ const RegisterForm = (props: {
     }
     studentAction(data)
   }
+
+  useEffect(() => {
+    console.log(props);
+  }, [props])
   return (
     <Form
       form={form}

@@ -111,7 +111,7 @@ const ReplayList = (props: { data: any[], course: any, isMobile: boolean }) => {
 
       if (registerCourse) {
         let { verify } = registerCourse;
-        if ([verify_rules.ALL_RIGNHT, verify_rules.ONLY_PLAYBACK].includes(verify) || props.course.showqr === 1) {
+        if ([verify_rules.ALL_RIGNHT, verify_rules.ONLY_PLAYBACK].includes(verify)) {
           openReplay(replay)
         } else {
           Modal.alert({

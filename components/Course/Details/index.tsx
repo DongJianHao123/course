@@ -116,7 +116,7 @@ const Action = observer(
           className="btn"
           onClick={() => {
             let { verify } = registerCourse;
-            [verify_rules.ALL_RIGNHT, verify_rules.ONLY_ROOM].includes(verify) || props.courseInfo.showqr === 1
+            [verify_rules.ALL_RIGNHT, verify_rules.ONLY_ROOM].includes(verify)
               ? Utils.course.enterCourse(props.courseInfo, myRegisters)
               : Modal.alert({
                 content: "报名信息审核通过即可进入教室",
@@ -153,15 +153,8 @@ const CourseDetail = ({ data }: { data: ICourse }) => {
     }>
   >({});
 
-  // const [loading, setLoading] = useState(true);
-  //分步加载introduction,减小打包后静态页面的体积
-  // const loadIntroduction = () => {
-  //   getCourse(courseInfo.courseId, courseInfo.clientId).then((res) => {
-  //     setCourseInfo({ ...courseInfo, introduction: res.introduction })
-  //   });
-  // }
-
-  const loadData = useCallback(async () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const loadData = async () => {
     const studentResult = data.students;
     const studentCategories = groupBy(studentResult, "status");
     const teacher = studentCategories[EStudentType.TEACHER] || [];
@@ -194,18 +187,10 @@ const CourseDetail = ({ data }: { data: ICourse }) => {
       courseResult?.filter(({ status }: any) => status == 1) || [],
       (c) => c.startAt
     );
-    // loadIntroduction();
-    // setLoading(false);
-  }, []);
+  };
   useEffect(() => {
     loadData();
-    console.log(courseInfo);
-  }, [loadData]);
-
-  // if (loading) {
-  //   return <Loading />;
-  // }
-
+  }, []);
 
   const tabs = [
     {

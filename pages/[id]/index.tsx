@@ -75,7 +75,8 @@ export default function Course(props: InferGetStaticPropsType<typeof getStaticPr
       <Head>
         {getHeader()}
       </Head>
-      {(data && data["gradeLevel"] !== undefined && data['gradeLevel'] === 1) ? <SpecialTopicCourse data={data} /> : <CourseDetail data={data} />}
+      {/* {data && ((data["gradeLevel"] !== undefined && data['gradeLevel'] === 1) ? <SpecialTopicCourse data={data} /> : <CourseDetail data={data} />)} */}
+      {data && ((data["gradeLevel"] !== undefined && data['gradeLevel'] === 1) ? <SpecialTopicCourse data={data} /> : <CourseDetail data={data} />)}
     </>
   );
 }
