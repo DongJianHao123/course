@@ -152,7 +152,18 @@ const RegisterForm = (props: {
       <Form.Item
         label="姓名"
         name="name"
-        rules={[{ required: true, message: "请输入姓名" }]}
+        rules={[
+          { required: true },
+          () => ({
+            validator(_, value) {
+
+              if (value === '' || value.trim()) {
+                return Promise.resolve(value.trim());
+              }
+              return Promise.reject(new Error('请输入姓名'));
+            },
+          })
+        ]}
       >
         <Input placeholder="请输入姓名" />
       </Form.Item>
