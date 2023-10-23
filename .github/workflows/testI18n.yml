@@ -13,6 +13,9 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
     steps: 
       - name: Checkout # 步骤名称
         uses: actions/checkout@v3
+
+      - name: Switch to another branch
+        run: git checkout i18n
       
       - name: use node
         uses: actions/setup-node@v3
@@ -26,9 +29,7 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
           yarn 
     
       - name: build      
-        run: |
-        git checkout i18n
-        yarn build
+        run: yarn build
         
       - name: ssh deploy aliyun
         uses: cross-the-world/ssh-scp-ssh-pipelines@latest
