@@ -13,6 +13,7 @@ import { Utils } from "@/common/Utils";
 import { getMyRegisters } from "@/api";
 import { useDeviceDetect } from "@/hooks";
 import { Toast } from "antd-mobile";
+import { useTranslation } from "react-i18next";
 
 const PhoneRegex =
   /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0-9]|18[0-9]|19[0-9])\d{8}$/;
@@ -92,6 +93,8 @@ const LoginStatus = () => {
   const md = useDeviceDetect();
   const isMobile = !!md?.mobile();
 
+  const { t } = useTranslation()
+
   useEffect(() => {
     const phone = Utils.storage.getUsr();
     !!phone ? store.user.setUserInfo({ phone }) : store.user.setUserInfo({});
@@ -120,11 +123,11 @@ const LoginStatus = () => {
   return (
     <>
       <span className="nav-link" onClick={() => setLoginVisible(true)}>
-        登录
+        {t('home_page.header.login')}
       </span>
       <Modal
         width={350}
-        visible={loginDialogVisible}
+        open={loginDialogVisible}
         footer={null}
         onCancel={() => setLoginVisible(false)}
         maskClosable={true}

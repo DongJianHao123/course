@@ -34,6 +34,7 @@
 
         display: flex;
         align-items: center;
+        gap: 30px;
 
         .links {
             padding: 0 10px;
@@ -43,7 +44,7 @@
             height: 100%;
             margin: 0;
 
-            margin-right: 40px;
+            // margin-right: 40px;
 
             .link {
                 flex: 1;

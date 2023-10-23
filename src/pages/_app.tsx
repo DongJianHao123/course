@@ -24,12 +24,15 @@ import { observer } from "mobx-react-lite";
 import U from "@/common/U";
 import { StoreInit } from "@/common/StoreInit";
 import Footer from "@/Layout/Footer";
-import { ConfigProvider, Spin } from "antd";
+import { Button, ConfigProvider, Spin } from "antd";
 import { ClientContext } from "@/store/context/clientContext";
 import { ETabs } from ".";
 import zhCN from 'antd/lib/locale/zh_CN';
 import H5HomeWrap from "@/Layout/H5HomeWrap";
 import MyLayout from "@/Layout";
+import i18n from '@/i18n'
+import { useTranslation } from "react-i18next";
+
 
 
 
@@ -48,23 +51,29 @@ function App({ Component, pageProps }: any) {
   const md = useDeviceDetect();
   const isMobile = !!md?.mobile();
 
+
+  const [language, setLanguage] = useState('zh-CN')
+  const changeLanguage = (e: string) => {
+    setLanguage(e)
+    i18n.changeLanguage(e)
+  }
+
+  const initLanguage = () => {
+    let type = localStorage.getItem("i18nextLng");
+    if (type) {
+      changeLanguage(type)
+    }
+  }
+
   useEffect(() => {
     setIsLogin(logined);
     setPhone(phone);
   }, [logined, phone]);
 
   useEffect(() => {
+    initLanguage()
     setLoading(false);
   }, [])
-
-  const redirectToHome = (
-    <div className="custom-course-nav">
-      <Link className="nav-common-link nav-link" href="/">
-        课程培训
-      </Link>
-    </div>
-  );
-
 
   const checkLogined = (phone?: string) => {
     let value = U.str.isChinaMobile(phone);
@@ -80,36 +89,6 @@ function App({ Component, pageProps }: any) {
     checkLogined: checkLogined
   }
 
-  let extra: Partial<IExtraProps> = !isLogin
-    ? {
-      customRender: (
-        <>
-          {redirectToHome}
-          <LoginStatus />
-        </>
-      ),
-    }
-    : {
-      customRender: redirectToHome,
-      userInfo: { phone: _phone },
-      // dropMenu: [
-      //   {
-      //     key: "myCourse",
-      //     title: "我的课程",
-      //     onClick() {
-      //       window.open(`/course/myCourse`, "_blank");
-      //     },
-      //   },
-      //   {
-      //     key: "logout",
-      //     title: "退出登录",
-      //     onClick() {
-      //       logout();
-      //     },
-      //   },
-      // ],
-    };
-
   return (
     <ConfigProvider locale={zhCN}>
       <StoreProvider
@@ -123,27 +102,32 @@ function App({ Component, pageProps }: any) {
           checkLogined,
           logout,
           user: _phone,
+          language,
+          changeLanguage
         }}>
           <Spin spinning={loading}>
             <StoreInit />
-            <Layout
+            {/* <Layout
               headerProps={{
                 homeURL: "https://os2edu.cn",
                 extra,
               }}
               className={`container ${isMobile ? "container-mobile" : ""}`}
-            >
+            > */}
 
-              {isMobile ?
-                <H5HomeWrap
-                  isMobile={true}
-                /> : <MyLayout />
-              }
+
+            {isMobile &&
+              <H5HomeWrap
+                isMobile={true}
+              />
+            }
+            <MyLayout>
               <MainContent >
                 <Component {...pageProps} />
               </MainContent>
-              <Footer />
-            </Layout>
+            </MyLayout>
+            <Footer />
+            {/* </Layout> */}
           </Spin>
         </ClientContext.Provider>
       </StoreProvider >

@@ -134,9 +134,6 @@ const RegisterForm = (props: {
     studentAction(data)
   }
 
-  useEffect(() => {
-    console.log(props);
-  }, [props])
   return (
     <Form
       form={form}

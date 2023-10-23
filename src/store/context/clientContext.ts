@@ -8,5 +8,7 @@ export const ClientContext = createContext<{
     user?: string
     setClientInfo?: Dispatch<any>,
     checkLogined?: (phone?: string) => void,
-    logout?: () => void
+    logout?: () => void,
+    language?: string,
+    changeLanguage?: (key: string) => void
 }>({});

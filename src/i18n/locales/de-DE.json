@@ -1,0 +1,12 @@
+{
+    "home_page": {
+        "header": {
+            "logo": "Open Source Betriebssystem Community",
+            "login": "Login",
+            "logout": "Abmelden vom Login",
+            "language": "Sprache",
+            "back_home": "Kursausbildung",
+            "my_course": "Mein Kurs"
+        }
+    }
+}
