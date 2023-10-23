@@ -3,7 +3,7 @@ name: os2edu deploy when push
 on:
   push: # 什么请求触发
     branches: 
-    - main # 作用在哪些分支上
+    - i18n # 作用在哪些分支上
 
 jobs: # 构建的任务，一个工作流有多个构建任务，
   build:
@@ -34,9 +34,9 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
           WELCOME: "ssh scp ssh pipelines"
           LASTSSH: "Doing something after copying"
         with:
-          host: ${{ secrets.SERVER_IP }} # 服务器的ip
+          host: ${{ secrets.TEST_SERVER_IP }} # 服务器的ip
           user: ${{ secrets.SERVER_NAME }} # 服务器的账号
-          pass: ${{ secrets.SERVER_PWD }} # 服务器的密码
+          pass: ${{ secrets.TEST_SERVER_PWD }} # 服务器的密码
           connect_timeout: 10s
           first_ssh: | #这部分是在服务器上，传输文件前执行的命令，关闭并删除运行中的旧版本
             cd /root/os2edu/course
