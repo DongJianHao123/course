@@ -1,4 +1,4 @@
-name: os2edu deploy when push 
+name: os2edu deploy test when push 
 # ci触发的条件
 on:
   push: # 什么请求触发
@@ -26,7 +26,9 @@ jobs: # 构建的任务，一个工作流有多个构建任务，
           yarn 
     
       - name: build      
-        run: yarn build
+        run: |
+        git checkout i18n
+        yarn build
         
       - name: ssh deploy aliyun
         uses: cross-the-world/ssh-scp-ssh-pipelines@latest
