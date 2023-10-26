@@ -10,7 +10,7 @@ const MyLayout = (props: any) => {
     const { isMobile } = useContext(ClientContext)
     const styles = isMobile ? h5Styles : pcStyles
     return <div className={styles['layout-container']}>
-        <Header />
+        {!isMobile && <Header />}
         {props.children}
         {/* <Footer /> */}
     </div>

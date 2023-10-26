@@ -107,13 +107,13 @@ function App({ Component, pageProps }: any) {
         }}>
           <Spin spinning={loading}>
             <StoreInit />
-            {/* <Layout
+            <Layout
               headerProps={{
                 homeURL: "https://os2edu.cn",
-                extra,
+                // extra,
               }}
               className={`container ${isMobile ? "container-mobile" : ""}`}
-            > */}
+            >
 
 
             {isMobile &&
@@ -126,8 +126,8 @@ function App({ Component, pageProps }: any) {
                 <Component {...pageProps} />
               </MainContent>
             </MyLayout>
-            <Footer />
-            {/* </Layout> */}
+            <Footer isMobile={isMobile} />
+            </Layout>
           </Spin>
         </ClientContext.Provider>
       </StoreProvider >

@@ -3,14 +3,15 @@ import { map } from "lodash";
 import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
 import pcStyles from './index.module.scss';
+import h5styles from './h5.module.scss'
 
-const Footer = () => {
-   const store = useStore();
+const Footer = ({ isMobile }: { isMobile: boolean }) => {
+  const store = useStore();
   const homePage = store.homePage.homePage;
 
   const { t } = useTranslation();
   const client = store.client.client;
-  const styles = pcStyles
+  const styles = isMobile ? h5styles : pcStyles
   const siteConfig = {
     // title: "阿图教育",
     // subTitle: "为中国培养100万信创产业一流人才",
