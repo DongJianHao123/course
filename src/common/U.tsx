@@ -1,3 +1,5 @@
+import { phoneNumberRegex } from "@/Layout/LoginStatus";
+
 const U = {
   str: {
     rn2br: (str: string): string => {
@@ -20,6 +22,9 @@ const U = {
     },
     trim: (x: string): string => {
       return x.replace(/^\s+|\s+$/gm, '');
+    },
+    isMobile: (phone: string=''): boolean => {
+      return phoneNumberRegex.test(phone)
     },
     isChinaMobile: (mobile: string = ''): boolean => {
       return mobile.length === 11;

@@ -76,7 +76,7 @@ function App({ Component, pageProps }: any) {
   }, [])
 
   const checkLogined = (phone?: string) => {
-    let value = U.str.isChinaMobile(phone);
+    let value = U.str.isMobile(phone);
     setIsLogin(value);
     setPhone(value ? phone : "");
   };

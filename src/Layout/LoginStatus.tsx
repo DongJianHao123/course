@@ -17,6 +17,12 @@ import { useTranslation } from "react-i18next";
 
 const PhoneRegex =
   /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0-9]|18[0-9]|19[0-9])\d{8}$/;
+ export const phoneNumberRegex = /^(\+?)(\d{1,4}[\s-]?)?(\d{1,2})[\s-]?(\d{1,4})[\s-]?(\d{1,4})[\s-]?(\d{1,9})$/;
+
+
+
+
+
 interface IFromProps {
   phone: string;
   code: string;
@@ -31,6 +37,7 @@ const LoginForm = (props: {
   }>();
   const [codeIsValid, setCodeIsValid] = useState(true);
   const [form] = Form.useForm<IFromProps>();
+  const { t } = useTranslation()
   const onFinish = (value: IFromProps) => {
     if (
       value.code.length === VerificationCodeNum &&
@@ -50,38 +57,38 @@ const LoginForm = (props: {
       autoComplete="off"
       size="large"
     >
-      <h3>请使用手机号登录</h3>
+      <h3>{t('login.login_form.title')}</h3>
       <Form.Item
         name="phone"
         rules={[
-          { required: true, message: "请输入手机号" },
-          { pattern: PhoneRegex, message: "请输入正确手机号" },
+          { required: true, message: t('login.login_form.phone_placeholder') },
+          { pattern: phoneNumberRegex, message: t('login.login_form.phone_number_verification') },
         ]}
       >
-        <Input placeholder="请输入手机号" />
+        <Input placeholder={t('login.login_form.phone_placeholder')} />
       </Form.Item>
 
       <Form.Item
         name="code"
-        rules={[{ required: true, message: "请输入验证码" }]}
-        help={codeIsValid ? undefined : "验证码输入错误"}
+        rules={[{ required: true, message: t('login.login_form.valcode_placeholder') }]}
+        help={codeIsValid ? undefined : t('login.login_form.valcode_error')}
         validateStatus={codeIsValid ? undefined : "error"}
       >
         <Input
-          placeholder="请输入验证码"
+          placeholder={t('login.login_form.valcode_placeholder')}
           addonAfter={<VerificationCode ref={codeRef} />}
         />
       </Form.Item>
 
       <Form.Item>
         <Button style={{ width: "100%" }} type="primary" htmlType="submit">
-          登录
+          {t('login.login_form.submit')}
         </Button>
       </Form.Item>
 
       <span>
-        登录即代表阅读并同意{" "}
-        <span style={{ color: "#3db477" }}>《服务协议和隐私政策》</span>
+        {t('login.login_form.tip')}{" "}
+        <span style={{ color: "#3db477" }}>《{t('login.login_form.agreement')}》</span>
       </span>
     </Form>
   );
@@ -116,8 +123,8 @@ const LoginStatus = () => {
     localStorage.setItem(USER_INFO_STORAGE_KEY, phone);
     isMobile ? Toast.show({
       icon: "success",
-      content: "登录成功"
-    }) : message.success("登录成功，欢迎回来!");
+      content: t('login.login_form.success_h5')
+    }) : message.success(t('login.login_form.success_pc'));
     login(phone);
   };
   return (

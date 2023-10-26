@@ -4,6 +4,8 @@ import { EUserType } from '../../../api/types'
 import Icon from '@/components/Icon'
 import { useEffect, useRef, useState } from 'react'
 import { ColumnsType } from 'antd/lib/table'
+import { useTranslation } from 'react-i18next'
+import useOptions from '@/hooks/useOptions'
 
 const iconMap: Record<string, string> = {
   '2': 'status-teacher.png',
@@ -24,10 +26,13 @@ const StudentList = (props: { data?: any[], pageChange?: (pageHeight?: number) =
   const [list, setList] = useState<any[]>([]);
 
   const ref = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation()
+
+  const { grade, tags,genders } = useOptions();
 
   const columns: ColumnsType<DataType> = [
     {
-      title: '序号',
+      title: t('course.table.header.index'),
       dataIndex: 'id',
       key: 'id',
       align: "center",
@@ -35,28 +40,31 @@ const StudentList = (props: { data?: any[], pageChange?: (pageHeight?: number) =
       render: (_, row, index) => index + 1 + pageNum * pageSize
     },
     {
-      title: '昵称',
+      title: t('course.table.header.nickname'),
       dataIndex: 'name',
       key: 'name',
       align: "center"
     },
     {
-      title: '年级',
+      title: t('course.table.header.identity'),
       dataIndex: 'age',
       key: 'age',
       align: "center",
+      render: (txt) => grade.find((item) => item.value === txt)?.label
     },
     {
-      title: '性别',
+      title: t('course.table.header.gender'),
       dataIndex: 'gender',
       key: 'gender',
       align: "center",
+      render: (txt) => genders.find((item) => item.value === txt)?.label
     },
     {
-      title: '备注',
+      title: t('course.table.header.remark'),
       dataIndex: 'tag',
       key: 'tag',
       align: "center",
+      render: (txt) => tags.find((item) => item.value === txt)?.label
     },
   ];
 
@@ -89,15 +97,15 @@ const StudentList = (props: { data?: any[], pageChange?: (pageHeight?: number) =
                   {student.status !== EUserType.STUDENT && (
                     <img
                       height="14"
-                      src={`/img/${iconMap[student.status]}`}
-                      alt="student-status-png"
+                      src={`../../../../public/img/${iconMap[student.status]}`}
+                      alt={iconMap[student.status]}
                     ></img>
                   )}
                 </div>
 
                 <div className="info-other">
                   <span className="current-bg">
-                    <span className="list-item-label">职业:</span> {student.age}
+                    <span className="list-item-label">{t('course.table.header.identity')}:</span> {student.age}
                   </span>
                 </div>
               </div>

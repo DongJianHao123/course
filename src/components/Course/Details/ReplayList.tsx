@@ -11,15 +11,8 @@ import U from "@/common/U";
 import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { Utils } from "@/common/Utils";
+import { useTranslation } from "react-i18next";
 
-const headers = [
-  "教室号",
-  "课程名称",
-  "开始时间",
-  "上课地点",
-  "备注",
-  "课堂回放",
-];
 interface DataType {
   roomId: string
   className: string
@@ -47,9 +40,11 @@ const ReplayList = (props: { data: any[], course: any, isMobile: boolean }) => {
     }
   }, [props.data])
 
+  const { t } = useTranslation()
+
   const columns: ColumnsType<DataType> = [
     {
-      title: '序号',
+      title: t('course.table.header.index'),
       dataIndex: 'id',
       key: 'id',
       align: "center",
@@ -63,13 +58,13 @@ const ReplayList = (props: { data: any[], course: any, isMobile: boolean }) => {
     //   align: "center",
     // },
     {
-      title: '课堂内容',
+      title: t('course.table.header.classroom_content'),
       dataIndex: 'className',
       key: 'className',
       width: 400
     },
     {
-      title: '开始时间',
+      title:t('course.table.header.start_at'),
       dataIndex: 'startAt',
       key: 'startAt',
       align: "center",
@@ -82,13 +77,13 @@ const ReplayList = (props: { data: any[], course: any, isMobile: boolean }) => {
     //   align: "center",
     // },
     {
-      title: '备注',
+      title: t('course.table.header.remark'),
       dataIndex: 'remark',
       key: 'remark',
       align: "center",
     },
     {
-      title: '课堂回放',
+      title:t('course.table.header.play_back'),
       dataIndex: 'choseUrl',
       key: 'choseUrl',
       align: "center",
@@ -115,13 +110,13 @@ const ReplayList = (props: { data: any[], course: any, isMobile: boolean }) => {
           openReplay(replay)
         } else {
           Modal.alert({
-            content: "报名信息审核通过即可观看",
+            content: t('course.verify.disable_paly_back'),
             closeOnMaskClick: true
           })
         }
       } else {
         Modal.alert({
-          content: "请报名后观看",
+          content: t('course.verify.disable_paly_back_h5'),
           closeOnMaskClick: true,
         });
       }
@@ -147,14 +142,14 @@ const ReplayList = (props: { data: any[], course: any, isMobile: boolean }) => {
                 <span className="location-tag">{replay.location}</span>
               </div>
               <div>
-                <span className="list-item-label">教室号:</span> {replay.roomId}
+                <span className="list-item-label">{t('course.table.header.roomId')}:</span> {replay.roomId}
               </div>
               <div>
-                <span className="list-item-label">开始时间:</span>{" "}
+                <span className="list-item-label">{t('course.table.header.start_at')}:</span>{" "}
                 {U.date.format(new Date(replay.startAt), "yyyy-MM-dd HH:mm:ss")}
               </div>
               <div>
-                <span className="list-item-label">备注:</span> {replay.remark}
+                <span className="list-item-label">{t('course.table.header.remark')}:</span> {replay.remark}
               </div>
             </div>
             <div className="list-item-actions">

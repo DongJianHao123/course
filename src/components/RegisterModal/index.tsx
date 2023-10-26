@@ -5,6 +5,8 @@ import { registerCourse, sendEmail, studentAction } from "../../api";
 import { IMyRegister, RoomActionType } from "../../api/types";
 import { useStore } from "@/store";
 import { Utils } from "@/common/Utils";
+import { useTranslation } from "react-i18next";
+import useOptions from "@/hooks/useOptions";
 interface IProps {
   courseInfo: any;
   applyStudents?: any[];
@@ -22,36 +24,7 @@ interface IFromProps {
   tag: string;
   how: string;
 }
-const grade = [
-  "大一",
-  "大二",
-  "大三",
-  "大四",
-  "硕士研究生",
-  "博士研究生",
-  "大学老师",
-  "公司技术工程师",
-  "其他",
-];
 
-const tags = [
-  {
-    value: "未订阅通知",
-    label: "不订阅通知",
-  },
-  {
-    value: "已订阅短信通知",
-    label: "订阅短信通知",
-  },
-  {
-    value: "已订阅电话通知",
-    label: "订阅电话通知",
-  },
-  {
-    value: "已订阅全部通知",
-    label: "订阅全部通知",
-  },
-];
 
 export const verify_rules = {
   NONE: "0",
@@ -60,15 +33,7 @@ export const verify_rules = {
   ALL_RIGNHT: "3"
 }
 
-const hows = [
-  { value: "搜索引擎" },
-  { value: "短信通知" },
-  { value: "邮件通知" },
-  { value: "视频网站" },
-  { value: "交流论坛" },
-  { value: "朋友推荐" },
-  { value: "广告链接" },
-]
+
 
 const RegisterForm = (props: {
   courseInfo: any;
@@ -134,6 +99,10 @@ const RegisterForm = (props: {
     studentAction(data)
   }
 
+  const { t } = useTranslation()
+
+  const { grade, tags, hows } = useOptions()
+
   return (
     <Form
       form={form}
@@ -145,9 +114,9 @@ const RegisterForm = (props: {
       wrapperCol={{ span: 20 }}
       initialValues={{ gender: "男", tag: tags[1].value }}
     >
-      <h3>报名</h3>
+      <h3>{t('register.form.title')}</h3>
       <Form.Item
-        label="姓名"
+        label={t('register.form.name')}
         name="name"
         rules={[
           { required: true },
@@ -157,35 +126,35 @@ const RegisterForm = (props: {
               if (value === '' || value.trim()) {
                 return Promise.resolve(value.trim());
               }
-              return Promise.reject(new Error('请输入姓名'));
+              return Promise.reject(new Error(t('register.form.name_verify')));
             },
           })
         ]}
       >
-        <Input placeholder="请输入姓名" />
+        <Input placeholder={t('register.form.name_verify')} />
       </Form.Item>
 
-      <Form.Item label="性别" name="gender">
+      <Form.Item label={t('register.form.gender')} name="gender">
         <Radio.Group>
-          <Radio value="男">男</Radio>
-          <Radio value="女">女</Radio>
+          <Radio value="男">{t('register.form.gender_male')}</Radio>
+          <Radio value="女">{t('register.form.gender_female')}</Radio>
         </Radio.Group>
       </Form.Item>
 
-      <Form.Item label="年级" name="age">
+      <Form.Item label={t('register.form.identity')} name="age">
         <Select>
-          {grade.map((v) => (
-            <Select.Option key={v} value={v}>
-              {v}
+          {grade.map(({ label, value }) => (
+            <Select.Option key={value} value={value}>
+              {label}
             </Select.Option>
           ))}
         </Select>
       </Form.Item>
 
-      <Form.Item label="来源" name="how" className="how">
+      <Form.Item label={t('register.form.source')} name="how" className="how">
         <AutoComplete
           options={hows}
-          placeholder="通过哪种方式了解到我们"
+          placeholder={t('register.form.source_placeholder')}
           filterOption={(inputValue, option) =>
             option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
           }
@@ -193,7 +162,7 @@ const RegisterForm = (props: {
         />
       </Form.Item>
 
-      <Form.Item label="备注" name="tag">
+      <Form.Item label={t('register.form.remark')} name="tag">
         <Select>
           {tags.map(({ label, value }) => (
             <Select.Option key={value} value={value}>
@@ -205,7 +174,7 @@ const RegisterForm = (props: {
 
       <Form.Item wrapperCol={{ span: 24 }}>
         <Button loading={loading} style={{ width: "100%" }} type="primary" htmlType="submit">
-          确认
+          {t('common.button.confirm')}
         </Button>
       </Form.Item>
     </Form>
@@ -217,7 +186,7 @@ const RegisterModal = (props: IProps) => {
   const store = useStore();
 
   let myRegisters = store.myRegisters.myRegisters;
-
+  const { t } = useTranslation()
   const handleSubmit = (newCourse: IMyRegister) => {
     store.myRegisters.setMyRegisters((myRegisters || []).concat(newCourse));
     props.onRegisterCourse?.(newCourse);
@@ -226,7 +195,7 @@ const RegisterModal = (props: IProps) => {
   return (
     <>
       <button className={props.isSpecial ? props.styles["join-btn"] : "btn"} onClick={() => setVisible(true)}>
-        立即报名
+        {t('register.action.register_now')}
       </button>
       <Modal
         width={350}

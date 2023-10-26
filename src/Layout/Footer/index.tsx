@@ -1,12 +1,14 @@
-import { footerLinks } from "@/constants";
 import { useStore } from "@/store";
 import { map } from "lodash";
 import { observer } from "mobx-react-lite";
-import pcStyles from './index.module.scss'
+import { useTranslation } from "react-i18next";
+import pcStyles from './index.module.scss';
 
 const Footer = () => {
-  const store = useStore();
+   const store = useStore();
   const homePage = store.homePage.homePage;
+
+  const { t } = useTranslation();
   const client = store.client.client;
   const styles = pcStyles
   const siteConfig = {
@@ -15,11 +17,17 @@ const Footer = () => {
     footer: {
       resources: [],
       contact: [
-        { label: "客服电话", text: "131-6751-8813" },
-        { label: "地址", text: "北京市海淀区清华科技园" },
+        { label: t('home_page.footer.customer_service_phone'), text: "131-6751-8813" },
+        { label: t('home_page.footer.address'), text: t('home_page.footer.address_content') },
       ]
     }
   }
+
+  const footerLinks = [
+    { index: 0, text: t('home_page.footer.resource_link1'), link: "http://docs.os2edu.cn/" },
+    { index: 1, text: t('home_page.footer.resource_link2'), link: "http://rcore-os.cn/rCore-Tutorial-Book-v3/" },
+    { index: 2, text: t('home_page.footer.resource_link3'), link: "https://os.educg.net/2022CSCC" },
+  ]
 
 
   return (
@@ -27,15 +35,15 @@ const Footer = () => {
       <div className={styles["footer-info"]}>
         <section>
           <div className={styles['footer-item']}>
-            <div className={styles["sub-title"]}>{client ? client.name : ""}</div>
+            <div className={styles["sub-title"]}>{t('home_page.footer.title')}</div>
             <div className={styles["sub-items"]}>
-              <span>{homePage?.icpInfo}</span>
+              <span>{t('home_page.footer.intro')}</span>
             </div>
           </div>
         </section>
         <section>
           <div className={styles['footer-item']}>
-            <div className={styles["sub-title"]}>资源链接</div>
+            <div className={styles["sub-title"]}>{t('home_page.footer.resource_links')}</div>
             <div className={styles["links"]}>
               {footerLinks.map(({ text, link }: any, index: number) => {
                 return <a key={link} href={link} target="_blank" rel="noreferrer">
@@ -50,7 +58,7 @@ const Footer = () => {
 
         <section>
           <div className={styles['footer-item']}>
-            <div className={styles["sub-title"]}>联系我们</div>
+            <div className={styles["sub-title"]}>{t('home_page.footer.contact_us')}</div>
             <div className={styles["sub-items"]}>
               {map(siteConfig.footer.contact, ({ label, text }) => (
                 <div key={label}>
@@ -63,7 +71,7 @@ const Footer = () => {
         </section>
       </div>
       <span className={styles["record-number"]}>
-        北京清华大学·<a target={"_blank"} href="https://beian.miit.gov.cn/" rel="noreferrer">京ICP备16045052号</a>
+        {t('home_page.footer.benan_title')}<a target={"_blank"} href="https://beian.miit.gov.cn/" rel="noreferrer">{t('home_page.footer.benan_icp')}</a>
       </span>
     </footer>
   );

@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { ETabs } from "..";
 import { observer } from "mobx-react-lite";
+import { useTranslation } from "react-i18next";
 
 function MyCourse() {
   const router = useRouter();
@@ -28,6 +29,7 @@ function MyCourse() {
   const [loading, setLoading] = useState<boolean>(false);
   const [layout, setLayout] = useState("");
   const myRegisters = store.myRegisters.myRegisters || [];
+  const { t } = useTranslation()
 
   const logout = useLogout(
     () => {
@@ -35,7 +37,6 @@ function MyCourse() {
       store.homeTab.setHomeTab(ETabs.INDEX)
     }
   );
-
 
   const md = useDeviceDetect();
   const isMobile = !!md?.mobile();
@@ -61,7 +62,7 @@ function MyCourse() {
       if (isMobile) {
         store.homeTab.setHomeTab(ETabs.USER);
       }
-      
+
       loadMyCourses(_phone || "");
       setLayout(localStorage.getItem(layoutPrifix) || ELayoutType.LIST);
     }
@@ -83,9 +84,9 @@ function MyCourse() {
           <title>{`我的课程 - ${WEB_HOST}`}</title>
         </Head>
         <header>
-          <div className="title">我的课程</div>
+          <div className="title">{t('my_course.page.title')}</div>
           <div className="totol-register-count">
-            共报名课程: <strong>{total}</strong>
+            {t('my_course.page.total_course')}  : <strong>{total}</strong>
           </div>
         </header>
         {loading ? <Loading /> : myCourses.length < 1 ? <Empty description={"您暂未报名任何课程"} /> :
@@ -100,7 +101,7 @@ function MyCourse() {
               <div
                 key={course.id + course.courseIndex + course.title + index}
                 className="course-item"
-                onClick={() =>window.open(`/course/${course.courseId}`,"_blank")}
+                onClick={() => window.open(`/course/${course.courseId}`, "_blank")}
               >
                 <img
                   className="course-item-cover"
@@ -113,7 +114,7 @@ function MyCourse() {
                     <div className="summary">{course.summary}</div>
                   </div>
                   <div className="room">
-                    <span> 教室号: {course.roomId} </span>
+                    <span>{t('my_course.course.room_id')}: {course.roomId} </span>
                     <button
                       className="btn enter-class-btn"
                       onClick={(e) => {
@@ -121,7 +122,7 @@ function MyCourse() {
                         Utils.course.enterCourse(course, myRegisters);
                       }}
                     >
-                      进入课堂
+                      {t('my_course.course.enter_classroom')}
                     </button>
                   </div>
                 </div>

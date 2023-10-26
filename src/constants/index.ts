@@ -27,5 +27,4 @@ export const footerLinks = [
   { index: 0, text: "Rust基础教程", link: "http://docs.os2edu.cn/" },
   { index: 1, text: "清华rCore操作系统实践教程", link: "http://rcore-os.cn/rCore-Tutorial-Book-v3/" },
   { index: 2, text: "全国大学生操作系统设计大赛", link: "https://os.educg.net/2022CSCC" },
-
 ]

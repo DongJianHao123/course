@@ -3,149 +3,151 @@
     "header": {
       "logo": "Open source operating system community",
       "logout": "Logout",
-      "banner": {
-        "greeting": "Welcome to MAODOUKETANG!"
-      },
       "back_home": "Course Training",
-      "language": "language",
+      "my_course": "My Course",
+      "language": "Language",
       "login": "Login"
     },
-    "footer": {
-      "name": "MAODOUKETANG",
-      "intro": "Introduction",
-      "android": "AndroidApp",
-      "doc": "Docs",
-      "help": "Help",
-      "device": "Hardware requirement ",
-      "question": "Questions",
-      "contact": "Contact",
-      "phone": "Phone",
-      "email": "Email",
-      "addr": "Address",
-      "qrcode": "Scan Qrcode",
-      "addr_info": "G05, Qinghua Kejiyuan Qinghua Technology Building C, Haidian District, Beijing City",
-      "benan1": "Beijing MAODOU Education Consulting Co., Ltd. ",
-      "benan_icp": "jingicpby No. 16045052",
-      "benan2": "jinggongwanganbei No. 110108024594"
-    },
-    "slogan": {
-      "one": "",
-      "two": "Every ",
-      "three": "child can be",
-      "four": "the ",
-      "five": "Best ",
-      "six": "of himself"
-    },
-    "loading": "Loading...",
-    "sider": {
-      "center": "Course Center",
-      "list": "course list",
-      "guide": "User Guide",
-      "about": "About Product",
-      "test": "Device Test",
-      "online_test": "online test"
-    },
-    "course_list": {
-      "title": "Course List",
-      "no_course": "No course in the list.",
-      "create_course_btn": "CREATE"
-    },
-    "create_course_modal": {
-      "title": "CREATE NEW COURSE",
-      "enter_course_name": "Please input course name",
-      "title_default": "classroom by {{username}}",
-      "course_name": "Name",
-      "select_date": "Please select date",
-      "start_time": "Start Time",
-      "course_duration": "Duration",
-      "hr": "H",
-      "min": "M",
-      "minutes": "minutes",
-      "info_text": "All fields are required.",
-      "error_test": "Creation failed, please try again.",
-      "cancel_btn": "CANCEL",
-      "creating_btn": "Creating...",
-      "confirm_btn": "CREATE"
-    },
-    "course_item": {
-      "classroom_id": "Classroom ID:",
-      "modal_title": "Info",
-      "modal_content": "For better class experience, please use Chrome for PC or Safari for iPad",
-      "modal_text": "OK",
-      "delete_course": {
-        "confirm_text": "Are you sure you want to delete {{course}} ?",
-        "cancel_btn": "cancel",
-        "confirm_btn": "confirm"
-      },
-      "enter_course_btn": "ENTER"
-    }
-  },
-  "login_form": {
-    "miniapp": {
-      "title": "Wechat registration",
-      "return": "return login",
-      "login": "login",
-      "text1": "1.Click ”join course“ and “auth phone”",
-      "text2": "2.Return homepage to "
-    },
-    "room_form": {
-      "room_id_placeholder": "Room Id",
-      "room_name_placeholder": "Nickname",
-      "room_id_empty": "Room Id is Empty",
-      "room_name_empty": "Nickname is Empty",
-      "room_name_too_long": "Nickname's length over 30",
-      "enter_class_room": "Enter class"
-    },
-    "input_captcha": "Captcha Code",
-    "invalid_captcha": "Invalid captcha code",
-    "register": "Wechat registration",
-    "title": "Login by Phone Number",
-    "phone_enter": "Login by Phone Number",
-    "room_enter": "Enter by roomId",
-    "login_button": "LOGIN",
-    "enter_room_without_login": "Enter room without login",
-    "my_helper_text": "To set up your own website, add wechat: maodouketang",
-    "register_hint": "Register",
-    "register_text": "To set up your website ",
-    "text_helper": "【See a Demo】",
-    "error_msg": "Login failed, please try again.",
-    "error_not_found": "The phone number is not registered",
-    "invalid_phone_number": "Invalid phone number",
-    "please_input_phone_number": "Phone number",
-    "logging_in": "Logging in...",
-    "enter_room": "Enter class",
-    "room_number": "Course ID",
-    "please_enter_room": "Please input course ID",
-    "nick_name_in_room": "Please input nick name",
-    "nick_name": "Nickname",
-    "enter_class_room": "ENTER"
-  },
-  "mobile": {
-    "footer": {
-      "course": "Schedule",
-      "new": "New",
-      "user": "User"
-    },
-    "user": {
-      "test": "Device Test",
-      "manual": "user manual",
-      "share": "Share",
-      "msg": "Message",
-      "about": "about",
-      "exit": "Exit"
-    },
-    "home": {
-      "enter": "Enter RoomId",
-      "share": "share",
-      "delete": "delete",
-      "quit": "quit",
+    "nav": {
+      "home": "Home",
+      "courses": "Course",
       "teacher": "Teacher",
-      "room": "Room：",
-      "enter_room": "Enter",
-      "input_room": "Input Room Id"
+      "about_us": "About Us"
+    },
+    "footer": {
+      "title": "Open Source Operating System Training",
+      "intro": "Promote the teaching, research, and industrial development of operating systems",
+      "resource_links": "Resource Links",
+      "contact_us": "Contact Us",
+      "benan_title": "Beijing Tsinghua University·",
+      "customer_service_phone": "Customer Service Phone",
+      "address": "Address",
+      "address_content": "Tsinghua Science and Technology Park, Haidian District, Beijing"
+    },
+    "content": {
+      "hot_courses": "Hot courses",
+      "all_courses": "All Courses",
+      "recommended_teacher": "Recommended Teacher",
+      "all_teacher": "All Teacher",
+      "institutional_introduction": "Institutional Introduction",
+      "registrations": "Learners"
     }
   },
-  "language-zh": "CN(Simplified)",
-  "language-zh-TW": "CN(Traditional)",
-  "language-en": "English"
+  "login": {
+    "login_form": {
+      "title": "Login with phone number",
+      "phone_placeholder": "Please enter your phone number",
+      "phone_number_verification": "Please enter the correct phone number",
+      "valcode_placeholder": "Please enter the verification code",
+      "valcode_error": "Verification code input error",
+      "submit": "Login",
+      "tip": "Login means reading and agreeing",
+      "agreement": "Service Agreement and Privacy Policy",
+      "success_h5": "Login success",
+      "success_pc": "Login successful, welcome back!"
+    },
+    "login_out": {
+      "title": "Are you sure you want to log out?"
+    }
+  },
+  "common": {
+    "button": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
+  },
+  "course": {
+    "share": {
+      "share_qr_code": "Share QR code",
+      "invite_friends": "Invite friends to join the classroom",
+      "title": "Share"
+    },
+    "verify": {
+      "disable_enter_class": "Once the registration information is approved, you can enter the classroom",
+      "disable_paly_back": "The registration information can be viewed after approval",
+      "disable_paly_back_h5": "Please register and watch"
+    },
+    "info": {
+      "instructor": "Instructor",
+      "teacher": "Teacher",
+      "student_number": "Student number"
+    },
+    "tabs": {
+      "introduction": "Introduction",
+      "guidance_course": "Guidance course",
+      "guidance_course_desc": "Equip multiple practical projects to master what you have learned and accumulate experience in practice",
+      "registered_members": "Registered members",
+      "classroom_replay": "Classroom replay"
+    },
+    "table": {
+      "index": "Index",
+      "header": {
+        "classroom_content": "Classroom content",
+        "start_at": "Start at",
+        "remark": "Remark",
+        "play_back": "Classroom replay",
+        "roomId": "Room id",
+        "nickname": "Nickname",
+        "grade": "Grade",
+        "sex": "Sex",
+        "identity": "Identity",
+        "index": "Index",
+        "gender": "Gender"
+      }
+    }
+  },
+  "register": {
+    "action": {
+      "enter_class": "Registered, entering the classroom",
+      "register_now": "Register Now"
+    },
+    "form": {
+      "title": "Register",
+      "name": "Name",
+      "name_verify": "Please enter your name",
+      "gender": "Gender",
+      "gender_male": "male",
+      "gender_female": "female",
+      "identity": "Identity",
+      "source": "Source",
+      "source_placeholder": "How to learn about us",
+      "remark": "Remark",
+      "identity_option": {
+        "freshman": "Freshman",
+        "sophomore": "Sophomore",
+        "junior": "Junior",
+        "senior": "Senior",
+        "master": "Master",
+        "doctor": "Doctor",
+        "university_teacher": "University teacher",
+        "company_technical_engineer": "Company technical engineer",
+        "other": "Other"
+      },
+      "source_option": {
+        "search_engines": "Search engines",
+        "sms_notification": "SMS notification",
+        "email_notification": "Email notification",
+        "video_website": "Video website",
+        "exchange_forum": "Exchange forum",
+        "friend_recommendation": "Friend recommendation",
+        "advertising_link": "Advertising link"
+      },
+      "remark_option": {
+        "unsubscribe_notification": "Unsubscribe notification",
+        "subscribe_sms_notification": "Subscribe to SMS notification",
+        "subscribe_phone_notification": "Subscribe to telephone notifications",
+        "subscribe_all_notification": "Subscribe to all notifications"
+      }
+    }
+  },
+  "my_course": {
+    "page": {
+      "title": "My Course",
+      "total_course": "Total"
+    },
+    "course": {
+      "room_id": "Room id",
+      "enter_classroom": "Enter classroom"
+    }
+  }
 }

@@ -14,6 +14,7 @@ import { Share } from "../Details";
 import pcStyles from "./index.module.scss";
 import h5Styles from "./h5.module.scss";
 import ReplayList from "../Details/ReplayList";
+import { useTranslation } from "react-i18next";
 
 
 const AVATAR_COLOR = ["#1677FF", "#129C2B", "#FF7E16"]
@@ -29,6 +30,7 @@ const Action = observer(
         const openLoginDialog = () => {
             store.login.setLoginDialogVisible(true);
         };
+        const { t } = useTranslation()
 
         const md = useDeviceDetect();
         const isMobile = !!md?.mobile();
@@ -49,12 +51,12 @@ const Action = observer(
                         [verify_rules.ALL_RIGNHT, verify_rules.ONLY_ROOM].includes(verify)
                             ? Utils.course.enterCourse(props.courseInfo, myRegisters)
                             : Modal.alert({
-                                content: "报名信息审核通过即可进入教室",
+                                content: t('course.verify.disable_enter_class'),
                                 closeOnMaskClick: true,
                             });
                     }}
                 >
-                    已报名，进入教室
+                    {t('register.action.enter_class')}
                 </button>
             ) : (
                 <RegisterModal isSpecial styles={styles} {...props} /> //报名
@@ -62,7 +64,7 @@ const Action = observer(
         }
         return (
             <button className={styles["join-btn"]} onClick={openLoginDialog}>
-                登录
+                {t('login.login_form.submit')}
             </button>
         );
     }
@@ -181,18 +183,20 @@ const SpecialTopicCourse = ({ data }: { data: ICourse }) => {
         setSharedVisiable(!isMobile)
     }, [isMobile])
 
+    const { t } = useTranslation()
+
     const replayList_1 = detailRef.current.validReplayList?.filter((item) => item.type === 1) || []//导学课程
     const replayList_2 = detailRef.current.validReplayList?.filter((item) => item.type === 2) || []//直播课程
 
     const Tabs = [{
         value: "1",
-        label: "课程介绍",
+        label: t('course.tabs.introduction'),
         children: <div className={styles["courses-container"]}>
             <div className="ql-snow ql-editor" style={{ height: "auto" }} dangerouslySetInnerHTML={{ __html: courseInfo.introduction }} />
             <div className={styles['clearfix']}></div>
             {replayList_1 && replayList_1.length > 0 && <div className={styles["video-wrap"]}>
-                <h2 style={{ textAlign: "center", fontSize: "24px", fontWeight: "550", padding: "10px 20px", borderRadius: "10px", marginTop: "-30px", background: "linear-gradient(to right, #63ce10, #3db477)", color: "white" }}>导学课程</h2>
-                <h2 style={{ textAlign: "center", fontSize: "24px", fontWeight: "550" }}>配备多个实践项目，在实战中掌握所学并积累经验</h2>
+                <h2 style={{ textAlign: "center", fontSize: "24px", fontWeight: "550", padding: "10px 20px", borderRadius: "10px", marginTop: "-30px", background: "linear-gradient(to right, #63ce10, #3db477)", color: "white" }}>{t('course.tabs.guidance_course')}</h2>
+                <h2 style={{ textAlign: "center", fontSize: "24px", fontWeight: "550" }}>{t('course.tabs.guidance_course_desc')}</h2>
                 <ul className={styles["video-ul"]}>
                     {replayList_1.map((item, index) => <li key={index}>
                         <p className={styles["title"]}>{item.className}</p>
@@ -217,12 +221,12 @@ const SpecialTopicCourse = ({ data }: { data: ICourse }) => {
     },
     {
         value: "2",
-        label: `报名成员(${students.length})`,
+        label: `${t('course.tabs.registered_members')}(${students.length})`,
         children: <StudentList pageChange={resetHeight} isMobile={isMobile} data={students} />
     },
     {
         value: "3",
-        label: `课堂回放(${replayList_2.length})`,
+        label: `${t('course.tabs.classroom_replay')}(${replayList_2.length})`,
         children: <ReplayList isMobile={isMobile} data={replayList_2} course={courseInfo} />
     }
     ]
@@ -251,7 +255,7 @@ const SpecialTopicCourse = ({ data }: { data: ICourse }) => {
                                 }
                             </Avatar.Group>
                             <div>
-                                <span className={styles['course-info-item-label']} >讲师: </span>
+                                <span className={styles['course-info-item-label']} >{t('course.info.instructor')}: </span>
                                 {courseInfo.teacher && courseInfo.teacher.trim() ? courseInfo.teacher : detailRef.current.teacher?.name}
                             </div>
                         </div>}
@@ -283,14 +287,14 @@ const SpecialTopicCourse = ({ data }: { data: ICourse }) => {
             {
                 sharedVisiable ?
                     <div className={styles["shared-open"]}>
-                        <Card title={<div style={{ textAlign: "center" }}>分享</div>} extra={<ArrowRightOutlined onClick={() => setSharedVisiable(false)} />}>
+                        <Card title={<div style={{ textAlign: "center" }}>{t('course.share.title')}</div>} extra={<ArrowRightOutlined onClick={() => setSharedVisiable(false)} />}>
                             <Share courseInfo={courseInfo} isMobile={false} />
                         </Card>
                     </div>
                     :
                     <div className={styles["shared-close"]} onClick={() => setSharedVisiable(true)} >
                         <ShareAltOutlined />
-                        <span>分享</span>
+                        <span>{t('course.share.title')}</span>
                     </div>
             }
 

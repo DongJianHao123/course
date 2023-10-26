@@ -8,7 +8,7 @@ export const useLogined = (needPhone?: boolean): [boolean, string?] => {
   const [phone, setPhone] = useState<string>()
 
   const login = (phone: string) => {
-    if (U.str.isChinaMobile(phone)) {
+    if (U.str.isMobile(phone)) {
       setLogined(true)
       setPhone(phone)
     }

@@ -8,148 +8,148 @@
       "back_home": "课程培训",
       "my_course": "我的课程"
     },
+    "nav": {
+      "home": "首页",
+      "courses": "课程",
+      "teacher": "老师",
+      "about_us": "关于我们"
+    },
     "footer": {
-      "name": "毛豆课堂",
-      "intro": "产品介绍",
-      "android": "安卓app下载",
-      "doc": "使用说明",
-      "help": "帮助中心",
-      "device": "硬件配置",
-      "question": "常见问题",
-      "contact": "联系我们",
-      "phone": "联系电话",
-      "email": "联系邮箱",
-      "addr": "公司地址",
-      "qrcode": "关注公众号了解更多",
-      "addr_info": "中国北京市海淀区清华科技园科技大厦C座G05",
-      "benan1": "北京毛豆教育咨询有限公司 · ",
-      "benan_icp": "京ICP备16045052号",
-      "benan2": "京公网安备 11010802024594号"
+      "title": "开源操作系统培训",
+      "intro": "促进操作系统的教学、研究与产业的发展",
+      "resource_links": "资源链接",
+      "resource_link1": "Rust基础教程",
+      "resource_link2": "清华rCore操作系统实践教程",
+      "resource_link3": "全国大学生操作系统设计大赛",
+      "contact_us": "联系我们",
+      "customer_service_phone": "客服电话",
+      "address": "地址",
+      "address_content": "北京市海淀区清华科技园",
+      "benan_title": "北京清华大学·",
+      "benan_icp": "京ICP备16045052号"
     },
-    "slogan": {
-      "one": "让",
-      "two": "每一个",
-      "three": "孩子",
-      "four": "成为",
-      "five": "最好的",
-      "six": "自己"
-    },
-    "loading": "加载中...",
-    "sider": {
-      "center": "课程中心",
-      "list": "课程列表",
-      "guide": "使用指南",
-      "about": "关于产品",
-      "test": "设备检测",
-      "online_test": "在线检测"
-    },
-    "course_list": {
-      "title": "课程列表",
-      "no_course": "你还没有相关课程",
-      "create_course_btn": "创建课程"
-    },
-    "create_course_modal": {
-      "title": "创建课程",
-      "enter_course_name": "请输入课程名称",
-      "title_default": "{{username}}的互动课堂",
-      "course_name": "课程名称",
-      "select_date": "请选择日期",
-      "start_time": "开始时间",
-      "course_duration": "课程时长",
-      "hr": "时",
-      "min": "分",
-      "minutes": "分钟",
-      "info_text": "所有项目均为必填项。",
-      "error_test": "创建失败，请重试。",
-      "cancel_btn": "取消",
-      "creating_btn": "创建中...",
-      "confirm_btn": "确认"
-    },
-    "course_item": {
-      "classroom_id": "教室号:",
-      "modal_title": "提示",
-      "modal_content": "为了保证您获得更好的上课体验与服务，请使用电脑Chrome浏览器或者iPad的Safari浏览器登录进入教室",
-      "modal_text": "知道了",
-      "delete_course": {
-        "confirm_text": "您确定要删除课程 {{course}} 吗？",
-        "cancel_btn": "取消",
-        "confirm_btn": "确定"
-      },
-      "exit_course": {
-        "confirm_text": "您确定要退出课程 {{course}} 吗？",
-        "cancel_btn": "取消",
-        "confirm_btn": "确定"
-      },
-      "enter_course_btn": "进入课堂"
+    "content": {
+      "hot_courses": "热门课程",
+      "all_courses": "全部课程",
+      "recommended_teacher": "推荐名师",
+      "all_teacher": "全部名师",
+      "institutional_introduction": "机构介绍",
+      "registrations": " 人报名学习"
     }
   },
-  "login_form": {
-    "miniapp": {
-      "title": "微信注册",
-      "return": "返回登录",
-      "login": "登录",
-      "text1": "1.点击“加入此课程”并“授权手机号",
-      "text2": "2.返回首页用手机号 "
+  "login": {
+    "login_form": {
+      "title": "请使用手机号登录",
+      "phone_placeholder": "请输入手机号",
+      "phone_number_verification": "请输入正确手机号",
+      "valcode_placeholder": "请输入验证码",
+      "valcode_error": "验证码输入错误",
+      "submit": "登录",
+      "tip": "登录即代表阅读并同意",
+      "agreement": "服务协议和隐私政策",
+      "success_h5": "登录成功",
+      "success_pc": "登录成功，欢迎回来!"
     },
-    "room_form": {
-      "room_id_placeholder": "教室号",
-      "room_name_placeholder": "教室昵称",
-      "room_id_empty": "教室号不能为空",
-      "room_name_empty": "昵称不能为空",
-      "room_name_too_long": "昵称不能超过30个字",
-      "enter_class_room": "进入教室"
-    },
-    "input_captcha": "请输入验证码",
-    "invalid_captcha": "验证码错误，请重新输入",
-    "register": "微信注册",
-    "title": "手机号登录",
-    "phone_enter": "手机号登录",
-    "room_enter": "教室号进入",
-    "login_button": "登录",
-    "enter_room_without_login": "输入教室号，直接进入教室",
-    "my_helper_text0": "登录即代表您同意",
-    "my_helper_text": "开通机构主页，请咨询微信号 maodouketang",
-    "register_hint": "入驻毛豆课堂",
-    "register_text": "欢迎机构和老师",
-    "text_helper": "【查看演示】",
-    "error_msg": "登录失败，请重试",
-    "error_not_found": "该手机号未注册，请先完成注册",
-    "invalid_phone_number": "请输入正确的手机号",
-    "please_input_phone_number": "手机号",
-    "logging_in": "登录中...",
-    "enter_room": "进入课堂",
-    "room_number": "教室号",
-    "please_enter_room": "请输入教室编号",
-    "nick_name_in_room": "教室中显示的名字",
-    "nick_name": "教室昵称",
-    "enter_class_room": "进入教室"
-  },
-  "mobile": {
-    "footer": {
-      "course": "课表",
-      "new": "创建课程",
-      "user": "我的"
-    },
-    "user": {
-      "test": "设备检测",
-      "manual": "用户手册",
-      "share": "推荐给好友",
-      "msg": "消息通知",
-      "about": "毛豆课堂介绍",
-      "exit": "退出"
-    },
-    "home": {
-      "enter": "教室号进入",
-      "share": "分享",
-      "delete": "删除",
-      "quit": "退出",
-      "teacher": "主讲老师",
-      "room": "教室号：",
-      "enter_room": "进入教室",
-      "input_room": "输入教室号"
+    "login_out": {
+      "title": "确定要退出登录吗？"
     }
   },
-  "language-zh": "简中",
-  "language-zh-TW": "繁中",
-  "language-en": "英文"
+  "common": {
+    "button": {
+      "cancel": "取消",
+      "confirm": "确认"
+    }
+  },
+  "course": {
+    "share": {
+      "share_qr_code": "分享二维码",
+      "invite_friends": "邀请好友加入课堂",
+      "title": "分享"
+    },
+    "verify": {
+      "disable_enter_class": "报名信息审核通过即可进入教室",
+      "disable_paly_back": "报名信息审核通过即可观看",
+      "disable_paly_back_h5": "请报名后观看"
+    },
+    "info": {
+      "instructor": "讲师",
+      "teacher": "任课教师",
+      "student_number": "学生人数"
+    },
+    "tabs": {
+      "introduction": "课程介绍",
+      "guidance_course": "导学课程",
+      "guidance_course_desc": "配备多个实践项目，在实战中掌握所学并积累经验",
+      "registered_members": "报名成员",
+      "classroom_replay": "课堂回放"
+    },
+    "table": {
+      "header": {
+        "index": "序号",
+        "classroom_content": "课堂内容",
+        "start_at": "开始时间",
+        "remark": "备注",
+        "play_back": "课堂回放",
+        "roomId": "教室号",
+        "nickname": "昵称",
+        "grade": "年级",
+        "identity": "身份",
+        "gender": "性别"
+      }
+    }
+  },
+  "register": {
+    "action": {
+      "enter_class": "已报名，进入教室",
+      "register_now": "立即报名"
+    },
+    "form": {
+      "title": "报名",
+      "name": "姓名",
+      "name_verify": "请输入姓名",
+      "gender": "性别",
+      "gender_male": "男",
+      "gender_female": "女",
+      "identity": "身份",
+      "source": "来源",
+      "source_placeholder": "通过哪种方式了解到我们",
+      "remark": "备注",
+      "identity_option": {
+        "freshman": "大一",
+        "sophomore": "大二",
+        "junior": "大三",
+        "senior": "大四",
+        "master": "硕士研究生",
+        "doctor": "博士研究生",
+        "university_teacher": "大学老师",
+        "company_technical_engineer": "公司技术工程师",
+        "other": "其他"
+      },
+      "source_option": {
+        "search_engines": "搜索引擎",
+        "sms_notification": "短信通知",
+        "email_notification": "邮件通知",
+        "video_website": "视频网站",
+        "exchange_forum": "交流论坛",
+        "friend_recommendation": "朋友推荐",
+        "advertising_link": "广告链接"
+      },
+      "remark_option": {
+        "unsubscribe_notification": "不订阅通知",
+        "subscribe_sms_notification": "订阅短信通知",
+        "subscribe_phone_notification": "订阅电话通知",
+        "subscribe_all_notification": "订阅全部通知"
+      }
+    }
+  },
+  "my_course": {
+    "page": {
+      "title": "我的课程",
+      "total_course": "总报名课程"
+    },
+    "course": {
+      "room_id": "教室号",
+      "enter_classroom": "进入课堂"
+    }
+  }
 }

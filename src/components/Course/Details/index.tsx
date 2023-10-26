@@ -20,6 +20,7 @@ import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { Utils } from "@/common/Utils";
 import Icon from "@/components/Icon";
+import { useTranslation } from "react-i18next";
 
 export const Share = observer((props: { courseInfo: any; isMobile?: boolean }) => {
   const store = useStore();
@@ -29,6 +30,7 @@ export const Share = observer((props: { courseInfo: any; isMobile?: boolean }) =
   const shareAreaRef = useRef<HTMLImageElement>(null);
   const qrcodeRef = useRef<any>(null);
   const [pageLink, setPageLink] = useState("");
+  const { t } = useTranslation()
 
   let miniQRPath: string = "";
   if (currentUser?.phone) {
@@ -79,9 +81,9 @@ export const Share = observer((props: { courseInfo: any; isMobile?: boolean }) =
       <div className="share-box">
         <span>
           <Icon symbol="icon-share" />
-          分享二维码
+          {t('course.share.share_qr_code')}
         </span>
-        <span style={{ marginBottom: 10 }}>邀请好友加入课堂</span>
+        <span style={{ marginBottom: 10 }}>{t('course.share.invite_friends')}</span>
         <div
           className={`share-imgs ${props.isMobile ? "share-imgs-mobile" : ""}`}
         >
@@ -103,6 +105,7 @@ const Action = observer(
     const openLoginDialog = () => {
       store.login.setLoginDialogVisible(true);
     };
+    const {t}=useTranslation()
 
     if (currentUser?.phone) {
 
@@ -119,12 +122,12 @@ const Action = observer(
             [verify_rules.ALL_RIGNHT, verify_rules.ONLY_ROOM].includes(verify)
               ? Utils.course.enterCourse(props.courseInfo, myRegisters)
               : Modal.alert({
-                content: "报名信息审核通过即可进入教室",
+                content: t('course.verify.disable_enter_class'),
                 closeOnMaskClick: true,
               });
           }}
         >
-          已报名，进入教室
+         {t('register.action.enter_class')}
         </button>
       ) : (
         <RegisterModal {...props} /> //报名
@@ -132,7 +135,7 @@ const Action = observer(
     }
     return (
       <button className="btn" onClick={openLoginDialog}>
-        登录
+        {t('login.login_form.submit')}
       </button>
     );
   }
@@ -192,21 +195,23 @@ const CourseDetail = ({ data }: { data: ICourse }) => {
     loadData();
   }, []);
 
+  const { t } = useTranslation()
+
   const tabs = [
     {
       key: "intro",
-      title: "课程介绍",
+      title:t('course.tabs.introduction'),
       content:
         courseInfo.introduction ? <div className="ql-snow ql-editor" dangerouslySetInnerHTML={{ __html: courseInfo.introduction }} /> : <Loading className="course-loading" />
     },
     {
       key: "student",
-      title: `报名成员(${students?.length || 0})`,
+      title: `${t('course.tabs.registered_members')}(${students?.length || 0})`,
       content: <StudentList data={students} isMobile={isMobile} />,
     },
     {
       key: "replay",
-      title: `课堂回放(${detailRef.current.validReplayList?.length || 0})`,
+      title: `${t('course.tabs.classroom_replay')}(${detailRef.current.validReplayList?.length || 0})`,
       content: <ReplayList isMobile={isMobile} data={detailRef.current.validReplayList || []} course={courseInfo} />,
     },
   ];
@@ -233,13 +238,13 @@ const CourseDetail = ({ data }: { data: ICourse }) => {
               <div className="course-title">{courseInfo.title}</div>
               <div className="course-info">
                 <div className="course-info-item">
-                  <span className="course-info-item-label">任课教师: </span>
+                  <span className="course-info-item-label">{t('course.info.teacher')}: </span>
                   {courseInfo.teacher && courseInfo.teacher.trim() ? courseInfo.teacher : detailRef.current.teacher?.name}
                 </div>
                 <div style={{ display: 'flex' }}>
                   <div className="course-info-item">
-                    <span className="course-info-item-label">学生人数: </span>
-                    {detailRef.current.applyStudents?.length} 人
+                    <span className="course-info-item-label">{t('course.info.student_number')}: </span>
+                    {detailRef.current.applyStudents?.length}
                   </div>
                   <span className="course-actions">
                     <span className="course-price">{"¥ " + courseInfo.price}</span>
@@ -266,12 +271,12 @@ const CourseDetail = ({ data }: { data: ICourse }) => {
               <div className="course-title">{courseInfo.title}</div>
               <div className="course-info">
                 <div className="course-info-item">
-                  <span className="course-info-item-label">任课教师: </span>
+                  <span className="course-info-item-label">{t('course.info.teacher')}: </span>
                   {courseInfo.teacher && courseInfo.teacher.trim() ? courseInfo.teacher : detailRef.current.teacher?.name}
                 </div>
                 <div className="course-info-item">
-                  <span className="course-info-item-label">学生人数: </span>
-                  {detailRef.current.applyStudents?.length} 人
+                  <span className="course-info-item-label">{t('course.info.student_number')}: </span>
+                  {detailRef.current.applyStudents?.length} 
                 </div>
               </div>
               <div className="course-actions">

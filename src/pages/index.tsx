@@ -11,6 +11,7 @@ import { useContext, useEffect } from "react";
 import { ClientContext } from "@/store/context/clientContext";
 import { useDeviceDetect } from "@/hooks";
 import { WEB_HOST } from "@/constants";
+import { useTranslation } from "react-i18next";
 export enum ETabs {
   INDEX = "INDEX",
   COURSE = "COURSE",
@@ -19,24 +20,8 @@ export enum ETabs {
   USER = "USER"
 }
 
-const nav = [
-  {
-    key: ETabs.INDEX,
-    title: "主页",
-  },
-  {
-    key: ETabs.COURSE,
-    title: "课程",
-  },
-  {
-    key: ETabs.TEACHAR,
-    title: "老师",
-  },
-  {
-    key: ETabs.ABOUT,
-    title: "关于我们",
-  },
-];
+
+
 
 
 
@@ -83,12 +68,7 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
   const store = useStore();
   const { courses_all, courses_popular, client, config } = data;
   const clientContext: any = useContext(ClientContext);
-  useEffect(() => {
-    clientContext.setClientInfo({ ...client, ...config });
-  }, [])
-  const tabChange = (value: string) => {
-    store.homeTab.setHomeTab(value);
-  };
+  const { t } = useTranslation();
 
   const md = useDeviceDetect();
   const isMobile = !!md?.mobile();
@@ -96,6 +76,33 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
   let homeTab = store.homeTab.homeTab;
 
   const isIndexTab = homeTab === ETabs.INDEX;
+
+  const nav = [
+    {
+      key: ETabs.INDEX,
+      title: t('home_page.nav.home'),
+    },
+    {
+      key: ETabs.COURSE,
+      title: t("home_page.nav.courses"),
+    },
+    {
+      key: ETabs.TEACHAR,
+      title: t("home_page.nav.teacher"),
+    },
+    {
+      key: ETabs.ABOUT,
+      title: t("home_page.nav.about_us"),
+    },
+  ];
+
+  useEffect(() => {
+    clientContext.setClientInfo({ ...client, ...config });
+  }, [])
+  const tabChange = (value: string) => {
+    store.homeTab.setHomeTab(value);
+  };
+
   const renderMainContent = () => {
     return (
       <>
@@ -104,7 +111,7 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
             homeTab === ETabs.INDEX || homeTab === ETabs.COURSE
           )}
         >
-          <div className="title">{isIndexTab ? "热门课程" : "全部课程"}</div>
+          <div className="title">{isIndexTab ? t("home_page.content.hot_courses") : t("home_page.content.all_courses") }</div>
           <CourseList courses={homeTab === ETabs.COURSE ? courses_all : courses_popular} />
         </section>
         <section
@@ -112,7 +119,7 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
             homeTab === ETabs.INDEX || homeTab === ETabs.TEACHAR
           )}
         >
-          <div className="title">{isIndexTab ? "推荐名师" : "全部名师"}</div>
+          <div className="title">{isIndexTab ? t("home_page.content.recommended_teacher") : t("home_page.content.all_teacher") }</div>
           <TeacharList showAll={homeTab === ETabs.TEACHAR} />
         </section>
       </>
@@ -190,7 +197,7 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
           <section
             className={setTabClassName(isIndexTab || homeTab === ETabs.ABOUT)}
           >
-            <div className="title">机构介绍</div>
+            <div className="title">{t('home_page.content.institutional_introduction')}</div>
             <div className="organize">
               <div className="intro">{config.aboutUsInfo}</div>
               <img

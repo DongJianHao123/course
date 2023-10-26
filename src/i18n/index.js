@@ -21,12 +21,12 @@ const resources = {
   "en-US": {
     translation: en
   },
-  "de-DE": {
-    translation: de
-  },
-  "fr-FR": {
-    translation: fr
-  },
+  // "de-DE": {
+  //   translation: de
+  // },
+  // "fr-FR": {
+  //   translation: fr
+  // },
 }
 i18n.use(LanguageDetector)
   .use(initReactI18next)

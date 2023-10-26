@@ -42,14 +42,14 @@ const Header = () => {
             key: 'en-US',
             label: 'English'
         },
-        {
-            key: 'de-DE',
-            label: 'Deutsch'
-        },
-        {
-            key: 'fr-FR',
-            label: 'Français'
-        },
+        // {
+        //     key: 'de-DE',
+        //     label: 'Deutsch'
+        // },
+        // {
+        //     key: 'fr-FR',
+        //     label: 'Français'
+        // },
 
     ]
 
@@ -66,12 +66,7 @@ const Header = () => {
                 <li className={styles['link']}><Link href="/">{t('home_page.header.back_home')}</Link></li>
             </ul>
             <Dropdown menu={{ items: languages, onClick: onLanguageClick }} >
-                <a style={{ color: '#1e1e1e' }} onClick={(e) => e.preventDefault()}>
-                    <Space>
-                        <GlobalOutlined />
-                        <div>{t('home_page.header.language')}</div>
-                    </Space>
-                </a>
+                        <GlobalOutlined style={{fontSize:'16px'}} />
             </Dropdown>
             {
                 isLogin ?

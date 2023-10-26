@@ -6,6 +6,7 @@ import Icon from "../../components/Icon";
 import { useRouter } from "next/router";
 import { AppstoreOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 // import './index.scss'
 export enum ELayoutType {
   LIST = "LIST",
@@ -15,8 +16,8 @@ export enum ELayoutType {
 export const layoutPrifix = "course-layout-type";
 const CourseList = ({courses}: {courses:any[]}) => {
   const [layout, setLayout] = useState(ELayoutType.LIST);
+  const {t} =useTranslation()
   const data = courses
-
   if (!courses) {
     return <Loading />;
   }
@@ -56,7 +57,7 @@ const CourseList = ({courses}: {courses:any[]}) => {
             <footer>
               <span className="apply-num">
                 <span className="apply-num-person">{item.applyCount}</span>{" "}
-                人报名学习
+                {t('home_page.content.registrations')}
               </span>
               <span className="apply-price">{"¥" + item.price}</span>
             </footer>
