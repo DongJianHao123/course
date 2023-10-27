@@ -16,7 +16,6 @@ import h5Styles from "./h5.module.scss";
 import ReplayList from "../Details/ReplayList";
 import { useTranslation } from "react-i18next";
 
-
 const AVATAR_COLOR = ["#1677FF", "#129C2B", "#FF7E16"]
 
 const Action = observer(
@@ -31,13 +30,11 @@ const Action = observer(
             store.login.setLoginDialogVisible(true);
         };
         const { t } = useTranslation()
-
         const md = useDeviceDetect();
         const isMobile = !!md?.mobile();
         const styles = isMobile ? h5Styles : pcStyles;
 
         if (currentUser?.phone) {
-
             const registerCourse = find(
                 myRegisters,
                 (course) => course.courseId == props.courseInfo.courseId
@@ -81,9 +78,8 @@ const SpecialTopicCourse = ({ data }: { data: ICourse }) => {
     const store = useStore();
 
     let myRegisters = store.myRegisters.myRegisters;
+    
     const registerCourse = find(myRegisters, (course) => course.courseId === courseInfo.courseId);
-
-    // const videosRef: RefObject<HTMLVideoElement>[] = []
 
     const containerRef = useRef<HTMLDivElement>(null);
 
