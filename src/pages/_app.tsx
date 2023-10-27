@@ -63,7 +63,7 @@ function App({ Component, pageProps }: any) {
       type = urlParams['locale'];
       localStorage.setItem(i18nextLng, type)
     } else {
-      type = localStorage.getItem(i18nextLng) || '';
+      type = localStorage.getItem(i18nextLng) || 'zh_CN';
     }
     if (type) {
       changeLanguage(type)

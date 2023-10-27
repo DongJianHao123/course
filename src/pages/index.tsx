@@ -21,14 +21,6 @@ export enum ETabs {
 }
 
 
-
-
-
-
-const setTabClassName = (show: boolean) => {
-  return show ? "tab-show" : "";
-};
-
 export const getStaticProps: GetStaticProps = async (context) => {
   const client = await fetchClient()
   const res_popular = await getCourses(true)
@@ -96,6 +88,12 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
     },
   ];
 
+
+  const setTabClassName = (show: boolean) => {    
+    return show ? "tab-show" : "";
+  };
+
+
   useEffect(() => {
     clientContext.setClientInfo({ ...client, ...config });
   }, [])
@@ -111,15 +109,16 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
             homeTab === ETabs.INDEX || homeTab === ETabs.COURSE
           )}
         >
-          <div className="title">{isIndexTab ? t("home_page.content.hot_courses") : t("home_page.content.all_courses") }</div>
-          <CourseList courses={homeTab === ETabs.COURSE ? courses_all : courses_popular} />
+          <div className="title">{isIndexTab ? t("home_page.content.hot_courses") : t("home_page.content.all_courses")}</div>
+          <CourseList isHide={homeTab !== ETabs.COURSE} courses={courses_all} />
+          <CourseList isHide={homeTab === ETabs.COURSE} courses={courses_popular} />
         </section>
         <section
           className={setTabClassName(
             homeTab === ETabs.INDEX || homeTab === ETabs.TEACHAR
           )}
         >
-          <div className="title">{isIndexTab ? t("home_page.content.recommended_teacher") : t("home_page.content.all_teacher") }</div>
+          <div className="title">{isIndexTab ? t("home_page.content.recommended_teacher") : t("home_page.content.all_teacher")}</div>
           <TeacharList showAll={homeTab === ETabs.TEACHAR} />
         </section>
       </>

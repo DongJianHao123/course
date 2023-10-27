@@ -14,9 +14,9 @@ export enum ELayoutType {
 }
 
 export const layoutPrifix = "course-layout-type";
-const CourseList = ({courses}: {courses:any[]}) => {
+const CourseList = ({ courses, isHide }: { courses: any[], isHide: boolean }) => {
   const [layout, setLayout] = useState(ELayoutType.LIST);
-  const {t} =useTranslation()
+  const { t } = useTranslation()
   const data = courses
   if (!courses) {
     return <Loading />;
@@ -29,9 +29,9 @@ const CourseList = ({courses}: {courses:any[]}) => {
   };
   return (
     <div
-      className={`course-list ${
-        isGrid ? "course-list-layout-grid" : "course-list-layout-list"
-      }`}
+      style={{ display: isHide ? 'none' : '' }}
+      className={`course-list ${isGrid ? "course-list-layout-grid" : "course-list-layout-list"
+        }`}
     >
       <span className="layout-icon" onClick={changeLayout}>
         {/* {isGrid ? <UnorderedListOutlined /> : <AppstoreOutlined />} */}

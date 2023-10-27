@@ -24,7 +24,7 @@ const H5HomeWrap = ({
     store.homeTab.setHomeTab(tab);
   }
   useEffect(() => {
-    if (location.pathname !== "/course/myCourse/" && location.pathname !== "/course/") {
+    if (location.pathname !== "/course/myCourse" && location.pathname !== "/course") {
       store.homeTab.setHomeTab("")
     }
   }, [location.pathname])

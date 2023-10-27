@@ -35,7 +35,7 @@ i18n.use(LanguageDetector)
     debug: false,
     resources,
     detection: {
-      caches: ['localStorage', 'sessionStorage', 'cookie'],
+      caches: ['localStorage'],
     },
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
