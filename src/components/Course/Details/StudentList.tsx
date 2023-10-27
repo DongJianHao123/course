@@ -28,7 +28,7 @@ const StudentList = (props: { data?: any[], pageChange?: (pageHeight?: number) =
   const ref = useRef<HTMLDivElement>(null);
   const { t } = useTranslation()
 
-  const { grade, tags,genders } = useOptions();
+  const { grade, tags, genders } = useOptions();
 
   const columns: ColumnsType<DataType> = [
     {
@@ -130,7 +130,7 @@ const StudentList = (props: { data?: any[], pageChange?: (pageHeight?: number) =
       <Table columns={columns} dataSource={list} pagination={false} />
       <div className='paging-wrap'>
         <Pagination
-          showTotal={(e) => "共 " + e + " 人"}
+          showTotal={(e) => t('course.table.paging.total', { num: e.toString() })}
           defaultCurrent={1} total={data?.length}
           onChange={(e) => { setPageNum(e - 1) }}
           onShowSizeChange={(current, pageSize) => { setPageSize(pageSize) }}

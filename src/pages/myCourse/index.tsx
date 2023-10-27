@@ -89,7 +89,7 @@ function MyCourse() {
             {t('my_course.page.total_course')}  : <strong>{total}</strong>
           </div>
         </header>
-        {loading ? <Loading /> : myCourses.length < 1 ? <Empty description={"您暂未报名任何课程"} /> :
+        {loading ? <Loading /> : myCourses.length < 1 ? <Empty description={t('my_course.page.empty')} /> :
           <div
             className={`mycourse-list ${isGrid ? "mycourse-list-layout-grid" : "mycourse-list-layout-list"
               }`}
@@ -122,7 +122,7 @@ function MyCourse() {
                         Utils.course.enterCourse(course, myRegisters);
                       }}
                     >
-                      {t('my_course.course.enter_classroom')}
+                    {isMobile?t('my_course.course.enter_classroom_h5'):t('my_course.course.enter_classroom')}  
                     </button>
                   </div>
                 </div>
@@ -138,7 +138,7 @@ function MyCourse() {
         <Button className="loginout-btn" size="small" color="danger" onClick={() => {
           // store.homeTab.setHomeTab(ETabs.INDEX)
           logout();
-        }}>退出登录</Button>
+        }}>{t('my_course.course.loginout')}</Button>
       }
     </div>
   );

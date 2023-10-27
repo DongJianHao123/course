@@ -1,12 +1,15 @@
 {
   "home_page": {
     "header": {
-      "logo": "Open source operating system community",
+      "logo": "Open Source Operating System Community",
       "logout": "Logout",
       "back_home": "Course Training",
       "my_course": "My Course",
       "language": "Language",
-      "login": "Login"
+      "login": "Login",
+      "choose_language": {
+        "title": "Choose a language"
+      }
     },
     "nav": {
       "home": "Home",
@@ -31,6 +34,15 @@
       "all_teacher": "All Teacher",
       "institutional_introduction": "Institutional Introduction",
       "registrations": "Learners"
+    },
+    "homewrap_h5": {
+      "home": "Home",
+      "about": "About",
+      "my": "My"
+    },
+    "content_h5": {
+      "desc": " ",
+      "title": "Open Source Operating System Training"
     }
   },
   "login": {
@@ -63,7 +75,7 @@
       "title": "Share"
     },
     "verify": {
-      "disable_enter_class": "Once the registration information is approved, you can enter the classroom",
+      "disable_enter_class": "After registration is approved, you can enter the classroom",
       "disable_paly_back": "The registration information can be viewed after approval",
       "disable_paly_back_h5": "Please register and watch"
     },
@@ -93,6 +105,9 @@
         "identity": "Identity",
         "index": "Index",
         "gender": "Gender"
+      },
+      "paging": {
+        "total": "Total {{num}}"
       }
     }
   },
@@ -143,11 +158,31 @@
   "my_course": {
     "page": {
       "title": "My Course",
-      "total_course": "Total"
+      "total_course": "Total",
+      "empty": "You have not signed up for any courses"
     },
     "course": {
       "room_id": "Room id",
-      "enter_classroom": "Enter classroom"
+      "enter_classroom": "Enter classroom",
+      "enter_classroom_h5": "Classroom",
+      "loginout": "Logout"
+    }
+  },
+  "replay": {
+    "tip": {
+      "please_login": "Please Login ",
+      "copy_success": "Successfully copied!",
+      "return_course": "Want to return to the course page?",
+      "empty": "No data available",
+      "search_placeholder": "Please enter the search keyword！"
+    },
+    "button": {
+      "copy": "Copy link",
+      "return_course": "Return to course"
+    },
+    "chat": {
+      "title": "Chat history",
+      "total": "Total {{num}}"
     }
   }
 }

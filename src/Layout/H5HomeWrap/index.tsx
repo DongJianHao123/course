@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite";
 import { ETabs } from "@/pages";
 import { useEffect } from "react";
 import { AboutFilled, AboutOutLined, HomeFilled, HomeOutlined, UserFilled, UserOutLined, fillColor } from "@/components/Icon/svgs";
+import { useTranslation } from "react-i18next";
 
 
 const H5HomeWrap = ({
@@ -15,6 +16,7 @@ const H5HomeWrap = ({
   let store = useStore();
   const { homeTab} = store.homeTab;
   const currentUser = store.user.currentUser;
+  const {t}=useTranslation()
   const backHome = (tab: string) => {
     if (location.pathname !== "/") {
       router.push("/")
@@ -42,7 +44,7 @@ const H5HomeWrap = ({
           className={homeTab === ETabs.INDEX ? "active" : ""}
         >
           {homeTab === ETabs.INDEX ? <HomeFilled /> : <HomeOutlined />}
-          <span style={homeTab === ETabs.INDEX ? { color: fillColor } : {}}>首页</span>
+          <span style={homeTab === ETabs.INDEX ? { color: fillColor } : {}}>{t('home_page.homewrap_h5.home')}</span>
         </a>
         <a
           onClick={() => {
@@ -50,7 +52,7 @@ const H5HomeWrap = ({
           }}
         >
           {homeTab === ETabs.ABOUT ? <AboutFilled /> : <AboutOutLined />}
-          <span style={homeTab === ETabs.ABOUT ? { color: fillColor } : {}}>关于</span>
+          <span style={homeTab === ETabs.ABOUT ? { color: fillColor } : {}}>{t('home_page.homewrap_h5.about')}</span>
         </a>
         <a
           onClick={() => {
@@ -63,7 +65,7 @@ const H5HomeWrap = ({
           }}
         >
           {homeTab === ETabs.USER ? <UserFilled /> : <UserOutLined />}
-          <span style={homeTab === ETabs.USER ? { color: fillColor } : {}}>我的</span>
+          <span style={homeTab === ETabs.USER ? { color: fillColor } : {}}>{t('home_page.homewrap_h5.my')}</span>
 
         </a>
 

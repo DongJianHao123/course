@@ -6,7 +6,10 @@
       "logout": "退出登录",
       "language": "语言",
       "back_home": "课程培训",
-      "my_course": "我的课程"
+      "my_course": "我的课程",
+      "choose_language": {
+        "title": "选择一种语言"
+      }
     },
     "nav": {
       "home": "首页",
@@ -35,6 +38,15 @@
       "all_teacher": "全部名师",
       "institutional_introduction": "机构介绍",
       "registrations": " 人报名学习"
+    },
+    "homewrap_h5": {
+      "home": "首页",
+      "about": "关于",
+      "my": "我的"
+    },
+    "content_h5": {
+      "title": "开源操作系统培训",
+      "desc": "促进操作系统的教学、研究与产业的发展"
     }
   },
   "login": {
@@ -95,6 +107,9 @@
         "grade": "年级",
         "identity": "身份",
         "gender": "性别"
+      },
+      "paging": {
+        "total": "共 {{num}} 人"
       }
     }
   },
@@ -145,11 +160,31 @@
   "my_course": {
     "page": {
       "title": "我的课程",
-      "total_course": "总报名课程"
+      "total_course": "总报名课程",
+      "empty": "您暂未报名任何课程"
     },
     "course": {
       "room_id": "教室号",
-      "enter_classroom": "进入课堂"
+      "enter_classroom": "进入课堂",
+      "enter_classroom_h5": "进入课堂",
+      "loginout": "退出登录"
+    }
+  },
+  "replay": {
+    "tip": {
+      "please_login": "请登录后观看",
+      "copy_success": "复制成功!",
+      "return_course": "要返回到课程页面吗？",
+      "empty": "暂无数据",
+      "search_placeholder": "请输入查询关键字！"
+    },
+    "button": {
+      "copy": "复制链接",
+      "return_course": "返回课程"
+    },
+    "chat": {
+      "title": "聊天记录",
+      "total": "共{{num}}条"
     }
   }
 }

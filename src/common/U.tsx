@@ -23,7 +23,7 @@ const U = {
     trim: (x: string): string => {
       return x.replace(/^\s+|\s+$/gm, '');
     },
-    isMobile: (phone: string=''): boolean => {
+    isMobile: (phone: string = ''): boolean => {
       return phoneNumberRegex.test(phone)
     },
     isChinaMobile: (mobile: string = ''): boolean => {
@@ -132,6 +132,19 @@ const U = {
       }
       return url.substring(offset + 2, offset2);
     },
+    search2Obj: (search: string) => {
+      let urlParams: any = {}
+      if (search.startsWith('?')) {
+        let arr = search.slice(1).split('&');
+        arr.forEach((item) => {
+          if (item.includes('=')) {
+            let obj: string[] = item.split('=')
+            urlParams[obj[0]] = obj[1]
+          }
+        })
+      }
+      return urlParams
+    }
   },
   array: {
     swap: (arr: any[], index1: number, index2: number) => {

@@ -1,12 +1,8 @@
 "use client";
 import "../styles/globals.css";
 import { useDeviceDetect, useLogined, useLogout } from "@/hooks";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import type { IExtraProps } from "@os2edu/layout/dist/types";
 import Layout, { MainContent } from "@os2edu/layout";
-import Link from "next/link";
-import LoginStatus from "@/Layout/LoginStatus";
 import "../Layout/index.scss";
 import "../styles/TeacharList.scss";
 import "../styles/StudentList.scss";
@@ -24,17 +20,18 @@ import { observer } from "mobx-react-lite";
 import U from "@/common/U";
 import { StoreInit } from "@/common/StoreInit";
 import Footer from "@/Layout/Footer";
-import { Button, ConfigProvider, Spin } from "antd";
+import { ConfigProvider, Spin } from "antd";
 import { ClientContext } from "@/store/context/clientContext";
 import { ETabs } from ".";
 import zhCN from 'antd/lib/locale/zh_CN';
 import H5HomeWrap from "@/Layout/H5HomeWrap";
 import MyLayout from "@/Layout";
-import i18n from '@/i18n'
-import { useTranslation } from "react-i18next";
+import i18n, { languages } from '@/i18n'
+import enUS from "antd/lib/locale/en_US";
+import SwitchLanguage from "@/components/SwitchLanguage";
 
 
-
+export const i18nextLng = 'i18nextLng'
 
 export default observer(App);
 
@@ -52,14 +49,22 @@ function App({ Component, pageProps }: any) {
   const isMobile = !!md?.mobile();
 
 
-  const [language, setLanguage] = useState('zh-CN')
+  const [language, setLanguage] = useState('zh_CN')
   const changeLanguage = (e: string) => {
     setLanguage(e)
     i18n.changeLanguage(e)
   }
 
   const initLanguage = () => {
-    let type = localStorage.getItem("i18nextLng");
+    let search = location.search;
+    const urlParams = U.url.search2Obj(search);
+    let type: string = ''
+    if (urlParams['locale'] && languages.includes(urlParams['locale'])) {
+      type = urlParams['locale'];
+      localStorage.setItem(i18nextLng, type)
+    } else {
+      type = localStorage.getItem(i18nextLng) || '';
+    }
     if (type) {
       changeLanguage(type)
     }
@@ -90,7 +95,7 @@ function App({ Component, pageProps }: any) {
   }
 
   return (
-    <ConfigProvider locale={zhCN}>
+    <ConfigProvider locale={language === 'zh_CN' ? zhCN : enUS}>
       <StoreProvider
         initialValue={initValue}
       >
@@ -116,18 +121,19 @@ function App({ Component, pageProps }: any) {
             >
 
 
-            {isMobile &&
-              <H5HomeWrap
-                isMobile={true}
-              />
-            }
-            <MyLayout>
-              <MainContent >
-                <Component {...pageProps} />
-              </MainContent>
-            </MyLayout>
-            <Footer isMobile={isMobile} />
+              {isMobile &&
+                <H5HomeWrap
+                  isMobile={true}
+                />
+              }
+              <MyLayout>
+                <MainContent >
+                  <Component {...pageProps} />
+                </MainContent>
+              </MyLayout>
+              <Footer isMobile={isMobile} />
             </Layout>
+            {isMobile&&<SwitchLanguage/>}
           </Spin>
         </ClientContext.Provider>
       </StoreProvider >

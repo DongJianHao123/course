@@ -14,6 +14,7 @@ import { ExclamationOutlined } from "@ant-design/icons";
 import pcStyles from './index.module.scss'
 import h5Styles from './mobile.module.scss'
 import { ClientContext } from "@/store/context/clientContext";
+import { useTranslation } from "react-i18next";
 
 const VideoReplayer = dynamic(
     import('@/components/VideoReplayer'),
@@ -32,7 +33,7 @@ function Replay() {
         leaveVideo: () => void,
         videoRef: RefObject<HTMLVideoElement>
     }>()
-    
+    const { t } = useTranslation()
 
     const initData = useCallback(async () => {
         if (!courseId) return
@@ -40,7 +41,7 @@ function Replay() {
         if (!U.str.isChinaMobile(userId)) {
             Toast.show({
                 icon: <ExclamationOutlined />,
-                content: "请登录后观看",
+                content:t('replay.tip.please_login') ,
                 duration: 2000
             });
             router.push("/")
@@ -78,25 +79,25 @@ function Replay() {
                 <header className={styles['header']}>
                     <div className={styles["title"]}>{replay?.className}</div>
                     <div className={styles["actions"]}>
-                        <Tooltip title="复制链接">
+                        <Tooltip title={t('replay.button.copy')}>
                             <CopyToClipboard
                                 text={link}
-                                onCopy={() => { message.success('复制成功!') }}
+                                onCopy={() => { message.success(t('replay.tip.copy_success')) }}
                             >
                                 <Icon symbol="icon-share" />
                             </CopyToClipboard>
                         </Tooltip>
 
-                        <Tooltip title="返回课程">
+                        <Tooltip title={t('replay.button.return_course')}>
                             <Icon symbol="icon-fanhui" onClick={() => {
                                 Modal.confirm({
-                                    title: "要返回到课程页面吗？",
+                                    title:t('replay.tip.return_course'),
                                     onOk() {
                                         videoPlayerRef.current!.leaveVideo()
                                         router.push(`/${courseId}`)
                                     },
-                                    okText: "确认",
-                                    cancelText: "取消"
+                                    okText: t('common.button.confirm'),
+                                    cancelText:t('common.button.cancel'),
                                 })
                             }
                             } />

@@ -173,8 +173,8 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
               alt="logo-mark"
             />
             <div className="head-right">
-              <div className="name">{client.name}</div>
-              <div className="info">{config.icpInfo}</div>
+              <div className="name">{t('home_page.content_h5.title')}</div>
+              <div className="info">{t('home_page.content_h5.desc')}</div>
             </div>
           </div>}
           <ul className="nav">

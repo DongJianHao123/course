@@ -1,0 +1,49 @@
+.sl-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 50px;
+    left: 10px;
+
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.0392156863), 0 3.2px 12px rgba(0, 0, 0, 0.0784313725);
+}
+
+.sl-popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 4vw;
+
+    .title {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 20px 0;
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+
+        li {
+            height: 2rem;
+            width: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .action{
+            border: 1px solid #1c1d1f
+        }
+    }
+}

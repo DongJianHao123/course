@@ -53,6 +53,7 @@ const Action = observer(
                             : Modal.alert({
                                 content: t('course.verify.disable_enter_class'),
                                 closeOnMaskClick: true,
+                                confirmText:t('common.button.confirm')
                             });
                     }}
                 >

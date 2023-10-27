@@ -15,10 +15,10 @@ import fr from './locales/fr-FR.json'
 // 德语（德国）：de-DE
 // 法语（法国）：fr-FR
 const resources = {
-  'zh-CN': {
+  'zh_CN': {
     translation: cn
   },
-  "en-US": {
+  "en_US": {
     translation: en
   },
   // "de-DE": {
@@ -31,7 +31,7 @@ const resources = {
 i18n.use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'zh-CN',
+    fallbackLng: 'zh_CN',
     debug: false,
     resources,
     detection: {
@@ -43,3 +43,5 @@ i18n.use(LanguageDetector)
   });
 
 export default i18n;
+
+export const languages = ['zh_CN', 'en_US']

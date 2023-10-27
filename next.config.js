@@ -24,5 +24,5 @@ module.exports = withLess({
     };
   },
   images: { unoptimized: true },
-  trailingSlash: true,
+  trailingSlash: false,
 })

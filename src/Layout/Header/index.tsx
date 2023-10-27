@@ -1,20 +1,20 @@
 import { useContext, useState } from 'react'
 import styles from './index.module.scss'
 import { Dropdown, MenuProps } from 'antd'
-import { CaretDownOutlined, DownOutlined, GlobalOutlined } from '@ant-design/icons'
+import { CaretDownOutlined, GlobalOutlined } from '@ant-design/icons'
 import LoginStatus from '../LoginStatus'
 import { ClientContext } from '@/store/context/clientContext'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
-import { Space } from 'antd-mobile'
 import { useClientContext } from '@/store/context'
+import { i18nextLng } from '@/pages/_app'
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false)
     const { isLogin, logout, user } = useContext(ClientContext)
     const { t } = useTranslation()
 
-    const { language, changeLanguage } = useClientContext()
+    const { isMobile } = useClientContext()
 
     const dropDownMenus: MenuProps['items'] = [
         {
@@ -35,11 +35,11 @@ const Header = () => {
 
     const languages: { key: string, label: string }[] = [
         {
-            key: 'zh-CN',
+            key: 'zh_CN',
             label: '中文'
         },
         {
-            key: 'en-US',
+            key: 'en_US',
             label: 'English'
         },
         // {
@@ -54,9 +54,11 @@ const Header = () => {
     ]
 
     const onLanguageClick = (e: any) => {
-        changeLanguage!(e.key as string)
+        if (e.key !== localStorage.getItem(i18nextLng)) {
+            location.search = `?locale=${e.key}`
+        }
     }
-    return <div className={styles['layout-header']}>
+    return <div style={{ display: isMobile ? 'none' : '' }} className={styles['layout-header']}>
         <div className={styles["logo-wrap"]}>
             <img src='https://ssl.cdn.maodouketang.com/Fpkgonzaw5GTUFa0Bfvd_ZlO5yq1' className={styles['logo']} alt='' />
             <Link href={'https://os2edu.cn/'} className={styles['title']}>{t('home_page.header.logo')}</Link>
@@ -66,7 +68,7 @@ const Header = () => {
                 <li className={styles['link']}><Link href="/">{t('home_page.header.back_home')}</Link></li>
             </ul>
             <Dropdown menu={{ items: languages, onClick: onLanguageClick }} >
-                        <GlobalOutlined style={{fontSize:'16px'}} />
+                <GlobalOutlined style={{ fontSize: '16px' }} />
             </Dropdown>
             {
                 isLogin ?

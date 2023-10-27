@@ -111,13 +111,15 @@ const ReplayList = (props: { data: any[], course: any, isMobile: boolean }) => {
         } else {
           Modal.alert({
             content: t('course.verify.disable_paly_back'),
-            closeOnMaskClick: true
+            closeOnMaskClick: true,
+            confirmText:t('common.button.confirm')
           })
         }
       } else {
         Modal.alert({
           content: t('course.verify.disable_paly_back_h5'),
           closeOnMaskClick: true,
+          confirmText:t('common.button.confirm')
         });
       }
     } else {

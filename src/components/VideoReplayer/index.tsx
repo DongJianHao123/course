@@ -15,6 +15,7 @@ import pcStyles from './index.module.scss'
 import h5Styles from './mobile.module.scss'
 import { Utils } from '@/common/Utils'
 import { ClientContext } from '@/store/context/clientContext'
+import { useTranslation } from 'react-i18next'
 
 
 window.HELP_IMPROVE_VIDEOJS = false
@@ -56,6 +57,7 @@ const VideoReplayerModal = (props: IProps) => {
   const currentUser = store.user.currentUser
   const client = store.client.client
   const myRegisters = store.myRegisters.myRegisters
+  const { t } = useTranslation()
 
   const styles = isMobile ? h5Styles : pcStyles;
 
@@ -234,10 +236,10 @@ const VideoReplayerModal = (props: IProps) => {
       </div>
       <div className={styles["replay-chat-history"]}>
         <header>
-          <h3>聊天记录 </h3>
+          <h3>{t('replay.chat.title')}</h3>
           {chat?.totalNum && (
             <span className={styles["chat-total"]}>
-              共<span>{chat?.totalNum}</span>条
+              {t('replay.chat.total', { num: chat.totalNum as string })}
             </span>
           )}
         </header>
@@ -245,14 +247,14 @@ const VideoReplayerModal = (props: IProps) => {
           {chatLoading ? (
             <Spin spinning={chatLoading} />
           ) : isEmpty(chat?.roomActionList) ? (
-            <Empty description="暂无数据" />
+            <Empty description={t('replay.tip.empty')} />
           ) : (
             <>
               <Input
                 allowClear
                 className={styles["chat-text-search"]}
                 width="100%"
-                placeholder="请输入查询关键字!"
+                placeholder={t('replay.tip.search_placeholder')}
                 suffix={<Icon symbol="icon-search" />}
                 onChange={handleSearch}
                 onPressEnter={(e: any) => {
