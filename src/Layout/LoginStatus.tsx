@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 
 const PhoneRegex =
   /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0-9]|18[0-9]|19[0-9])\d{8}$/;
- export const phoneNumberRegex = /^(\+?)(\d{1,4}[\s-]?)?(\d{1,2})[\s-]?(\d{1,4})[\s-]?(\d{1,4})[\s-]?(\d{1,9})$/;
+export const phoneNumberRegex = /^(\+?)(\d{1,4}[\s-]?)?(\d{1,2})[\s-]?(\d{1,4})[\s-]?(\d{1,4})[\s-]?(\d{1,9})$/;
 
 
 
@@ -120,6 +120,7 @@ const LoginStatus = () => {
   };
 
   const handleSubmit = (phone: string) => {
+    phone = parseInt(phone).toString()
     localStorage.setItem(USER_INFO_STORAGE_KEY, phone);
     isMobile ? Toast.show({
       icon: "success",

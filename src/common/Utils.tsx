@@ -2,6 +2,8 @@ import { ROOM_URL, RoleNameMap, USER_INFO_STORAGE_KEY } from "@/constants";
 import { EUserType, IMyRegister } from "@/api/types";
 import { find } from "lodash";
 import { fetchClient } from "@/api";
+import { i18nextLng } from "@/pages/_app";
+import { languages } from "@/i18n";
 
 
 export const Utils = {
@@ -77,7 +79,7 @@ export const Utils = {
       if (!!register) {
         const status: EUserType = register?.status;
         const url = `${ROOM_URL || "https://room.rustedu.com/"}?username=${register?.name}&userId=${register.phone
-          }&role=${RoleNameMap[status] || 'student'}&roomId=${course.roomId}&video=${course.ishd || '480'}p&title=${course.title}`
+          }&role=${RoleNameMap[status] || 'student'}&roomId=${course.roomId}&video=${course.ishd || '480'}p&title=${course.title}&locale=${localStorage.getItem(i18nextLng) || languages[0]}`
         window.open(url)
       }
     },

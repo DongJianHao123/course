@@ -7,10 +7,10 @@ export const useLogined = (needPhone?: boolean): [boolean, string?] => {
   const [logined, setLogined] = useState<boolean>(false)
   const [phone, setPhone] = useState<string>()
 
-  const login = (phone: string) => {
-    if (U.str.isMobile(phone)) {
+  const login = (_phone: string) => {
+    if (U.str.isMobile(_phone)) {
       setLogined(true)
-      setPhone(phone)
+      setPhone(parseInt(_phone).toString())
     }
   }
   const initUserInfo = useCallback(() => {
