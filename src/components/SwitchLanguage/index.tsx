@@ -5,7 +5,7 @@ import { Popup } from "antd-mobile"
 import { useTranslation } from "react-i18next"
 import { i18nextLng } from "@/pages/_app"
 
-const SwitchLanguage = () => {
+const SwitchLanguage = (props: { style?:any }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const { t } = useTranslation()
     const languages = [{
@@ -21,7 +21,7 @@ const SwitchLanguage = () => {
         }
     }
     return <>
-        <div className={styles["sl-wrap"]} onClick={() => setIsOpen(true)}>
+        <div className={styles["sl-wrap"]} style={props.style} onClick={() => setIsOpen(true)}>
             <GlobalOutlined style={{ fontSize: '16px' }} />
         </div>
         <Popup

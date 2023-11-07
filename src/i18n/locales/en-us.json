@@ -8,7 +8,7 @@
       "language": "Language",
       "login": "Login",
       "choose_language": {
-        "title": "Choose a language"
+        "title": "Choose A Language"
       }
     },
     "nav": {
@@ -28,7 +28,7 @@
       "address_content": "Tsinghua Science and Technology Park, Haidian District, Beijing"
     },
     "content": {
-      "hot_courses": "Hot courses",
+      "hot_courses": "Hot Courses",
       "all_courses": "All Courses",
       "recommended_teacher": "Recommended Teacher",
       "all_teacher": "All Teacher",
@@ -47,7 +47,7 @@
   },
   "login": {
     "login_form": {
-      "title": "Login with phone number",
+      "title": "Login With Phone Number",
       "phone_placeholder": "Please enter your phone number",
       "phone_number_verification": "Please enter the correct phone number",
       "valcode_placeholder": "Please enter the verification code",
@@ -82,11 +82,11 @@
     "info": {
       "instructor": "Instructor",
       "teacher": "Teacher",
-      "student_number": "Student number"
+      "student_number": "Student Number"
     },
     "tabs": {
       "introduction": "Introduction",
-      "guidance_course": "Guidance course",
+      "guidance_course": "Guidance Course",
       "guidance_course_desc": "Equip multiple practical projects to master what you have learned and accumulate experience in practice",
       "registered_members": "Learners",
       "classroom_replay": "Replay"
@@ -94,11 +94,11 @@
     "table": {
       "index": "Index",
       "header": {
-        "classroom_content": "Classroom content",
-        "start_at": "Start at",
+        "classroom_content": "Classroom Content",
+        "start_at": "Start At",
         "remark": "Remark",
-        "play_back": "Classroom replay",
-        "roomId": "Room id",
+        "play_back": "Classroom Replay",
+        "roomId": "Room Id",
         "nickname": "Nickname",
         "grade": "Grade",
         "sex": "Sex",
@@ -113,7 +113,7 @@
   },
   "register": {
     "action": {
-      "enter_class": "Registered, entering the classroom",
+      "enter_class": "Registered, Entering Classroom",
       "register_now": "Register Now"
     },
     "form": {
@@ -134,18 +134,18 @@
         "senior": "Senior",
         "master": "Master",
         "doctor": "Doctor",
-        "university_teacher": "University teacher",
-        "company_technical_engineer": "Company technical engineer",
+        "university_teacher": "University Teacher",
+        "company_technical_engineer": "Company Technical Engineer",
         "other": "Other"
       },
       "source_option": {
-        "search_engines": "Search engines",
-        "sms_notification": "SMS notification",
-        "email_notification": "Email notification",
-        "video_website": "Video website",
-        "exchange_forum": "Exchange forum",
-        "friend_recommendation": "Friend recommendation",
-        "advertising_link": "Advertising link"
+        "search_engines": "Search Engines",
+        "sms_notification": "SMS Notification",
+        "email_notification": "Email Notification",
+        "video_website": "Video Website",
+        "exchange_forum": "Exchange Forum",
+        "friend_recommendation": "Friend Recommendation",
+        "advertising_link": "Advertising Link"
       },
       "remark_option": {
         "unsubscribe_notification": "Unsubscribe notification",
@@ -162,8 +162,8 @@
       "empty": "You have not signed up for any courses"
     },
     "course": {
-      "room_id": "Room id",
-      "enter_classroom": "Enter classroom",
+      "room_id": "Room Id",
+      "enter_classroom": "Enter Classroom",
       "enter_classroom_h5": "Classroom",
       "loginout": "Logout"
     }
@@ -171,14 +171,15 @@
   "replay": {
     "tip": {
       "please_login": "Please Login ",
-      "copy_success": "Successfully copied!",
+      "copy_success": "Successfully Copied!",
       "return_course": "Want to return to the course page?",
       "empty": "No data available",
       "search_placeholder": "Please enter the search keyword！"
     },
     "button": {
-      "copy": "Copy link",
-      "return_course": "Return to course"
+      "copy": "Copy Link",
+      "return_course": "Return To Course",
+      "language": "Language"
     },
     "chat": {
       "title": "Chat history",

@@ -21,6 +21,11 @@ const VideoReplayer = dynamic(
     { ssr: false }
 )
 
+const SwitchLanguage = dynamic(
+    import('@/components/SwitchLanguage'),
+    { ssr: false }
+)
+
 function Replay() {
     const router = useRouter();
     const { id: courseId, replayId } = router.query;
@@ -41,7 +46,7 @@ function Replay() {
         if (!U.str.isChinaMobile(userId)) {
             Toast.show({
                 icon: <ExclamationOutlined />,
-                content:t('replay.tip.please_login') ,
+                content: t('replay.tip.please_login'),
                 duration: 2000
             });
             router.push("/")
@@ -79,6 +84,13 @@ function Replay() {
                 <header className={styles['header']}>
                     <div className={styles["title"]}>{replay?.className}</div>
                     <div className={styles["actions"]}>
+                        <Tooltip title={t('replay.button.language')}>
+                            <SwitchLanguage style={{
+                                width: "20px",
+                                height: "20px",
+                                transform: "scale(0.8)"
+                            }} />
+                        </Tooltip>
                         <Tooltip title={t('replay.button.copy')}>
                             <CopyToClipboard
                                 text={link}
@@ -91,13 +103,13 @@ function Replay() {
                         <Tooltip title={t('replay.button.return_course')}>
                             <Icon symbol="icon-fanhui" onClick={() => {
                                 Modal.confirm({
-                                    title:t('replay.tip.return_course'),
+                                    title: t('replay.tip.return_course'),
                                     onOk() {
                                         videoPlayerRef.current!.leaveVideo()
                                         router.push(`/${courseId}`)
                                     },
                                     okText: t('common.button.confirm'),
-                                    cancelText:t('common.button.cancel'),
+                                    cancelText: t('common.button.cancel'),
                                 })
                             }
                             } />

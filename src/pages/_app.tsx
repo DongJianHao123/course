@@ -133,7 +133,11 @@ function App({ Component, pageProps }: any) {
               </MyLayout>
               <Footer isMobile={isMobile} />
             </Layout>
-            {isMobile&&<SwitchLanguage/>}
+            {isMobile && !location.pathname.includes('replay') && <SwitchLanguage style={{
+              position: "fixed",
+              top: "50px",
+              left: "10px"
+            }} />}
           </Spin>
         </ClientContext.Provider>
       </StoreProvider >

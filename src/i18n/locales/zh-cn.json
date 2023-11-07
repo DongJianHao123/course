@@ -180,7 +180,8 @@
     },
     "button": {
       "copy": "复制链接",
-      "return_course": "返回课程"
+      "return_course": "返回课程",
+      "language": "语言"
     },
     "chat": {
       "title": "聊天记录",
