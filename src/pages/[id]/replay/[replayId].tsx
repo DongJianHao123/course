@@ -43,7 +43,8 @@ function Replay() {
     const initData = useCallback(async () => {
         if (!courseId) return
         const userId = localStorage.getItem(USER_INFO_STORAGE_KEY) || "";
-        if (!U.str.isChinaMobile(userId)) {
+        if (!U.str.isMobile(userId)) {
+            localStorage.removeItem(USER_INFO_STORAGE_KEY)
             Toast.show({
                 icon: <ExclamationOutlined />,
                 content: t('replay.tip.please_login'),
