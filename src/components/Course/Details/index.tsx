@@ -206,7 +206,7 @@ const CourseDetail = ({ data }: { data: ICourse }) => {
     },
     {
       key: "student",
-      title: `${t('course.tabs.registered_members')}(${students?.length || 0})`,
+      title: `${t('course.tabs.registered_members')}(${students.length || 0})`,
       content: <StudentList data={students} isMobile={isMobile} />,
     },
     {

@@ -18,9 +18,10 @@ const iconMap: Record<string, string> = {
   '5': 'status-admin.png'
 }
 
-const StudentList = (props: { data?: IMyRegister[], pageChange?: (pageHeight?: number) => void, isMobile: boolean | undefined }) => {
+const StudentList = (props: { data: any[], pageChange?: (pageHeight?: number) => void, isMobile: boolean | undefined }) => {
   // const { data } = props;
-  const [data, setData] = useState<IMyRegister[]>(props.data!)
+
+  const [data, setData] = useState<any[]>([])
   const [pageSize, setPageSize] = useState<number>(20);
   const [pageNum, setPageNum] = useState<number>(0);
   const [list, setList] = useState<IMyRegister[]>([]);
@@ -30,9 +31,13 @@ const StudentList = (props: { data?: IMyRegister[], pageChange?: (pageHeight?: n
   const ref = useRef<HTMLDivElement>(null);
   const { t } = useTranslation()
   const { user } = useContext(ClientContext)
-
   const { grade, tags, genders } = useOptions();
   const { myRegisters } = useStore()
+
+  useEffect(() => {
+    data.length < 1 && setData(props.data)
+  }, [props.data])
+  
   const columns: ColumnsType<IMyRegister> = [
     {
       title: t('course.table.header.index'),
