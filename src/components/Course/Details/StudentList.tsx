@@ -9,6 +9,8 @@ import useOptions from '@/hooks/useOptions'
 import { ClientContext } from '@/store/context/clientContext'
 import { CheckOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons'
 import { updateStudent } from '@/api'
+import { useStore } from '@/store'
+import { MyRegisters } from '@/store/stores/myRegistersStore'
 
 const iconMap: Record<string, string> = {
   '2': 'status-teacher.png',
@@ -30,7 +32,7 @@ const StudentList = (props: { data?: IMyRegister[], pageChange?: (pageHeight?: n
   const { user } = useContext(ClientContext)
 
   const { grade, tags, genders } = useOptions();
-
+  const { myRegisters } = useStore()
   const columns: ColumnsType<IMyRegister> = [
     {
       title: t('course.table.header.index'),
@@ -102,6 +104,7 @@ const StudentList = (props: { data?: IMyRegister[], pageChange?: (pageHeight?: n
           message.success(t('course.table.name.edit_success'))
           let realIndex = index + pageSize * pageNum
           data[realIndex].name = editName
+          updateStoreInfo(row)
           setData([...data])
           setIsEdit(false)
         }).catch((err) => {
@@ -115,6 +118,12 @@ const StudentList = (props: { data?: IMyRegister[], pageChange?: (pageHeight?: n
       setEditName(row.name)
       setIsEdit(true)
     }
+  }
+  const updateStoreInfo = (row: IMyRegister) => {
+    let storeIndex = myRegisters.myRegisters?.findIndex((item) => item.id === row.id);
+    let registers = myRegisters.myRegisters!
+    registers[storeIndex!].name = editName;
+    myRegisters.setMyRegisters([...registers])
   }
 
   useEffect(() => {
