@@ -3,7 +3,7 @@ export const DETAULT_USER_AVATAR = 'https://ssl.cdn.maodouketang.com/Fn2y9zZHL6C
 
 export const USER_INFO_STORAGE_KEY = btoa('rcore-user-info')
 
-export const CLIENT_ID = 385;
+export const CLIENT_ID = 385; //385 483
 
 export const ROOM_URL = "https://room.os2edu.cn/"
 

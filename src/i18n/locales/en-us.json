@@ -65,7 +65,8 @@
   "common": {
     "button": {
       "cancel": "Cancel",
-      "confirm": "Confirm"
+      "confirm": "Confirm",
+      "edit": "Edit"
     }
   },
   "course": {
@@ -108,6 +109,11 @@
       },
       "paging": {
         "total": "Total {{num}}"
+      },
+      "name": {
+        "edit_success": "Successfully modified",
+        "edit_error": "Modification failed, please try again",
+        "edit_empty": "Name cannot be empty"
       }
     }
   },

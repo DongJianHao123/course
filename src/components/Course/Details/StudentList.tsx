@@ -1,36 +1,37 @@
-import { isEmpty } from 'lodash'
-import { Empty, Pagination, Table } from 'antd'
-import { EUserType } from '../../../api/types'
+import { isEmpty, set } from 'lodash'
+import { Button, Empty, Input, Pagination, Space, Table, Tooltip, message } from 'antd'
+import { EUserType, IMyRegister } from '../../../api/types'
 import Icon from '@/components/Icon'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { ColumnsType } from 'antd/lib/table'
 import { useTranslation } from 'react-i18next'
 import useOptions from '@/hooks/useOptions'
+import { ClientContext } from '@/store/context/clientContext'
+import { CheckOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons'
+import { updateStudent } from '@/api'
 
 const iconMap: Record<string, string> = {
   '2': 'status-teacher.png',
   '4': 'status-ta.png',
   '5': 'status-admin.png'
 }
-interface DataType {
-  name: string
-  age: string
-  gender: string
-  tag: string
-}
 
-const StudentList = (props: { data?: any[], pageChange?: (pageHeight?: number) => void, isMobile: boolean | undefined }) => {
-  const { data } = props;
+const StudentList = (props: { data?: IMyRegister[], pageChange?: (pageHeight?: number) => void, isMobile: boolean | undefined }) => {
+  // const { data } = props;
+  const [data, setData] = useState<IMyRegister[]>(props.data!)
   const [pageSize, setPageSize] = useState<number>(20);
   const [pageNum, setPageNum] = useState<number>(0);
-  const [list, setList] = useState<any[]>([]);
+  const [list, setList] = useState<IMyRegister[]>([]);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [editName, setEditName] = useState<string>('')
 
   const ref = useRef<HTMLDivElement>(null);
   const { t } = useTranslation()
+  const { user } = useContext(ClientContext)
 
   const { grade, tags, genders } = useOptions();
 
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<IMyRegister> = [
     {
       title: t('course.table.header.index'),
       dataIndex: 'id',
@@ -43,7 +44,30 @@ const StudentList = (props: { data?: any[], pageChange?: (pageHeight?: number) =
       title: t('course.table.header.nickname'),
       dataIndex: 'name',
       key: 'name',
-      align: "center"
+      width: 200,
+      align: "center",
+      render: (name, row, index) => {
+        if (user && user === row.phone) {
+          return isEdit ?
+            <Space.Compact style={{ width: '100%' }}>
+              <Input autoFocus bordered={false} style={{ borderBottom: "1px solid #ccc" }} onPressEnter={() => nameEdit(row, index)} value={editName} onChange={(e) => setEditName(e.target.value)} />
+              <Tooltip placement="top" title={t('common.button.confirm')}>
+                <Button type="link" icon={<CheckOutlined />} onClick={() => nameEdit(row, index)} />
+              </Tooltip>
+              <Tooltip placement="top" title={t('common.button.cancel')}>
+                <Button type="link" danger icon={<CloseOutlined />} onClick={() => setIsEdit(false)} />
+              </Tooltip>
+            </Space.Compact>
+            : <span>
+              <span>{name}</span>
+              <Tooltip placement="top" title={t('common.button.edit')}>
+                <Button type="link" shape="circle" onClick={() => nameEdit(row, index)} icon={<EditOutlined />} />
+              </Tooltip>
+            </span>
+        } else {
+          return name
+        }
+      }
     },
     {
       title: t('course.table.header.identity'),
@@ -67,6 +91,31 @@ const StudentList = (props: { data?: any[], pageChange?: (pageHeight?: number) =
       render: (txt) => tags.find((item) => item.value === txt)?.label
     },
   ];
+
+  const nameEdit = (row: IMyRegister, index: number) => {
+    if (isEdit) {
+      if (editName) {
+        updateStudent({
+          id: row.id,
+          name: editName
+        }).then((res) => {
+          message.success(t('course.table.name.edit_success'))
+          let realIndex = index + pageSize * pageNum
+          data[realIndex].name = editName
+          setData([...data])
+          setIsEdit(false)
+        }).catch((err) => {
+          message.error(t('course.table.name.edit_error'))
+          setIsEdit(false)
+        })
+      } else {
+        message.warn(t("course.table.name.edit_empty"))
+      }
+    } else {
+      setEditName(row.name)
+      setIsEdit(true)
+    }
+  }
 
   useEffect(() => {
     setList(data?.slice(pageNum * pageSize, (pageNum + 1) * pageSize) || [])

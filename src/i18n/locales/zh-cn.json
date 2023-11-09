@@ -69,7 +69,8 @@
   "common": {
     "button": {
       "cancel": "取消",
-      "confirm": "确认"
+      "confirm": "确认",
+      "edit": "编辑"
     }
   },
   "course": {
@@ -110,6 +111,11 @@
       },
       "paging": {
         "total": "共 {{num}} 人"
+      },
+      "name": {
+        "edit_success": "修改成功",
+        "edit_error": "修改失败，请重试",
+        "edit_empty": "名称不能为空"
       }
     }
   },

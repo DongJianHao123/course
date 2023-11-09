@@ -65,7 +65,12 @@ export async function getStudentOfCourse(courseId: any) {
   })
   return res
 }
-
+export async function updateStudent(data: any) {
+  return await request('/seller/api/students/update', {
+    method: 'post',
+    data,
+  });
+}
 export async function getReplayOfCourse(courseId: any) {
   const res = await request<never, any[]>('/seller/api/course-classes', {
     params: {
