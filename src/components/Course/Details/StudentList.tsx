@@ -37,7 +37,7 @@ const StudentList = (props: { data: any[], pageChange?: (pageHeight?: number) =>
   useEffect(() => {
     data.length < 1 && setData(props.data)
   }, [props.data])
-  
+
   const columns: ColumnsType<IMyRegister> = [
     {
       title: t('course.table.header.index'),
@@ -151,16 +151,28 @@ const StudentList = (props: { data: any[], pageChange?: (pageHeight?: number) =>
     return (
       <div className="list-mobile">
         {
-          props.data?.map((student, index) => {
-            return <div key={student.id} className="list-item">
+          data.map((student, index) => {
+            return <div key={student.id} className="list-item" style={user===student.phone?{border:'1px solid #00000090'}:{}}>
               <div className="list-item-index">{index + 1}</div>
               <div className="list-item-main-info">
                 <div className="info-name">
-                  {student.name}
+                  {
+                    student.phone === user ?
+                      isEdit ? <Space.Compact style={{ width: '100%' }}>
+                        <Input autoFocus bordered={false} style={{ borderBottom: "1px solid #ccc" }} onBlur={() => setIsEdit(false)} onPressEnter={() => nameEdit(student, index)} value={editName} onChange={(e) => setEditName(e.target.value)} />
+                        <Button type="link" icon={<CheckOutlined />} onClick={() => nameEdit(student, index)} />
+                        {/* <Button type="link" danger icon={<CloseOutlined />} onClick={() => setIsEdit(false)} /> */}
+                      </Space.Compact>
+                          : <span onClick={() => nameEdit(student, index)}>
+                          <span>{student.name}</span>
+                          <Button type="link" shape="circle"  icon={<EditOutlined />} />
+                        </span>
+                      : student.name
+                  }
                   {student.status !== EUserType.STUDENT && (
                     <img
                       height="14"
-                      src={`../../../../public/img/${iconMap[student.status]}`}
+                      src={`/course/img/${iconMap[student.status]}`}
                       alt={iconMap[student.status]}
                     ></img>
                   )}
