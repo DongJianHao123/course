@@ -134,10 +134,9 @@ const StudentList = (props: { data: any[], pageChange?: (pageHeight?: number) =>
   useEffect(() => {
     setList(data?.slice(pageNum * pageSize, (pageNum + 1) * pageSize) || [])
   }, [data, pageSize, pageNum])
-
   useEffect(() => {
     props.pageChange && props.pageChange(ref.current?.clientHeight || 0)
-  }, [pageSize, pageNum])
+  }, [list.length])
 
   if (isEmpty(props.data)) {
     return (
@@ -152,7 +151,7 @@ const StudentList = (props: { data: any[], pageChange?: (pageHeight?: number) =>
       <div className="list-mobile">
         {
           data.map((student, index) => {
-            return <div key={student.id} className="list-item" style={user===student.phone?{border:'1px solid #00000090'}:{}}>
+            return <div key={student.id} className="list-item" style={user === student.phone ? { border: '1px solid #00000090' } : {}}>
               <div className="list-item-index">{index + 1}</div>
               <div className="list-item-main-info">
                 <div className="info-name">
@@ -163,9 +162,9 @@ const StudentList = (props: { data: any[], pageChange?: (pageHeight?: number) =>
                         <Button type="link" icon={<CheckOutlined />} onClick={() => nameEdit(student, index)} />
                         {/* <Button type="link" danger icon={<CloseOutlined />} onClick={() => setIsEdit(false)} /> */}
                       </Space.Compact>
-                          : <span onClick={() => nameEdit(student, index)}>
+                        : <span onClick={() => nameEdit(student, index)}>
                           <span>{student.name}</span>
-                          <Button type="link" shape="circle"  icon={<EditOutlined />} />
+                          <Button type="link" shape="circle" icon={<EditOutlined />} />
                         </span>
                       : student.name
                   }
