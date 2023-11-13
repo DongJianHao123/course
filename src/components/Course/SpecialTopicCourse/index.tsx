@@ -219,7 +219,7 @@ const SpecialTopicCourse = ({ data }: { data: ICourse }) => {
     {
         value: "2",
         label: `${t('course.tabs.registered_members')}(${students.length})`,
-        children: <StudentList pageChange={resetHeight} isMobile={isMobile} data={students} />
+        children: <StudentList pageChange={resetHeight} isMobile={isMobile} setData={setStudents} data={students} />
     },
     {
         value: "3",
