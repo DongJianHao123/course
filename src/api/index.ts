@@ -32,7 +32,7 @@ export async function getMyCourses(phone: any, page = 0) {
       params: {
         page,
         phone,
-        size: 20,
+        size: 200,
         sort: 'id,desc'
       }
     }
@@ -96,7 +96,8 @@ export async function getMyRegisters(phone: string) {
   const res = await request<never, IMyRegister[]>('/seller/api/students', {
     params: {
       'clientId.equals': CLIENT_ID,
-      'phone.equals': phone
+      'phone.equals': phone,
+      'size': 200
     }
   })
   return res

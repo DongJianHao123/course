@@ -105,7 +105,7 @@ const Action = observer(
     const openLoginDialog = () => {
       store.login.setLoginDialogVisible(true);
     };
-    const {t}=useTranslation()
+    const { t } = useTranslation()
 
     if (currentUser?.phone) {
 
@@ -113,6 +113,8 @@ const Action = observer(
         myRegisters,
         (course) => course.courseId == props.courseInfo.courseId
       );
+      console.log('===>0,',myRegisters,props.courseInfo);
+      
 
       return !!registerCourse ? (
         <button
@@ -127,7 +129,7 @@ const Action = observer(
               });
           }}
         >
-         {t('register.action.enter_class')}
+          {t('register.action.enter_class')}
         </button>
       ) : (
         <RegisterModal {...props} /> //报名
@@ -200,14 +202,14 @@ const CourseDetail = ({ data }: { data: ICourse }) => {
   const tabs = [
     {
       key: "intro",
-      title:t('course.tabs.introduction'),
+      title: t('course.tabs.introduction'),
       content:
         courseInfo.introduction ? <div className="ql-snow ql-editor" dangerouslySetInnerHTML={{ __html: courseInfo.introduction }} /> : <Loading className="course-loading" />
     },
     {
       key: "student",
       title: `${t('course.tabs.registered_members')}(${students.length || 0})`,
-      content: <StudentList data={students} isMobile={isMobile} />,
+      content: <StudentList data={students} setData={setStudents} isMobile={isMobile} />,
     },
     {
       key: "replay",
@@ -276,7 +278,7 @@ const CourseDetail = ({ data }: { data: ICourse }) => {
                 </div>
                 <div className="course-info-item">
                   <span className="course-info-item-label">{t('course.info.student_number')}: </span>
-                  {detailRef.current.applyStudents?.length} 
+                  {detailRef.current.applyStudents?.length}
                 </div>
               </div>
               <div className="course-actions">

@@ -2,7 +2,7 @@ import { isEmpty, set } from 'lodash'
 import { Button, Empty, Input, Pagination, Space, Table, Tooltip, message } from 'antd'
 import { EUserType, IMyRegister } from '../../../api/types'
 import Icon from '@/components/Icon'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
 import { ColumnsType } from 'antd/lib/table'
 import { useTranslation } from 'react-i18next'
 import useOptions from '@/hooks/useOptions'
@@ -18,10 +18,11 @@ const iconMap: Record<string, string> = {
   '5': 'status-admin.png'
 }
 
-const StudentList = (props: { data: any[], pageChange?: (pageHeight?: number) => void, isMobile: boolean | undefined }) => {
+const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[]>>, pageChange?: (pageHeight?: number) => void, isMobile: boolean | undefined }) => {
   // const { data } = props;
+  let data = props.data;
+  let setData = props.setData
 
-  const [data, setData] = useState<any[]>([])
   const [pageSize, setPageSize] = useState<number>(20);
   const [pageNum, setPageNum] = useState<number>(0);
   const [list, setList] = useState<IMyRegister[]>([]);
@@ -33,10 +34,6 @@ const StudentList = (props: { data: any[], pageChange?: (pageHeight?: number) =>
   const { user } = useContext(ClientContext)
   const { grade, tags, genders } = useOptions();
   const { myRegisters } = useStore()
-
-  useEffect(() => {
-    data.length < 1 && setData(props.data)
-  }, [props.data])
 
   const columns: ColumnsType<IMyRegister> = [
     {

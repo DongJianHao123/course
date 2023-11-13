@@ -66,7 +66,7 @@ function MyCourse() {
       loadMyCourses(_phone || "");
       setLayout(localStorage.getItem(layoutPrifix) || ELayoutType.LIST);
     }
-  }, [isMobile]);
+  }, []);
 
   const isGrid = layout === ELayoutType.GRID;
 
