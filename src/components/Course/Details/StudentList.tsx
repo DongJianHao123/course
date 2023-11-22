@@ -85,7 +85,7 @@ const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[
       title: t('course.table.header.nickname'),
       dataIndex: 'name',
       key: 'name',
-      width: 200,
+      width: 260,
       align: "center",
       render: (name, row, index) => {
         const role = getRole(row.status);
@@ -104,8 +104,8 @@ const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[
               </Tooltip>
             </Space.Compact>
             : <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-              <div style={{ flex: 1 }}>
-                <span>{name} </span>
+              <div style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
+                <span style={{ flex: 1,textAlign:'right' }}>{name} </span>
                 <Tooltip placement="top" title={t('common.button.edit')}>
                   <Button type="link" shape="circle" onClick={() => nameEdit(row, index)} icon={<EditOutlined />} />
                 </Tooltip>
@@ -241,8 +241,7 @@ const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[
                           <span>{student.name}</span>
                           <Button type="link" shape="circle" icon={<EditOutlined />} />
                         </span>
-                      : <>{student.name}{student.status === EUserType.TEACHER && <Tag>老师</Tag>}</>
-                  }
+                      : student.name}
                   {student.status !== EUserType.STUDENT && (
                     <img
                       height="14"
