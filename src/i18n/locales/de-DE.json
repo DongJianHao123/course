@@ -1,12 +1,24 @@
 {
-    "home_page": {
-        "header": {
-            "logo": "Open Source Betriebssystem Community",
-            "login": "Login",
-            "logout": "Abmelden vom Login",
-            "language": "Sprache",
-            "back_home": "Kursausbildung",
-            "my_course": "Mein Kurs"
-        }
+  "home_page": {
+    "header": {
+      "logo": "Open Source Betriebssystem Community",
+      "login": "Login",
+      "logout": "Abmelden vom Login",
+      "language": "Sprache",
+      "back_home": "Kursausbildung",
+      "my_course": "Mein Kurs"
     }
+  },
+  "course": {
+    "students": {
+      "edit_name": {
+        "modal": "Are you sure to modify the registration name?"
+      }
+    }
+  },
+  "common": {
+    "role": {
+      "student": "student"
+    }
+  }
 }

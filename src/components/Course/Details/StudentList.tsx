@@ -1,5 +1,5 @@
 import { isEmpty, set } from 'lodash'
-import { Button, Empty, Input, Pagination, Space, Table, Tooltip, message } from 'antd'
+import { Button, Empty, Input, Pagination, Popover, Space, Table, Tag, Tooltip, message } from 'antd'
 import { EUserType, IMyRegister } from '../../../api/types'
 import Icon from '@/components/Icon'
 import { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
@@ -11,12 +11,20 @@ import { CheckOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons'
 import { updateStudent } from '@/api'
 import { useStore } from '@/store'
 import { MyRegisters } from '@/store/stores/myRegistersStore'
+import { Modal } from 'antd-mobile'
+import { RoleNameMap } from '@/constants'
 
 const iconMap: Record<string, string> = {
   '2': 'status-teacher.png',
   '4': 'status-ta.png',
   '5': 'status-admin.png'
 }
+type Role = {
+  label: string,
+  color?: string,
+  value: string
+}
+
 
 const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[]>>, pageChange?: (pageHeight?: number) => void, isMobile: boolean | undefined }) => {
   // const { data } = props;
@@ -35,6 +43,35 @@ const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[
   const { grade, tags, genders } = useOptions();
   const { myRegisters } = useStore()
 
+  const roleList: Role[] = [
+    {
+      label: t('common.role.student'),
+      color: 'cyan',
+      value: EUserType.STUDENT,
+    },
+    {
+      label: t('common.role.teacher'),
+      color: 'geekblue',
+      value: EUserType.TEACHER,
+    },
+    // {
+    //   label: t('common.role.visitor'),
+    //   value: EUserType.VISITOR,
+    // },
+    {
+      label: t('common.role.tutor'),
+      color: 'blue',
+      value: EUserType.TUTOR,
+    },
+    // {
+    //   label: t('common.role.admin'),
+    //   value: EUserType.ADMIN,
+    // },
+  ]
+  const getRole = (role: string) => {
+    return roleList.find((item) => item.value === role)!
+  }
+
   const columns: ColumnsType<IMyRegister> = [
     {
       title: t('course.table.header.index'),
@@ -51,6 +88,10 @@ const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[
       width: 200,
       align: "center",
       render: (name, row, index) => {
+        const role = getRole(row.status);
+        const content = <ul style={{ margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 15 }}>
+          {roleList.filter(item => item.value !== role.value).map(item => <li style={{ cursor: 'pointer' }} onClick={(e) => { changeRole(row, index, item) }} key={item.value}><Tag color={item.color}>{item.label}</Tag></li>)}
+        </ul>
         if (user && user === row.phone) {
           return isEdit ?
             <Space.Compact style={{ width: '100%' }}>
@@ -62,14 +103,19 @@ const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[
                 <Button type="link" danger icon={<CloseOutlined />} onClick={() => setIsEdit(false)} />
               </Tooltip>
             </Space.Compact>
-            : <span>
-              <span>{name}</span>
-              <Tooltip placement="top" title={t('common.button.edit')}>
-                <Button type="link" shape="circle" onClick={() => nameEdit(row, index)} icon={<EditOutlined />} />
-              </Tooltip>
-            </span>
+            : <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+              <div style={{ flex: 1 }}>
+                <span>{name} </span>
+                <Tooltip placement="top" title={t('common.button.edit')}>
+                  <Button type="link" shape="circle" onClick={() => nameEdit(row, index)} icon={<EditOutlined />} />
+                </Tooltip>
+              </div>
+              {role && <Popover placement="right" title={'修改角色'} content={content} trigger="click">
+                <Tag style={{ cursor: 'pointer' }} color={role.color}>{role.label}</Tag>
+              </Popover>}
+            </div>
         } else {
-          return name
+          return <div style={{ display: 'flex' }}><span style={{ flex: 1 }}>{name} </span>{role && role.value !== EUserType.STUDENT && <Tag color={role.color}>{role.label}</Tag>}</div>
         }
       }
     },
@@ -95,41 +141,74 @@ const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[
       render: (txt) => tags.find((item) => item.value === txt)?.label
     },
   ];
+  const changeRole = (row: IMyRegister, index: number, role: Role) => {
+    Modal.confirm({
+      content: t('course.table.edit.role_modal', { role: role.label }),
+      closeOnMaskClick: true,
+      confirmText: t('common.button.confirm'),
+      onConfirm: () => {
+        updateStudent({
+          id: row.id,
+          status: role.value
+        }).then((res) => {
+          message.success(t('course.table.edit.edit_success'))
+          let realIndex = index + pageSize * pageNum
+          data[realIndex].status = role.value
+          updateStoreInfo(row, { status: role.value })
+          setData([...data])
+        }).catch((err) => {
+          message.error(t('course.table.edit.edit_error'))
+        })
+      },
+      cancelText: t('common.button.cancel')
+    })
+  }
 
   const nameEdit = (row: IMyRegister, index: number) => {
     if (isEdit) {
       if (editName) {
-        updateStudent({
-          id: row.id,
-          name: editName
-        }).then((res) => {
-          message.success(t('course.table.name.edit_success'))
-          let realIndex = index + pageSize * pageNum
-          data[realIndex].name = editName
-          updateStoreInfo(row)
-          setData([...data])
-          setIsEdit(false)
-        }).catch((err) => {
-          message.error(t('course.table.name.edit_error'))
-          setIsEdit(false)
+        Modal.confirm({
+          content: t('course.table.edit.name_modal'),
+          closeOnMaskClick: true,
+          confirmText: t('common.button.confirm'),
+          onConfirm: () => {
+            updateStudent({
+              id: row.id,
+              name: editName
+            }).then((res) => {
+              message.success(t('course.table.edit.edit_success'))
+              let realIndex = index + pageSize * pageNum
+              data[realIndex].name = editName
+              updateStoreInfo(row, { name: editName })
+              setData([...data])
+              setIsEdit(false)
+            }).catch((err) => {
+              message.error(t('course.table.edit.edit_error'))
+              setIsEdit(false)
+            })
+          },
+          cancelText: t('common.button.cancel'),
+          onCancel: () => { setIsEdit(false) }
         })
       } else {
-        message.warn(t("course.table.name.edit_empty"))
+        message.warn(t("course.table.edit.edit_empty"))
       }
     } else {
       setEditName(row.name)
       setIsEdit(true)
     }
   }
-  const updateStoreInfo = (row: IMyRegister) => {
-    let storeIndex = myRegisters.myRegisters?.findIndex((item) => item.id === row.id);
+  const updateStoreInfo = (row: IMyRegister, obj: any) => {
+    let storeIndex = myRegisters.myRegisters?.findIndex((item) => item.id === row.id)!;
     let registers = myRegisters.myRegisters!
-    registers[storeIndex!].name = editName;
+    registers[storeIndex] = { ...registers[storeIndex], ...obj };
     myRegisters.setMyRegisters([...registers])
   }
 
   useEffect(() => {
     setList(data?.slice(pageNum * pageSize, (pageNum + 1) * pageSize) || [])
+    console.log(data);
+
   }, [data, pageSize, pageNum])
   useEffect(() => {
     props.pageChange && props.pageChange(ref.current?.clientHeight || 0)
@@ -157,13 +236,12 @@ const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[
                       isEdit ? <Space.Compact style={{ width: '100%' }}>
                         <Input autoFocus bordered={false} style={{ borderBottom: "1px solid #ccc" }} onBlur={() => setIsEdit(false)} onPressEnter={() => nameEdit(student, index)} value={editName} onChange={(e) => setEditName(e.target.value)} />
                         <Button type="link" icon={<CheckOutlined />} onClick={() => nameEdit(student, index)} />
-                        {/* <Button type="link" danger icon={<CloseOutlined />} onClick={() => setIsEdit(false)} /> */}
                       </Space.Compact>
                         : <span onClick={() => nameEdit(student, index)}>
                           <span>{student.name}</span>
                           <Button type="link" shape="circle" icon={<EditOutlined />} />
                         </span>
-                      : student.name
+                      : <>{student.name}{student.status === EUserType.TEACHER && <Tag>老师</Tag>}</>
                   }
                   {student.status !== EUserType.STUDENT && (
                     <img

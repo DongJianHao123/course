@@ -25,7 +25,8 @@
       "benan_title": "Beijing Tsinghua University·",
       "customer_service_phone": "Customer Service Phone",
       "address": "Address",
-      "address_content": "Tsinghua Science and Technology Park, Haidian District, Beijing"
+      "address_content": "Tsinghua Science and Technology Park, Haidian District, Beijing",
+      "tutorial": "Explanation of the teacher's class process"
     },
     "content": {
       "hot_courses": "Hot Courses",
@@ -67,6 +68,13 @@
       "cancel": "Cancel",
       "confirm": "Confirm",
       "edit": "Edit"
+    },
+    "role": {
+      "student": "student",
+      "teacher": "teacher",
+      "visitor": "visitor",
+      "tutor": "tutor",
+      "admin": "admin"
     }
   },
   "course": {
@@ -110,10 +118,12 @@
       "paging": {
         "total": "Total {{num}}"
       },
-      "name": {
+      "edit": {
         "edit_success": "Successfully modified",
         "edit_error": "Modification failed, please try again",
-        "edit_empty": "Name cannot be empty"
+        "edit_empty": "Name cannot be empty",
+        "name_modal": "Are you sure to modify the registration name?",
+        "role_modal": "Are you sure you want to modify the role to {{role}}"
       }
     }
   },

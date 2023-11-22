@@ -29,7 +29,8 @@
       "address": "地址",
       "address_content": "北京市海淀区清华科技园",
       "benan_title": "北京清华大学·",
-      "benan_icp": "京ICP备16045052号"
+      "benan_icp": "京ICP备16045052号",
+      "tutorial": "老师上课流程使用说明"
     },
     "content": {
       "hot_courses": "热门课程",
@@ -71,6 +72,13 @@
       "cancel": "取消",
       "confirm": "确认",
       "edit": "编辑"
+    },
+    "role": {
+      "student": "学生",
+      "teacher": "老师",
+      "visitor": "访客",
+      "tutor": "助教",
+      "admin": "管理员"
     }
   },
   "course": {
@@ -112,10 +120,12 @@
       "paging": {
         "total": "共 {{num}} 人"
       },
-      "name": {
+      "edit": {
         "edit_success": "修改成功",
         "edit_error": "修改失败，请重试",
-        "edit_empty": "名称不能为空"
+        "edit_empty": "修改内容不能为空",
+        "name_modal": "您确定要修改报名名称吗？",
+        "role_modal": "您确定要将角色修改为{{role}}吗？"
       }
     }
   },
