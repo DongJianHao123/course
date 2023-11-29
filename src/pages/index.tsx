@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 import CourseList from "@/components/Course/components/CourseList";
 import TeacharList from "@/components/Teacher/TeacherList";
@@ -12,7 +13,7 @@ import { ClientContext } from "@/store/context/clientContext";
 import { useDeviceDetect } from "@/hooks";
 import { ActionType, WEB_HOST } from "@/constants";
 import { useTranslation } from "react-i18next";
-import { ICourse } from "@/api/types";
+import { ICourse, IRoomAction } from "@/api/types";
 import LivingCourseList from "@/components/Course/components/LivingCourseList";
 export enum ETabs {
   INDEX = "INDEX",
@@ -105,12 +106,12 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
       startTime: new Date(endTime.getTime() - (3 * 60 * 60 * 1000)),
       endTime
     })).roomActionList
-    const actionList = startClassActions.concat(endClassActions).concat(bookClassActions).sort((a, b) => new Date(a.actionTime).getTime() - new Date(b.actionTime).getTime())
+    const actionList: IRoomAction[] = startClassActions.concat(endClassActions).concat(bookClassActions).sort((a, b) => new Date(b.actionTime).getTime() - new Date(a.actionTime).getTime())
     const roomIds = new Set(actionList.map(item => item.roomId));
     let _liveCourses: ICourse[] = []
     if (roomIds) {
       roomIds.forEach((roomId) => {
-        const currentAction = actionList.findLast((action) => action.roomId === roomId)
+        const currentAction = actionList.find((action) => action.roomId === roomId)
         if (currentAction?.actionType !== ActionType.STOP_CLASS) {
           let startAt = currentAction?.actionType === ActionType.BOOK_CLASS ? currentAction.description : ""
           _liveCourses.push({ ...courses_all.find((course: ICourse) => course.roomId === roomId), startAt, classStatus: currentAction?.actionType })
