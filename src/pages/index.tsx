@@ -1,17 +1,19 @@
 'use client'
-import CourseList from "@/components/Course";
+import CourseList from "@/components/Course/components/CourseList";
 import TeacharList from "@/components/Teacher/TeacherList";
 import { useStore } from "@/store";
 import Head from "next/head";
 // import styles from "@/styles/Home.module.css";
 import { observer } from "mobx-react-lite";
-import { fetchClient, getCourses, getHomePage } from "@/api";
+import { actions, fetchClient, getCourses, getHomePage } from "@/api";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ClientContext } from "@/store/context/clientContext";
 import { useDeviceDetect } from "@/hooks";
-import { WEB_HOST } from "@/constants";
+import { ActionType, WEB_HOST } from "@/constants";
 import { useTranslation } from "react-i18next";
+import { ICourse } from "@/api/types";
+import LivingCourseList from "@/components/Course/components/LivingCourseList";
 export enum ETabs {
   INDEX = "INDEX",
   COURSE = "COURSE",
@@ -57,16 +59,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const store = useStore();
   const { courses_all, courses_popular, client, config } = data;
-  const clientContext: any = useContext(ClientContext);
+
+  const [livingCourses, setLivingCourses] = useState<ICourse[]>([])
+
   const { t } = useTranslation();
-
-  const md = useDeviceDetect();
-  const isMobile = !!md?.mobile();
-
+  const { isMobile, setClientInfo } = useContext(ClientContext);
+  const store = useStore();
   let homeTab = store.homeTab.homeTab;
-
   const isIndexTab = homeTab === ETabs.INDEX;
 
   const nav = [
@@ -88,14 +88,48 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
     },
   ];
 
+  const loadLivingCourses = async () => {
+    const endTime = new Date();
+    const startClassActions = (await actions({
+      actionType: ActionType.START_CLASS,
+      startTime: new Date(endTime.getTime() - (3 * 60 * 60 * 1000)),
+      endTime
+    })).roomActionList
+    const bookClassActions = (await actions({
+      actionType: ActionType.BOOK_CLASS,
+      startTime: new Date(endTime.getTime() - (3 * 60 * 60 * 1000)),
+      endTime
+    })).roomActionList
+    const endClassActions = (await actions({
+      actionType: ActionType.STOP_CLASS,
+      startTime: new Date(endTime.getTime() - (3 * 60 * 60 * 1000)),
+      endTime
+    })).roomActionList
+    const actionList = startClassActions.concat(endClassActions).concat(bookClassActions).sort((a, b) => new Date(a.actionTime).getTime() - new Date(b.actionTime).getTime())
+    const roomIds = new Set(actionList.map(item => item.roomId));
+    let _liveCourses: ICourse[] = []
+    if (roomIds) {
+      roomIds.forEach((roomId) => {
+        const currentAction = actionList.findLast((action) => action.roomId === roomId)
+        if (currentAction?.actionType !== ActionType.STOP_CLASS) {
+          let startAt = currentAction?.actionType === ActionType.BOOK_CLASS ? currentAction.description : ""
+          _liveCourses.push({ ...courses_all.find((course: ICourse) => course.roomId === roomId), startAt, classStatus: currentAction?.actionType })
+        }
+      })
+      _liveCourses.sort((a, b) => { return a.classStatus === ActionType.START_CLASS ? -1 : 1 })
+      setLivingCourses([..._liveCourses])
+    }
+  }
 
-  const setTabClassName = (show: boolean) => {    
+
+  const setTabClassName = (show: boolean) => {
     return show ? "tab-show" : "";
   };
 
 
   useEffect(() => {
-    clientContext.setClientInfo({ ...client, ...config });
+    setClientInfo!({ ...client, ...config });
+    loadLivingCourses()
   }, [])
   const tabChange = (value: string) => {
     store.homeTab.setHomeTab(value);
@@ -104,6 +138,12 @@ function Home({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
   const renderMainContent = () => {
     return (
       <>
+        {livingCourses.length > 0 && <section
+          className={setTabClassName(homeTab === ETabs.INDEX)}
+        >
+          <div className="title">{t("home_page.content.living")}</div>
+          <LivingCourseList courses={livingCourses} />
+        </section>}
         <section
           className={setTabClassName(
             homeTab === ETabs.INDEX || homeTab === ETabs.COURSE

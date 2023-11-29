@@ -20,7 +20,10 @@ export const RoleNameMap = {
 
 export const ActionType = {
   PLAY_BACK: "PLAYBACK",
-  REGISTER: "REGISTER"
+  REGISTER: "REGISTER",
+  START_CLASS: "START_CLASS",
+  STOP_CLASS: "STOP_CLASS",
+  BOOK_CLASS: "BOOK_CLASS",
 }
 
 export const footerLinks = [

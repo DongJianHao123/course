@@ -1,5 +1,5 @@
 import request from '../utils/request'
-import type { Client, HomepageInfo, ICourse, IMyRegister } from '../api/types'
+import type { Client, HomepageInfo, ICourse, IMyRegister, IRoomAction } from '../api/types'
 import axios from 'axios'
 import { CLIENT_ID } from '@/constants'
 
@@ -159,6 +159,17 @@ export async function sendEmail(data: any) {
     },
     data
   });
+}
+
+export const actions = async (params: any) => {
+  const res: { totalNum: number, roomActionList: IRoomAction[] } = await request('/analysis/api/room-actions/getRoomActionsWithTotalNumByConditionsTime', {
+    params: {
+      clientId: CLIENT_ID,
+      ...params,
+      sort: "id,desc",
+    }
+  })
+  return res
 }
 
 export const getDomainNameConfiguration = async () => {

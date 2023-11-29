@@ -8,7 +8,7 @@ import { Client } from "@/api/types";
 
 const StoreInit = () => {
   let store = useStore();
-  const clientContext: any = useContext(ClientContext);
+  const clientContext = useContext(ClientContext);
   const { clientInfo, setClientInfo } = clientContext;
 
   const [client, setClient] = useState<any>();
@@ -34,7 +34,7 @@ const StoreInit = () => {
   }, []);
 
   useEffect(() => {
-    setClientInfo({ ...client, ...homePage })
+    setClientInfo!({ ...client, ...homePage })
   }, [client, homePage])
 
 

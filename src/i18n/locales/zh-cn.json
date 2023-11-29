@@ -38,7 +38,8 @@
       "recommended_teacher": "推荐名师",
       "all_teacher": "全部名师",
       "institutional_introduction": "机构介绍",
-      "registrations": " 人报名学习"
+      "registrations": " 人报名学习",
+      "living": "直播课堂"
     },
     "homewrap_h5": {
       "home": "首页",
@@ -48,6 +49,9 @@
     "content_h5": {
       "title": "开源操作系统培训",
       "desc": "促进操作系统的教学、研究与产业的发展"
+    },
+    "living": {
+      "enter_classroom": "进入教室"
     }
   },
   "login": {
@@ -71,13 +75,14 @@
     "button": {
       "cancel": "取消",
       "confirm": "确认",
-      "edit": "编辑"
+      "edit": "编辑",
+      "view_detail": "查看详情"
     },
     "role": {
       "student": "学生",
       "teacher": "老师",
       "visitor": "访客",
-      "tutor": "助教",
+      "TA": "助教",
       "admin": "管理员"
     }
   },
@@ -127,6 +132,16 @@
         "name_modal": "您确定要修改报名名称吗？",
         "role_modal": "您确定要将角色修改为{{role}}吗？"
       }
+    },
+    "status": {
+      "living": "上课中",
+      "book": "即将上课",
+      "upcoming": "即将上课",
+      "upcoming_time": "今天 {{date}} 开课"
+    },
+    "qrcode": {
+      "view_course": "扫码查看课程",
+      "enter_classroom": "扫码进入教室"
     }
   },
   "register": {

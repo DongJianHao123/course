@@ -59,7 +59,7 @@ const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[
     //   value: EUserType.VISITOR,
     // },
     {
-      label: t('common.role.tutor'),
+      label: t('common.role.TA'),
       color: 'blue',
       value: EUserType.TUTOR,
     },
@@ -198,6 +198,7 @@ const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[
       setIsEdit(true)
     }
   }
+  
   const updateStoreInfo = (row: IMyRegister, obj: any) => {
     let storeIndex = myRegisters.myRegisters?.findIndex((item) => item.id === row.id)!;
     let registers = myRegisters.myRegisters!
@@ -208,7 +209,6 @@ const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[
   useEffect(() => {
     setList(data?.slice(pageNum * pageSize, (pageNum + 1) * pageSize) || [])
     console.log(data);
-
   }, [data, pageSize, pageNum])
   useEffect(() => {
     props.pageChange && props.pageChange(ref.current?.clientHeight || 0)

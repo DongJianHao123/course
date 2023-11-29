@@ -119,5 +119,22 @@ export interface ICourse {
   typeId?: string
   updatedAt?: string,
   replayList?: any[],
-  students?: any[]
+  students?: any[],
+  classStatus?:string
+}
+
+export interface IRoomAction {
+  userId: string;
+  userName: string;
+  courseClassId?: number;
+  role: string;
+  clientId: string;
+  clientName: string;
+  actionType: string;
+  description: string | number;
+  actionTime: Date;
+  courseId: IDType;
+  courseName: string;
+  courseClassName?: string;
+  roomId: string;
 }

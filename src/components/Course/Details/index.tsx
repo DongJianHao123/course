@@ -1,99 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @next/next/no-img-element */
 "use client";
-import { useCallback, useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { last, groupBy, keys, sortBy, find } from "lodash";
 import { Popover } from "antd";
-import { useParams } from "react-router-dom";
-import QRCode from "react-qr-code";
 import { EUserType as EStudentType, ICourse, IMyRegister } from "../../../api/types";
 import Tabs from "../../../components/Tabs";
 import Loading from "../../../components/Loading";
 import RegisterModal, { verify_rules } from "../../../components/RegisterModal";
 import { useDeviceDetect } from "../../../hooks";
-import { RoleNameMap } from "../../../constants";
-import { BASE_URL } from "@/utils/request";
-import StudentList from "./StudentList";
-import ReplayList from "./ReplayList";
+import StudentList from "../components/StudentList";
+import ReplayList from "../components/ReplayList";
 
-// import "./index.scss";
 import { Modal } from "antd-mobile";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { Utils } from "@/common/Utils";
 import Icon from "@/components/Icon";
 import { useTranslation } from "react-i18next";
+import Share from "../components/Share";
 
-export const Share = observer((props: { courseInfo: any; isMobile?: boolean }) => {
-  const store = useStore();
-  let currentUser = store.user.currentUser;
-  let myRegisters = store.myRegisters.myRegisters;
-  const { id: courseId } = useParams<{ id: string }>();
-  const shareAreaRef = useRef<HTMLImageElement>(null);
-  const qrcodeRef = useRef<any>(null);
-  const [pageLink, setPageLink] = useState("");
-  const { t } = useTranslation()
 
-  let miniQRPath: string = "";
-  if (currentUser?.phone) {
-    const registerCourse = find(
-      myRegisters,
-      (course) => course.courseId === courseId
-    );
-    let path = "";
-    if (!!registerCourse) {
-      path = encodeURIComponent(
-        `pages/room/room?userId=${registerCourse.phone}-m&roomId=${props.courseInfo.roomId
-        }&role=${RoleNameMap[registerCourse.status] || "student"}&username=${registerCourse.name
-        }-m`
-      );
-    } else {
-      path = encodeURIComponent(
-        `pages/index/index?roomId=${props.courseInfo.roomId}`
-      );
-    }
-    miniQRPath = `${BASE_URL}/seller/api/room/path.jpg?path=${path}`;
-  }
-
-  useEffect(() => {
-    if (qrcodeRef.current) {
-      const svg = qrcodeRef.current;
-      const svgData = new XMLSerializer().serializeToString(svg);
-      shareAreaRef.current!.src = `data:image/svg+xml;base64,${btoa(svgData)}`;
-    }
-  }, [qrcodeRef.current]);
-  useEffect(() => {
-    setPageLink(location.href)
-  }, [])
-
-  return (
-    <>
-      <QRCode
-        ref={qrcodeRef}
-        style={{
-          display: "none",
-          height: "auto",
-          maxWidth: "100%",
-          width: "100%",
-        }}
-        value={pageLink}
-        fgColor="#3db477"
-        viewBox={`0 0 256 256`}
-      />
-      <div className="share-box">
-        <span>
-          <Icon symbol="icon-share" />
-          {t('course.share.share_qr_code')}
-        </span>
-        <span style={{ marginBottom: 10 }}>{t('course.share.invite_friends')}</span>
-        <div
-          className={`share-imgs ${props.isMobile ? "share-imgs-mobile" : ""}`}
-        >
-          <img ref={shareAreaRef} alt="share-course" className="qr-code" />
-          {miniQRPath && <img src={miniQRPath} alt="mini" />}
-        </div>
-      </div>
-    </>
-  );
-});
 const Action = observer(
   (props: {
     courseInfo: any;
@@ -113,8 +40,8 @@ const Action = observer(
         myRegisters,
         (course) => course.courseId == props.courseInfo.courseId
       );
-      console.log('===>0,',myRegisters,props.courseInfo);
-      
+      console.log('===>0,', myRegisters, props.courseInfo);
+
 
       return !!registerCourse ? (
         <button
@@ -228,12 +155,7 @@ const CourseDetail = ({ data }: { data: ICourse }) => {
     <div className="course-detail-wrapper">
 
       <section className="main-content">
-        <img
-          src={courseInfo.coverUrl}
-          alt="coverUrl"
-          className="course-cover"
-        />
-
+        <img src={courseInfo.coverUrl} alt="coverUrl" className="course-cover" />
         <div className="course-main-info">
           {isMobile ? (
             <>

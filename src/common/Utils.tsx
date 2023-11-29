@@ -71,18 +71,24 @@ export const Utils = {
     },
   },
   course: {
-    enterCourse: (course: any, myRegisters: IMyRegister[]) => {
+    getClassroomUrl: (course: any, myRegisters: IMyRegister[]) => {
       const register = find(
         myRegisters,
         (register) => register.courseId === course.courseId
       );
       if (!!register) {
         const status: EUserType = register?.status;
+        const isStudent = status === EUserType.STUDENT
         const url = `${ROOM_URL || "https://room.rustedu.com/"}?username=${register?.name}&userId=${register.phone
-          }&role=${RoleNameMap[status] || 'student'}&roomId=${course.roomId}&video=${course.ishd || '480'}p&title=${course.title}&locale=${localStorage.getItem(i18nextLng) || languages[0]}`
-        window.open(url)
+          }${isStudent ? '&' : '&role=' + RoleNameMap[status] + '&'}roomId=${course.roomId}&video=${course.ishd || '480'}p&title=${course.title}&locale=${localStorage.getItem(i18nextLng) || languages[0]}`
+        return url
       }
+      return ''
     },
+    enterCourse: (course: any, myRegisters: IMyRegister[]) => {
+      const url = Utils.course.getClassroomUrl(course, myRegisters)
+      url && window.open(url)
+    }
   },
   client: {
     localClient: async (host?: string) => {

@@ -1,19 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @next/next/no-img-element */
 import { EUserType, ICourse, IMyRegister } from "@/api/types";
 import { useDeviceDetect } from "@/hooks";
 import { find, groupBy, keys, last, sortBy } from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Avatar, Card } from "antd";
 import { ArrowRightOutlined, RightOutlined, ShareAltOutlined } from "@ant-design/icons";
-import StudentList from "../Details/StudentList";
+import StudentList from "../components/StudentList";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import RegisterModal, { verify_rules } from "@/components/RegisterModal";
 import { Utils } from "@/common/Utils";
 import { Modal } from "antd-mobile";
-import { Share } from "../Details";
+import Share from "../components/Share";
 import pcStyles from "./index.module.scss";
 import h5Styles from "./h5.module.scss";
-import ReplayList from "../Details/ReplayList";
+import ReplayList from "../components/ReplayList";
 import { useTranslation } from "react-i18next";
 
 const AVATAR_COLOR = ["#1677FF", "#129C2B", "#FF7E16"]
@@ -50,7 +52,7 @@ const Action = observer(
                             : Modal.alert({
                                 content: t('course.verify.disable_enter_class'),
                                 closeOnMaskClick: true,
-                                confirmText:t('common.button.confirm')
+                                confirmText: t('common.button.confirm')
                             });
                     }}
                 >
@@ -78,7 +80,7 @@ const SpecialTopicCourse = ({ data }: { data: ICourse }) => {
     const store = useStore();
 
     let myRegisters = store.myRegisters.myRegisters;
-    
+
     const registerCourse = find(myRegisters, (course) => course.courseId === courseInfo.courseId);
 
     const containerRef = useRef<HTMLDivElement>(null);
@@ -260,11 +262,7 @@ const SpecialTopicCourse = ({ data }: { data: ICourse }) => {
                         <Action courseInfo={courseInfo} onRegisterCourse={handleRegister} />
                     </div>
                     <div className={styles["right"]}>
-                        <img
-                            src={courseInfo.coverUrl}
-                            alt="coverUrl"
-                            className="course-cover"
-                        />
+                        <img src={courseInfo.coverUrl} alt="coverUrl" className="course-cover" />
                     </div>
                 </div>
             </div>

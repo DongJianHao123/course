@@ -2,7 +2,7 @@
 import { getMyCourses } from "@/api";
 import U from "@/common/U";
 import { Utils } from "@/common/Utils";
-import { ELayoutType, layoutPrifix } from "@/components/Course";
+import { ELayoutType, layoutPrifix } from "@/components/Course/components/CourseList";
 import Icon from "@/components/Icon";
 import Loading from "@/components/Loading";
 import { USER_INFO_STORAGE_KEY, WEB_HOST } from "@/constants";

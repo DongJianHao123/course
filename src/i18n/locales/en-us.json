@@ -26,7 +26,7 @@
       "customer_service_phone": "Customer Service Phone",
       "address": "Address",
       "address_content": "Tsinghua Science and Technology Park, Haidian District, Beijing",
-      "tutorial": "Explanation of the teacher's class process"
+      "tutorial": "Manual For Teacher"
     },
     "content": {
       "hot_courses": "Hot Courses",
@@ -34,7 +34,8 @@
       "recommended_teacher": "Recommended Teacher",
       "all_teacher": "All Teacher",
       "institutional_introduction": "Institutional Introduction",
-      "registrations": "Learners"
+      "registrations": "Learners",
+      "living": "Live Class"
     },
     "homewrap_h5": {
       "home": "Home",
@@ -44,6 +45,9 @@
     "content_h5": {
       "desc": " ",
       "title": "Open Source Operating System Training"
+    },
+    "living": {
+      "enter_classroom": "Enter Classroom"
     }
   },
   "login": {
@@ -67,13 +71,14 @@
     "button": {
       "cancel": "Cancel",
       "confirm": "Confirm",
-      "edit": "Edit"
+      "edit": "Edit",
+      "view_detail": "View Details"
     },
     "role": {
       "student": "student",
       "teacher": "teacher",
       "visitor": "visitor",
-      "tutor": "tutor",
+      "TA": "TA",
       "admin": "admin"
     }
   },
@@ -125,6 +130,15 @@
         "name_modal": "Are you sure to modify the registration name?",
         "role_modal": "Are you sure you want to modify the role to {{role}}"
       }
+    },
+    "status": {
+      "living": "Living",
+      "upcoming": "Upcoming",
+      "upcoming_time": "Start At {{date}} Today"
+    },
+    "qrcode": {
+      "view_course": "Course QR Code",
+      "enter_classroom": "Classroom QR Code"
     }
   },
   "register": {
