@@ -12,8 +12,8 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        <script src="https://cdn.bootcdn.net/ajax/libs/video.js/7.21.0/alt/video.core.min.js" defer></script>
-        <script src="https://cdn.bootcdn.net/ajax/libs/videojs-hotkeys/0.2.28/videojs.hotkeys.min.js" defer></script>
+        <script src="/course/js/video.core.min.js" defer ></script>
+        <script src="/course/js/videojs.hotkeys.min.js" defer ></script>
       </body>
     </Html>
   );
