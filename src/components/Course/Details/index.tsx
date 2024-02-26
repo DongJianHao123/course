@@ -40,7 +40,6 @@ const Action = observer(
         myRegisters,
         (course) => course.courseId == props.courseInfo.courseId
       );
-      console.log('===>0,', myRegisters, props.courseInfo);
 
 
       return !!registerCourse ? (

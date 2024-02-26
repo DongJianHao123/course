@@ -135,18 +135,15 @@ const VideoReplayerModal = (props: IProps) => {
 
   const addDuration = () => {
     canPlay && duration++
-    console.log(duration);
     setIsPlaying(true)
   }
 
   const onVideoPlay = () => {
-    console.log("开始播放");
     setIsPlaying(true)
     timer = setInterval(() => addDuration(), 1000)
   }
 
   const onVideoPause = () => {
-    console.log("暂停播放");
     setIsPlaying(false)
     clearInterval(timer)
   }
@@ -177,7 +174,6 @@ const VideoReplayerModal = (props: IProps) => {
     }
     duration > 1 && studentAction(data);
     duration = 0
-    console.log("已记录用户行为", data);
   }
 
   //将方法暴露给父组件

@@ -67,7 +67,6 @@ function Replay() {
     useEffect(() => {
         const handleTabClose = (event: any) => {
             event.preventDefault();
-            console.log('beforeunload event triggered');
             videoPlayerRef.current?.videoRef.current?.pause()
             videoPlayerRef.current?.leaveVideo()
             return (event.returnValue = 'Are you sure you want to exit?');

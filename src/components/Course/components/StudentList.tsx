@@ -10,9 +10,7 @@ import { ClientContext } from '@/store/context/clientContext'
 import { CheckOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons'
 import { updateStudent } from '@/api'
 import { useStore } from '@/store'
-import { MyRegisters } from '@/store/stores/myRegistersStore'
 import { Modal } from 'antd-mobile'
-import { RoleNameMap } from '@/constants'
 
 const iconMap: Record<string, string> = {
   '2': 'status-teacher.png',
@@ -208,7 +206,6 @@ const StudentList = (props: { data: any[], setData: Dispatch<SetStateAction<any[
 
   useEffect(() => {
     setList(data?.slice(pageNum * pageSize, (pageNum + 1) * pageSize) || [])
-    console.log(data);
   }, [data, pageSize, pageNum])
   useEffect(() => {
     props.pageChange && props.pageChange(ref.current?.clientHeight || 0)
