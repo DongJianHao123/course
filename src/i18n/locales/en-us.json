@@ -1,0 +1,219 @@
+{
+  "home_page": {
+    "header": {
+      "logo": "Open Source Operating System Community",
+      "logout": "Logout",
+      "back_home": "Course Training",
+      "my_course": "My Course",
+      "language": "Language",
+      "login": "Login",
+      "choose_language": {
+        "title": "Choose A Language"
+      }
+    },
+    "nav": {
+      "home": "Home",
+      "courses": "Course",
+      "teacher": "Teacher",
+      "about_us": "About Us"
+    },
+    "footer": {
+      "title": "Open Source Operating System Training",
+      "intro": "Promote the teaching, research, and industrial development of operating systems",
+      "resource_links": "Resource Links",
+      "contact_us": "Contact Us",
+      "benan_title": "Beijing Tsinghua University·",
+      "customer_service_phone": "Customer Service Phone",
+      "address": "Address",
+      "address_content": "Tsinghua Science and Technology Park, Haidian District, Beijing",
+      "tutorial": "Manual For Teacher"
+    },
+    "content": {
+      "hot_courses": "Hot Courses",
+      "all_courses": "All Courses",
+      "recommended_teacher": "Recommended Teacher",
+      "all_teacher": "All Teacher",
+      "institutional_introduction": "Institutional Introduction",
+      "registrations": "Learners",
+      "living": "Live Class"
+    },
+    "homewrap_h5": {
+      "home": "Home",
+      "about": "About",
+      "my": "My"
+    },
+    "content_h5": {
+      "desc": " ",
+      "title": "Open Source Operating System Training"
+    },
+    "living": {
+      "enter_classroom": "Enter Classroom"
+    }
+  },
+  "login": {
+    "login_form": {
+      "title": "Login With Phone Number",
+      "phone_placeholder": "Please enter your phone number",
+      "phone_number_verification": "Please enter the correct phone number",
+      "valcode_placeholder": "Please enter the verification code",
+      "valcode_error": "Verification code input error",
+      "submit": "Login",
+      "tip": "Login means reading and agreeing",
+      "agreement": "Service Agreement and Privacy Policy",
+      "success_h5": "Login success",
+      "success_pc": "Login successful, welcome back!"
+    },
+    "login_out": {
+      "title": "Are you sure you want to log out?"
+    }
+  },
+  "common": {
+    "button": {
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "edit": "Edit",
+      "view_detail": "View Details"
+    },
+    "role": {
+      "student": "student",
+      "teacher": "teacher",
+      "visitor": "visitor",
+      "TA": "TA",
+      "admin": "admin"
+    }
+  },
+  "course": {
+    "share": {
+      "share_qr_code": "Share QR code",
+      "invite_friends": "Invite friends to join the classroom",
+      "title": "Share"
+    },
+    "verify": {
+      "disable_enter_class": "After registration is approved, you can enter the classroom",
+      "disable_paly_back": "The registration information can be viewed after approval",
+      "disable_paly_back_h5": "Please register and watch"
+    },
+    "info": {
+      "instructor": "Instructor",
+      "teacher": "Teacher",
+      "student_number": "Student Number"
+    },
+    "tabs": {
+      "introduction": "Introduction",
+      "guidance_course": "Guidance Course",
+      "guidance_course_desc": "Equip multiple practical projects to master what you have learned and accumulate experience in practice",
+      "registered_members": "Learners",
+      "classroom_replay": "Replay"
+    },
+    "table": {
+      "index": "Index",
+      "header": {
+        "classroom_content": "Classroom Content",
+        "start_at": "Start At",
+        "remark": "Remark",
+        "play_back": "Classroom Replay",
+        "roomId": "Room Id",
+        "nickname": "Nickname",
+        "grade": "Grade",
+        "sex": "Sex",
+        "identity": "Identity",
+        "index": "Index",
+        "gender": "Gender"
+      },
+      "paging": {
+        "total": "Total {{num}}"
+      },
+      "edit": {
+        "edit_success": "Successfully modified",
+        "edit_error": "Modification failed, please try again",
+        "edit_empty": "Name cannot be empty",
+        "name_modal": "Are you sure to modify the registration name?",
+        "role_modal": "Are you sure you want to modify the role to {{role}}"
+      }
+    },
+    "status": {
+      "living": "Living",
+      "upcoming": "Upcoming",
+      "upcoming_time": "Start At {{date}} Today"
+    },
+    "qrcode": {
+      "view_course": "Course QR Code",
+      "enter_classroom": "Classroom QR Code"
+    }
+  },
+  "register": {
+    "action": {
+      "enter_class": "Registered, Entering Classroom",
+      "register_now": "Register Now"
+    },
+    "form": {
+      "title": "Register",
+      "name": "Name",
+      "name_verify": "Please enter your name",
+      "gender": "Gender",
+      "gender_male": "male",
+      "gender_female": "female",
+      "identity": "Identity",
+      "source": "Source",
+      "source_placeholder": "How to learn about us",
+      "remark": "Remark",
+      "identity_option": {
+        "freshman": "Freshman",
+        "sophomore": "Sophomore",
+        "junior": "Junior",
+        "senior": "Senior",
+        "master": "Master",
+        "doctor": "Doctor",
+        "university_teacher": "University Teacher",
+        "company_technical_engineer": "Company Technical Engineer",
+        "other": "Other"
+      },
+      "source_option": {
+        "search_engines": "Search Engines",
+        "sms_notification": "SMS Notification",
+        "email_notification": "Email Notification",
+        "video_website": "Video Website",
+        "exchange_forum": "Exchange Forum",
+        "friend_recommendation": "Friend Recommendation",
+        "advertising_link": "Advertising Link"
+      },
+      "remark_option": {
+        "unsubscribe_notification": "Unsubscribe notification",
+        "subscribe_sms_notification": "Subscribe to SMS notification",
+        "subscribe_phone_notification": "Subscribe to telephone notifications",
+        "subscribe_all_notification": "Subscribe to all notifications"
+      }
+    }
+  },
+  "my_course": {
+    "page": {
+      "title": "My Course",
+      "total_course": "Total",
+      "empty": "You have not signed up for any courses"
+    },
+    "course": {
+      "room_id": "Room Id",
+      "enter_classroom": "Enter Classroom",
+      "enter_classroom_h5": "Classroom",
+      "loginout": "Logout"
+    }
+  },
+  "replay": {
+    "tip": {
+      "please_login": "Please Login ",
+      "copy_success": "Successfully Copied!",
+      "return_course": "Want to return to the course page?",
+      "empty": "No data available",
+      "search_placeholder": "Please enter the search keyword！"
+    },
+    "button": {
+      "copy": "Copy Link",
+      "return_course": "Return To Course",
+      "language": "Language"
+    },
+    "chat": {
+      "title": "Chat history",
+      "total": "Total {{num}}"
+    }
+  }
+}

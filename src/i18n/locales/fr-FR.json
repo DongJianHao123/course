@@ -1,0 +1,12 @@
+{
+    "home_page": {
+        "header": {
+            "logo": "Communauté des systèmes d'exploitation open source",
+            "login": "Se connecter",
+            "logout": "Se déconnecter du login",
+            "language": "Langue",
+            "back_home": "Formation aux cours",
+            "my_course": "Mes cours"
+        }
+    }
+}

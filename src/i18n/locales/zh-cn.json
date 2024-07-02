@@ -1,0 +1,222 @@
+{
+  "home_page": {
+    "header": {
+      "logo": "开源操作系统社区",
+      "login": "登录",
+      "logout": "退出登录",
+      "language": "语言",
+      "back_home": "课程培训",
+      "my_course": "我的课程",
+      "choose_language": {
+        "title": "选择一种语言"
+      }
+    },
+    "nav": {
+      "home": "首页",
+      "courses": "课程",
+      "teacher": "老师",
+      "about_us": "关于我们"
+    },
+    "footer": {
+      "title": "开源操作系统培训",
+      "intro": "促进操作系统的教学、研究与产业的发展",
+      "resource_links": "资源链接",
+      "resource_link1": "Rust基础教程",
+      "resource_link2": "清华rCore操作系统实践教程",
+      "resource_link3": "全国大学生操作系统设计大赛",
+      "contact_us": "联系我们",
+      "customer_service_phone": "客服电话",
+      "address": "地址",
+      "address_content": "北京市海淀区清华科技园",
+      "benan_title": "北京清华大学·",
+      "benan_icp": "京ICP备16045052号",
+      "tutorial": "老师上课流程使用说明"
+    },
+    "content": {
+      "hot_courses": "热门课程",
+      "all_courses": "全部课程",
+      "recommended_teacher": "推荐名师",
+      "all_teacher": "全部名师",
+      "institutional_introduction": "机构介绍",
+      "registrations": " 人报名学习",
+      "living": "直播课堂"
+    },
+    "homewrap_h5": {
+      "home": "首页",
+      "about": "关于",
+      "my": "我的"
+    },
+    "content_h5": {
+      "title": "开源操作系统培训",
+      "desc": "促进操作系统的教学、研究与产业的发展"
+    },
+    "living": {
+      "enter_classroom": "进入教室"
+    }
+  },
+  "login": {
+    "login_form": {
+      "title": "请使用手机号登录",
+      "phone_placeholder": "请输入手机号",
+      "phone_number_verification": "请输入正确手机号",
+      "valcode_placeholder": "请输入验证码",
+      "valcode_error": "验证码输入错误",
+      "submit": "登录",
+      "tip": "登录即代表阅读并同意",
+      "agreement": "服务协议和隐私政策",
+      "success_h5": "登录成功",
+      "success_pc": "登录成功，欢迎回来!"
+    },
+    "login_out": {
+      "title": "确定要退出登录吗？"
+    }
+  },
+  "common": {
+    "button": {
+      "cancel": "取消",
+      "confirm": "确认",
+      "edit": "编辑",
+      "view_detail": "查看详情"
+    },
+    "role": {
+      "student": "学生",
+      "teacher": "老师",
+      "visitor": "访客",
+      "TA": "助教",
+      "admin": "管理员"
+    }
+  },
+  "course": {
+    "share": {
+      "share_qr_code": "分享二维码",
+      "invite_friends": "邀请好友加入课堂",
+      "title": "分享"
+    },
+    "verify": {
+      "disable_enter_class": "报名信息审核通过即可进入教室",
+      "disable_paly_back": "报名信息审核通过即可观看",
+      "disable_paly_back_h5": "请报名后观看"
+    },
+    "info": {
+      "instructor": "讲师",
+      "teacher": "任课教师",
+      "student_number": "学生人数"
+    },
+    "tabs": {
+      "introduction": "课程介绍",
+      "guidance_course": "导学课程",
+      "guidance_course_desc": "配备多个实践项目，在实战中掌握所学并积累经验",
+      "registered_members": "报名成员",
+      "classroom_replay": "课堂回放"
+    },
+    "table": {
+      "header": {
+        "index": "序号",
+        "classroom_content": "课堂内容",
+        "start_at": "开始时间",
+        "remark": "备注",
+        "play_back": "课堂回放",
+        "roomId": "教室号",
+        "nickname": "昵称",
+        "grade": "年级",
+        "identity": "身份",
+        "gender": "性别"
+      },
+      "paging": {
+        "total": "共 {{num}} 人"
+      },
+      "edit": {
+        "edit_success": "修改成功",
+        "edit_error": "修改失败，请重试",
+        "edit_empty": "修改内容不能为空",
+        "name_modal": "您确定要修改报名名称吗？",
+        "role_modal": "您确定要将角色修改为{{role}}吗？"
+      }
+    },
+    "status": {
+      "living": "上课中",
+      "book": "即将上课",
+      "upcoming": "即将上课",
+      "upcoming_time": "今天 {{date}} 开课"
+    },
+    "qrcode": {
+      "view_course": "扫码查看课程",
+      "enter_classroom": "扫码进入教室"
+    }
+  },
+  "register": {
+    "action": {
+      "enter_class": "已报名，进入教室",
+      "register_now": "立即报名"
+    },
+    "form": {
+      "title": "报名",
+      "name": "姓名",
+      "name_verify": "请输入姓名",
+      "gender": "性别",
+      "gender_male": "男",
+      "gender_female": "女",
+      "identity": "身份",
+      "source": "来源",
+      "source_placeholder": "通过哪种方式了解到我们",
+      "remark": "备注",
+      "identity_option": {
+        "freshman": "大一",
+        "sophomore": "大二",
+        "junior": "大三",
+        "senior": "大四",
+        "master": "硕士研究生",
+        "doctor": "博士研究生",
+        "university_teacher": "大学老师",
+        "company_technical_engineer": "公司技术工程师",
+        "other": "其他"
+      },
+      "source_option": {
+        "search_engines": "搜索引擎",
+        "sms_notification": "短信通知",
+        "email_notification": "邮件通知",
+        "video_website": "视频网站",
+        "exchange_forum": "交流论坛",
+        "friend_recommendation": "朋友推荐",
+        "advertising_link": "广告链接"
+      },
+      "remark_option": {
+        "unsubscribe_notification": "不订阅通知",
+        "subscribe_sms_notification": "订阅短信通知",
+        "subscribe_phone_notification": "订阅电话通知",
+        "subscribe_all_notification": "订阅全部通知"
+      }
+    }
+  },
+  "my_course": {
+    "page": {
+      "title": "我的课程",
+      "total_course": "总报名课程",
+      "empty": "您暂未报名任何课程"
+    },
+    "course": {
+      "room_id": "教室号",
+      "enter_classroom": "进入课堂",
+      "enter_classroom_h5": "进入课堂",
+      "loginout": "退出登录"
+    }
+  },
+  "replay": {
+    "tip": {
+      "please_login": "请登录后观看",
+      "copy_success": "复制成功!",
+      "return_course": "要返回到课程页面吗？",
+      "empty": "暂无数据",
+      "search_placeholder": "请输入查询关键字！"
+    },
+    "button": {
+      "copy": "复制链接",
+      "return_course": "返回课程",
+      "language": "语言"
+    },
+    "chat": {
+      "title": "聊天记录",
+      "total": "共{{num}}条"
+    }
+  }
+}

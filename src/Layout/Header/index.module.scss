@@ -1,0 +1,80 @@
+.layout-header {
+    position: fixed;
+    top: 0;
+    padding: 0 2vw;
+    width: 100vw;
+    height: 56px;
+    z-index: 999;
+    background-color: #fff;
+    color: #1e1e1e;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+
+    .logo-wrap {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        color: #333;
+        font-size: 18px;
+        font-weight: 600;
+        gap: 8px;
+
+        .logo {
+            width: 46px;
+        }
+
+        .title {
+            color: #333;
+            text-decoration: none;
+        }
+    }
+
+    .user-wrap {
+
+        display: flex;
+        align-items: center;
+        gap: 30px;
+
+        .links {
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            height: 100%;
+            margin: 0;
+
+            // margin-right: 40px;
+
+            .link {
+                flex: 1;
+                padding: 0 2px;
+                cursor: pointer;
+
+                a {
+                    color: var(--adm-color-primary);
+                    transition: opacity ease-in-out 0.2s;
+                }
+            }
+        }
+
+        .myinfo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+
+            .avatar {
+                width: 30px;
+            }
+
+            .account {}
+
+            svg {
+                font-size: 16px;
+                margin-left: 4px;
+            }
+
+        }
+    }
+}

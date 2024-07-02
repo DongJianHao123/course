@@ -1,0 +1,152 @@
+@import '../../../../styles/mixin.scss';
+
+.living-course-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+
+    .living-course-item {
+        margin: 0;
+        position: relative;
+        width: 100%;
+        background-color: #fff;
+        padding: 10px;
+        display: flex;
+        gap: 40px;
+        border-radius: 4px;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+
+        .course-cover-wrap {
+            width: max-content;
+            position: relative;
+
+            .living-icon {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background-color: #ff8600;
+                padding: 4px 8px;
+                border-radius: 0 4px 0 4px;
+                color: #fff;
+                font-size: 12px;
+                letter-spacing: 1px;
+            }
+
+            .course-cover {
+                width: 340px;
+                height: 190px;
+                object-fit: fill;
+                border-radius: 4px;
+                border: 1px solid #e5dfdf;
+            }
+        }
+
+
+        .course-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .title {
+                font-size: 24px;
+                font-weight: 600;
+                // margin-bottom: 25px;
+                @include multi-line(1)
+            }
+
+            .teacher {
+                color: #909090;
+                font-size: 18px;
+                @include multi-line(2);
+                width: 70%;
+            }
+
+            .student-num {
+                @extend .teacher;
+            }
+
+            .extra {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+
+                .status {
+                    border-radius: 25px;
+                    padding: 8px 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: fit-content;
+                    height: fit-content;
+                    gap: 6px
+                }
+
+                .status-living {
+                    @extend .status;
+                    background: rgba(211, 65, 54, 0.91);
+                    color: #fff;
+                }
+
+                .status-book {
+                    @extend .status;
+                    box-sizing: border-box;
+                    border: 1px solid rgba(61, 180, 119, 0.41);
+                    color: #3db477;
+                }
+
+                .join-btn {
+                    cursor: pointer;
+                    font-size: 16px;
+                    line-height: normal;
+                    padding: 8px 20px;
+                    color: #fff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #3db477;
+                    border-color: #3db477;
+                    border-radius: 3px;
+                    transition: all 0.3s;
+                    letter-spacing: 1px;
+                    width: fit-content;
+
+                    &:hover {
+                        background-color: #63ce97;
+                    }
+                }
+            }
+        }
+
+        .qrcode-wrap {
+            position: absolute;
+            right: 60px;
+            bottom: 0;
+            top: 0;
+            display: flex;
+            gap: 20px;
+
+            .item {
+                margin-top: 20px;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: center;
+                gap: 10px;
+
+                .qrcode {
+                    width: 100px;
+                }
+
+                span {
+                    color: #909090;
+                }
+            }
+
+        }
+
+
+    }
+}
